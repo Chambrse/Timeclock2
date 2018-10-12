@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Icon, Grid } from '@material-ui/core'
-import Clock from './clock'
+import Clock from '../components/clock'
 import Admin from './Admin'
+import Dashboard from './managerClockView'
 
 
 const styles1 = {
@@ -118,6 +119,7 @@ this.state = {
                             </Grid>
                         </Grid>
                         {/* </Grid> */}
+                        <Dashboard/>
                     </div>
                 </div>
             </div>

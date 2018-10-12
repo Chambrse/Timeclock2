@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
 // components
-import Signup from './components/sign-up'
-import LoginForm from './components/login-form'
+import Signup from './pages/sign-up'
+import LoginForm from './pages/login-form'
 import Navbar from './components/navbar'
-import Home from './components/home'
-import User from './components/User'
-import Admin from './components/Admin'
+import Home from './pages/home'
+import User from './pages/User'
+import Admin from './pages/Admin'
 
 
 class App extends Component {
