@@ -8,6 +8,7 @@ import Navbar from './components/navbar'
 import Home from './pages/home'
 import User from './pages/User'
 import Admin from './pages/Admin'
+import EditorFormatListBulleted from 'material-ui/SvgIcon';
 
 
 class App extends Component {
@@ -16,6 +17,8 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      id: null,
+      status: false
     }
 
     this.getUser = this.getUser.bind(this)
@@ -32,22 +35,34 @@ class App extends Component {
     this.setState(userObject)
   }
 
+  clockIn() {
+    axios.post('/user/clockIn/' + this.state.id, { coords: "Some fake coords"}).then((response) => {
+      console.log("stuff clockIn");
+      this.setState({
+        status: true
+      });
+    });
+  };
+
+
   getUser() {
     axios.get('/user/').then((response) => {
       console.log('Get user response: ');
       console.log(response.data);
       if (response.data.user) {
-        console.log('Get User: There is a user saved in the server session: ');
+        console.log('Get User: There is a user saved in the server session: ', response.data.user);
 
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
+          id: response.data.user._id
         });
       } else {
         console.log('Get user: no user');
         this.setState({
           loggedIn: false,
           username: null,
+          id: null
         });
       }
     });
@@ -79,6 +94,7 @@ class App extends Component {
           render={() =>
             <User
               User={this.username}
+              clockIn={this.clockIn}
             />}
         />
         <Route

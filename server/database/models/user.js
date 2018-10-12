@@ -45,18 +45,26 @@ const userSchema = new Schema({
 		type: String,
 		default: '',
 	  },
-	  isDeleted: {
+/* 	  isDeleted: {
 		type: Boolean,
 		default: false,
-	  },
-	  isAdmin: {
-		type: Boolean,
-		default: true,
-	  },
-	  isManager: {
-		type: Boolean,
-		default: false,
-	  },
+		}, */
+		status: {
+			type: Boolean,
+			default: false
+		},
+	  employeeType: {
+		type: String,
+		default: "admin",
+		},
+		clockIn: [{
+			time: Date,
+			coords: String
+		}],
+		clockOut: [{
+			time: Date,
+			coords: String
+		}],
 })
 
 // Define schema methods

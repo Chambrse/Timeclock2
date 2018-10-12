@@ -26,14 +26,7 @@ const styles3 = {
     fontWeight: 'bold',
     padding: '20px'
 };
-// console.log("User.js" + this.user);
-//   render: function(){
-//     var user = JSON.parse(localStorage.getItem('user'));
-//   ...
-//     return (
-//       <div>
-//         <h2>Welcome, {user.firstname1}!</h2>
-//       </div>
+
 class User extends Component {
 
     render() {
@@ -43,25 +36,10 @@ class User extends Component {
             isAdmin: true,
         }
 
-this.state = {
-      time: new Date().toLocaleString()
-      
-    };
-
-//  this.updateState({ time: new Date() }) 
-// //  {
-
-// //    this.state.time
-// // }
-//   setInterval(this.updateState, 1000);
-    
-
-
         return (
             <div>
                 <div>
                     <h2>Welcome, {user.firstname1}!</h2>
-{/* <div id="time">{this.state.time}</div> */}
                     <div className="row">
 
                         <Grid container spacing={40} justify="space-evenly">
@@ -107,7 +85,7 @@ this.state = {
                             <Grid item xs={4} >
                                 <h1>Clock IN/OUT</h1>
                                 <p id="ClockIN/OUT"> See Your Clock Status Here!! </p>
-                                <Button onClick={() => { document.getElementById("ClockIN/OUT").innerHTML = "You Are Now Clocked IN @ " + ("<br />")+ this.state.time  }} style={styles3}  >
+                                <Button onClick={this.props.clockIn} style={styles3}  >
                                     Clock In
                         </Button>
                                 <br></br>
