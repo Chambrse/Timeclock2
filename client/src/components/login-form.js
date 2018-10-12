@@ -1,20 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-const styles = theme => ({
-	button: {
-	  margin: theme.spacing.unit,
-	},
-	TextField: {
-	  display: 'none',
-	},
-  });
 
 class LoginForm extends Component {
     constructor() {
@@ -65,12 +51,11 @@ class LoginForm extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
             return (
-                <Paper>
+                <div>
                     <h4>Login</h4>
                     <form className="form-horizontal">
                         <div className="form-group">
@@ -78,7 +63,7 @@ class LoginForm extends Component {
                                 <label className="form-label" htmlFor="username">Username</label>
                             </div>
                             <div className="col-3 col-mr-auto">
-                                <TextField className="form-TextField"
+                                <input className="form-input"
                                     type="text"
                                     id="username"
                                     name="username"
@@ -93,7 +78,7 @@ class LoginForm extends Component {
                                 <label className="form-label" htmlFor="password">Password: </label>
                             </div>
                             <div className="col-3 col-mr-auto">
-                                <TextField className="form-TextField"
+                                <input className="form-input"
                                     placeholder="password"
                                     type="password"
                                     name="password"
@@ -103,19 +88,17 @@ class LoginForm extends Component {
                             </div>
                         </div>
                         <div className="form-group ">
-                            <div className="col-6"></div>
-                            <Button
-                                color="primary"
-                                variant='raised'
-                                className={classes.button}
+                            <div className="col-7"></div>
+                            <button
+                                className="btn btn-primary col-1 col-mr-auto"
                                 onClick={this.handleSubmit}
-                                type="submit">Login</Button>
+                                type="submit">Login</button>
                         </div>
                     </form>
-                </Paper>
+                </div>
             )
         }
     }
 }
 
-export default withStyles(styles)(LoginForm)
+export default LoginForm

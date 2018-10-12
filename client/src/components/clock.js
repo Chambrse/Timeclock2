@@ -8,7 +8,7 @@ class Clock extends React.Component {
       this.radius = this.props.size / 2;
       this.drawingContext = null;
       this.draw24hour = this.props.timeFormat.toLowerCase().trim() === "24hour";
-      this.drawRoman = !this.draw24hour && this.props.hourFormat.toLowerCase().trim() === "roman";
+      
 
    }
 
