@@ -24,6 +24,8 @@ class App extends Component {
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateUser = this.updateUser.bind(this)
+    this.clockIn = this.clockIn.bind(this)
+
 
   }
 
