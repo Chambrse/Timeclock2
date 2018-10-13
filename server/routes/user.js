@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
     let passwordErrors = [];
     let passwordMatchErrors = [];
 
-    errors.forEach(function(element) {
+    errors.forEach(function (element) {
       switch (element.param) {
         case 'companyName':
           companyNameErrors.push(element);
@@ -92,9 +92,9 @@ router.post('/', (req, res) => {
   } else {
     console.log('user signup');
 
-    const {username, password} = req.body;
+    const { username, password } = req.body;
     // ADD VALIDATION
-    User.findOne({username: username}, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
       if (err) {
         console.log('User.js post error: ', err);
       } else if (user) {
@@ -108,8 +108,8 @@ router.post('/', (req, res) => {
 
           console.log('test 111');
 
-          req.login(savedUser, function(err) {
-            if ( ! err ) {
+          req.login(savedUser, function (err) {
+            if (!err) {
               console.log('inside the login stuff!!!');
               res.send(savedUser);
             } else {
@@ -122,42 +122,62 @@ router.post('/', (req, res) => {
   };
 });
 
-router.post(
-    '/login',
-    function(req, res, next) {
-      console.log('routes/user.js, login, req.body: ');
-      console.log(req.body);
-      console.log(req.session);
-      next();
-    },
-    passport.authenticate('local'),
-    (req, res) => {
-      console.log('logged in', req.user);
-      console.log(req.session);
-      let userInfo = {
-        username: req.user.username,
-      };
-      res.send(userInfo);
-    }
+router.post('/login',
+  function (req, res, next) {
+    console.log('routes/user.js, login, req.body: ');
+    console.log(req.body);
+    console.log(req.session);
+    next();
+  },
+  passport.authenticate('local'),
+  (req, res) => {
+    console.log('logged in', req.user);
+    console.log(req.session);
+    let userInfo = {
+      username: req.user.username,
+      id: req.user._id
+    };
+    res.send(userInfo);
+  }
 );
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
   console.log(req.user);
   if (req.user) {
-    res.json({user: req.user});
+    res.json({ user: req.user });
   } else {
-    res.json({user: null});
+    res.json({ user: null });
   }
 });
 
 router.post('/logout', (req, res) => {
   if (req.user) {
     req.logout();
-    res.send({msg: 'logging out'});
+    res.send({ msg: 'logging out' });
   } else {
-    res.send({msg: 'no user to log out'});
+    res.send({ msg: 'no user to log out' });
   }
+});
+
+router.post('/clockIn/:id', (req, res) => {
+  User
+    .findOneAndUpdate({ _id: req.params.id }, { $push: { clockIn: {
+      time: Date.now(),
+      coords: req.body.coords
+    }}, status: true })
+    .then((dbModel) => res.json(dbModel))
+    .catch((err) => res.status(422).json(err));
+});
+
+router.post('/clockOut/:id', (req, res) => {
+  User
+    .findOneAndUpdate({ _id: req.params.id }, { $push: { clockOut: {
+      time: Date.now(),
+      coords: req.body.coords
+    }}, status: false })
+    .then((dbModel) => res.json(dbModel))
+    .catch((err) => res.status(422).json(err));
 });
 
 module.exports = router;
