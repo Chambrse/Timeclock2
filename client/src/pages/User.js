@@ -115,6 +115,7 @@ this.state = {
                                 <br></br>
                                 <Button onClick={() => { document.getElementById("ClockIN/OUT").innerHTML = "You Are Now Clocked OUT @" + ("<br />")+ this.state.time }} style={styles2} >
                                     Clock Out
+                         
                          </Button>
                             </Grid>
                         </Grid>

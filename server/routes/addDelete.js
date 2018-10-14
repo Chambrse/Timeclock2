@@ -63,9 +63,9 @@ router.post('/', (req, res) => {
         case 'postalCode':
           postalCodeErrors.push(element);
           break;
-        case 'brand':
-          brandErrors.push(element);
-          break;
+        // case 'brand':
+        //   brandErrors.push(element);
+        //   break;
         case 'password':
           passwordErrors.push(element);
           break;

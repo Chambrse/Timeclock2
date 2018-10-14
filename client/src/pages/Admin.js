@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Icon, Grid } from '@material-ui/core'
+import AddUserModal from '../components/AddUserModal'
+import DeleteUserModal from '../components/DeleteUserModal'
 
 
 const styles1 = {
@@ -39,19 +41,20 @@ class Admin extends Component {
 
                     <p id="Employee"> Add Employee Or Delete Employee </p>
 
+<AddUserModal></AddUserModal>
 
-
-                    <Button
+                    {/* <Button
                        style={styles2}
                         onClick={this.handleAdd}
-                        type="submit">Add</Button>
+                        type="submit">Add</Button> */}
                     <br></br>
                     <br></br>
                     <br></br>
-                    <Button
+                    <DeleteUserModal></DeleteUserModal>
+                    {/* <Button
                         style={styles1}
                         onClick={this.handleDelete}
-                        type="submit">Delete</Button>
+                        type="submit">Delete</Button> */}
                    
 
                 </div>

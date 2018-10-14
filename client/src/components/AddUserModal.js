@@ -1,17 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { Button, Icon, Grid } from '@material-ui/core'
+import Modal from 'react-responsive-modal';
 
+
+const styles1 = {
+    color: 'Black',
+    textAlign: 'center',
+    backgroundColor: 'Green',
+    fontWeight: 'bold',
+    padding: '20px',
+};
 
 const pstyle = {
   color: 'red',
   margin: '0px',
 };
 
-class Signup extends Component {
-  constructor() {
+class AddUserModal extends React.Component {
+   constructor() {
     super();
-    this.state = {
+ this.state = {
+    open: false,
       username: '',
       usernameErrors: [],
       companyName: '',
@@ -22,8 +33,8 @@ class Signup extends Component {
       countryErrors: [],
       postalCode: '',
       postalCodeErrors: [],
-      brand: '',
-      brandErrors: [],
+      // brand: '',
+      // brandErrors: [],
       email: '',
       emailErrors: [],
       adminFirstName: '',
@@ -46,11 +57,11 @@ class Signup extends Component {
   }
   handleSubmit(event) {
     console.log('sign-up handleSubmit, username: ');
-    console.log(this.state.username);
+    console.log(this.state.username );
     event.preventDefault();
 
     // request to server to add a new username/password
-    axios.post('/user/', this.state)
+    axios.post('/addDelete/', this.state)
         .then((response) => {
           console.log('test');
 
@@ -78,36 +89,46 @@ class Signup extends Component {
               }
             }
             this.setState(newErrorsObj);
-          } else {
-            this.props.updateUser({
-              loggedIn: true,
-              username: response.data.username,
-            });
+          } 
+          // else {
+            // this.props.updateUser({
+            //   loggedIn: true,
+            //   username: response.data.username,
+            // });
 
-            this.setState({
-              redirectTo: '/user',
-            });
-          }
+          //   this.setState({
+          //     redirectTo: '/',
+          //   });
+          // }
         }).catch((error) => {
           console.log('signup error: ');
           console.log(error);
         });
   }
+  
 
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={{pathname: this.state.redirectTo}} />;
-    } else {
-      return (
-        <div className="SignupForm">
-          <h4>Sign up</h4>
+    const { open } = this.state;
+    return (
+      <div>
+        <Button style={styles1} onClick={this.onOpenModal}>Add Employee</Button>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <div className="SignupForm">
+          <h4>Add New Employee</h4>
           <form className="form-horizontal">
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="username">Username</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="username"
@@ -127,10 +148,10 @@ class Signup extends Component {
 
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="company">Company</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="companyName"
@@ -148,10 +169,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="city">City</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="city"
@@ -170,10 +191,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="country">Country</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="country"
@@ -191,10 +212,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="postalCode">Postal Code</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="postalCode"
@@ -211,11 +232,11 @@ class Signup extends Component {
                 }
               </div>
             </div>
-            <div className="form-group">
-              <div className="col-1 col-ml-auto">
+            {/* <div className="form-group"> */}
+              {/* <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="brand">Brand Statement</label>
-              </div>
-              <div className="col-3 col-mr-auto">
+              </div> */}
+              {/* <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="brand"
@@ -230,13 +251,13 @@ class Signup extends Component {
 									})
 								) : console.log('it was false')
                 }
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="email">Email</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="email"
@@ -254,10 +275,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="adminFirstName">First Name</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="adminFirstName"
@@ -275,10 +296,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="adminLastName">Last Name</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="text"
                   id="adminLastName"
@@ -296,10 +317,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="password">Password: </label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   placeholder="password"
                   type="password"
@@ -316,10 +337,10 @@ class Signup extends Component {
               </div>
             </div>
             <div className="form-group">
-              <div className="col-1 col-ml-auto">
+              <div className="col-6 col-ml-auto">
                 <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
               </div>
-              <div className="col-3 col-mr-auto">
+              <div className="col-6 col-mr-auto">
                 <input className="form-input"
                   type="password"
                   id="passwordMatch"
@@ -336,19 +357,21 @@ class Signup extends Component {
                 }
               </div>
             </div>
+            <br/>
             <div className="form-group ">
-              <div className="col-7"></div>
+              <div className="col-12"></div>
               <button
-                className="btn btn-primary col-1 col-mr-auto"
+                className="btn btn-primary col-12 col-mr-auto"
                 onClick={this.handleSubmit}
                 type="submit"
-              >Sign up</button>
+              >Add User</button>
             </div>
           </form>
         </div>
-      );
-    };
-  };
-};
+        </Modal>
+      </div>
+    );
+  }
+}
 
-export default Signup;
+export default AddUserModal;
