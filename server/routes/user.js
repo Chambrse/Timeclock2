@@ -139,7 +139,7 @@ router.post('/login',
       id: req.user._id,
     };
     res.send(userInfo);
-  } );
+  });
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
@@ -170,7 +170,7 @@ router.post('/clockIn/:id', (req, res) => {
         },
       },
       status: true,
-    })
+    }, { new: true })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -185,7 +185,7 @@ router.post('/clockOut/:id', (req, res) => {
         },
       },
       status: false,
-    })
+    }, { new: true })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });

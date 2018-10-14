@@ -80,6 +80,7 @@ class Signup extends Component {
             }
           });
           this.setState(newErrorsObj);
+          
         } else {
           this.props.updateUser({
             loggedIn: true,
