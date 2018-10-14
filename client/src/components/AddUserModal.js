@@ -75,7 +75,6 @@ class AddUserModal extends React.Component {
               cityErrors: [],
               countryErrors: [],
               postalCodeErrors: [],
-              brandErrors: [],
               passwordErrors: [],
               passwordMatchErrors: [],
             };
@@ -90,16 +89,15 @@ class AddUserModal extends React.Component {
             }
             this.setState(newErrorsObj);
           } 
-          // else {
+          else {
+            // alert("New User Added!!")
             // this.props.updateUser({
             //   loggedIn: true,
             //   username: response.data.username,
             // });
 
-          //   this.setState({
-          //     redirectTo: '/',
-          //   });
-          // }
+            if(!alert("New User Added!!")){window.location.reload();}
+          }
         }).catch((error) => {
           console.log('signup error: ');
           console.log(error);

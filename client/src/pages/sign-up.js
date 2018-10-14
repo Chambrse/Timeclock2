@@ -50,7 +50,7 @@ class Signup extends Component {
     event.preventDefault();
 
     // request to server to add a new username/password
-    axios.post('/user/', this.state)
+    axios.post('/user', this.state)
         .then((response) => {
           console.log('test');
 
