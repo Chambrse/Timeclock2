@@ -86,6 +86,41 @@ Sunday: Off
 
           </div>
 
+<<<<<<< HEAD
+                    <div className="row" style={styles1}>
+                        <Grid container spacing={40} justify="space-evenly">
+                            <Grid item xs={4} >
+                                <Admin></Admin>
+                            </Grid>
+                            <Grid item xs={4} >
+                                <h1>Clock IN/OUT</h1>
+                                {this.props.status}
+                                <p id="ClockIN/OUT">{this.props.status ? ( 
+                                    <div>
+                                        You are clocked in.
+                                        <br/>
+                                <Button onClick={this.props.clockOut} style={styles2} >
+                                    Clock Out
+                         </Button>
+                                    </div>
+                                 ): ( 
+                                    <div>
+                                    You are clocked out.
+                                    <br/>
+                                <Button onClick={this.props.clockIn} style={styles3}  >
+                                    Clock In
+                        </Button>
+                                    </div>
+                                  )}</p>
+                            </Grid>
+                        </Grid>
+                        <Dashboard/>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+=======
           <div className="row" style={styles1}>
             <Grid container spacing={40} justify="space-evenly">
               <Grid item xs={4}>
@@ -114,6 +149,7 @@ Sunday: Off
       </div>
     );
   }
+>>>>>>> ea8f2136db950c9465bf0ac7effd73dfaaa7748c
 }
 
 export default User;

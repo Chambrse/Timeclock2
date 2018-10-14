@@ -59,11 +59,11 @@ const userSchema = new Schema({
 		},
 		clockIn: [{
 			time: Date,
-			coords: String
+			coords: Object
 		}],
 		clockOut: [{
 			time: Date,
-			coords: String
+			coords: Object
 		}],
 })
 
