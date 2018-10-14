@@ -17,6 +17,8 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      companyName: null,
+      employeeType: null,
       id: null,
       status: false,
       currentLocation: {
@@ -46,7 +48,7 @@ class App extends Component {
   // Clock in; gets current geolocation before making the post request.
   clockIn() {
     this.getGeoLocation()
-      .then(() =>{
+      .then(() => {
         axios.post('/user/clockIn/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
           this.setState({
             status: true
@@ -58,13 +60,13 @@ class App extends Component {
   // Clock out; gets current geolocation begore making the post request.
   clockOut() {
     this.getGeoLocation()
-      .then(() =>{
-      axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
-        this.setState({
-          status: false
+      .then(() => {
+        axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+          this.setState({
+            status: false
+          });
         });
       });
-    });
   };
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
@@ -100,7 +102,9 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
-          id: response.data.user._id
+          id: response.data.user._id,
+          companyName: response.data.user.companyName,
+          employeeType: response.data.user.employeeType
         });
       } else {
         console.log('Get user: no user');
@@ -138,7 +142,10 @@ class App extends Component {
           path="/user"
           render={() =>
             <User
-              User={this.username}
+              loggedIn={this.state.loggedIn}
+              username={this.state.username}
+              companyName={this.state.companyName}
+              employeeType={this.state.employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={this.state.status}

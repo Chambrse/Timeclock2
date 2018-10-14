@@ -60,7 +60,7 @@ class Signup extends Component {
     // request to server to add a new username/password
     axios.post('/user/', this.state)
       .then((response) => {
-        console.log('test');
+        console.log('response', response.data.errors);
 
         if (response.data.errors) {
           const newErrorsObj = {
@@ -77,7 +77,6 @@ class Signup extends Component {
             passwordMatchErrors: [],
           };
 
-          // for (const key in response.data) {
           Object.keys(response.data).forEach((key) => {
             console.log([key]);
             if ([key] != 'errors') {
@@ -87,10 +86,14 @@ class Signup extends Component {
             }
           });
           this.setState(newErrorsObj);
+
         } else {
           this.props.updateUser({
             loggedIn: true,
             username: response.data.username,
+            id: response.data.user._id,
+            companyName: response.data.user.companyName,
+            employeeType: response.data.user.employeeType
           });
 
           this.setState({
