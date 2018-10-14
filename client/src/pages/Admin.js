@@ -5,18 +5,18 @@ import DeleteUserModal from '../components/DeleteUserModal'
 
 
 const styles1 = {
-    color: 'Black',
-    textAlign: 'center',
-    backgroundColor: 'Red',
-    fontWeight: 'bold',
-    padding: '20px'
+  color: 'Black',
+  textAlign: 'center',
+  backgroundColor: 'Red',
+  fontWeight: 'bold',
+  padding: '20px',
 };
 const styles2 = {
-    color: 'Black',
-    textAlign: 'center',
-    backgroundColor: 'Green',
-    fontWeight: 'bold',
-    padding: '20px'
+  color: 'Black',
+  textAlign: 'center',
+  backgroundColor: 'Green',
+  fontWeight: 'bold',
+  padding: '20px',
 };
 
 //   render: function(){
@@ -63,4 +63,4 @@ class Admin extends Component {
         );
     }
 }
-export default Admin
+export default Admin;

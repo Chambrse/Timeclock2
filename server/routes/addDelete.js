@@ -89,6 +89,8 @@ router.post('/', (req, res) => {
 
     const {username, password} = req.body;
     // ADD VALIDATION
+    User.find().map(function(i) { return i.item; })
+
     User.findOne({username: username}, (err, user) => {
       if (err) {
         console.log('User.js post error: ', err);
