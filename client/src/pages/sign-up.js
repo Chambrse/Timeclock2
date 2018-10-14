@@ -80,7 +80,7 @@ class Signup extends Component {
           // for (const key in response.data) {
           Object.keys(response.data).forEach((key) => {
             console.log([key]);
-            if ([key] !== 'errors') {
+            if ([key] != 'errors') {
               response.data[key].forEach((element) => {
                 newErrorsObj[key].push(element.msg);
               });
