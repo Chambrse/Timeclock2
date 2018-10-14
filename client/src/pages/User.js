@@ -39,10 +39,10 @@ class User extends Component {
       <div>
         <div>
           <h2>
-Welcome,
+            Welcome,
             {' '}
             {user.firstname1}
-!
+            !
           </h2>
           <div className="row">
 
@@ -52,27 +52,27 @@ Welcome,
               </Grid>
               <Grid item xs={3}>
                 <ul>
-                                    Your Schedule:
+                  Your Schedule:
                   <li>
-Monday: 8AM-5PM
+                    Monday: 8AM-5PM
                   </li>
                   <li>
-Tuesday: 8AM-5PM
+                    Tuesday: 8AM-5PM
                   </li>
                   <li>
-Wednesday: 8AM-5PM
+                    Wednesday: 8AM-5PM
                   </li>
                   <li>
-Thursday: 8AM-5PM
+                    Thursday: 8AM-5PM
                   </li>
                   <li>
-Fiday: 8AM-5PM
+                    Fiday: 8AM-5PM
                   </li>
                   <li>
-Saturday: Off
+                    Saturday: Off
                   </li>
                   <li>
-Sunday: Off
+                    Sunday: Off
                   </li>
                 </ul>
               </Grid>
@@ -124,5 +124,7 @@ Sunday: Off
     );
   }
 }
+  }
+
 
 export default User;

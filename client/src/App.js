@@ -33,15 +33,17 @@ class App extends Component {
     this.getGeoLocation = this.getGeoLocation.bind(this)
   }
 
-  
+  // Upon loading the page, see if there is a user stored in the session and update the state variables appropriately
   componentDidMount() {
     this.getUser();
   }
 
+  // Change the user data
   updateUser(userObject) {
     this.setState(userObject)
   }
 
+  // Clock in; gets current geolocation before making the post request.
   clockIn() {
     this.getGeoLocation()
       .then(() =>{
@@ -53,6 +55,7 @@ class App extends Component {
       });
   };
 
+  // Clock out; gets current geolocation begore making the post request.
   clockOut() {
     this.getGeoLocation()
       .then(() =>{
@@ -64,6 +67,7 @@ class App extends Component {
     });
   };
 
+  // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -85,6 +89,7 @@ class App extends Component {
     });
   }
 
+  // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
       console.log('Get user response: ');
