@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import SimpleLineChart from '../components/SimpleLineChart';
 import SimpleTable from '../components/SimpleTable';
 import SimpleMenu from '../components/rangeMenu';
-import Schedule from '../components/scheduleView';
+// import Schedule from '../components/scheduleView';
 
 
 const drawerWidth = 240;
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
 
           <main className={classes.content}>
             <Typography>
-              <Schedule />
+              {/* <Schedule /> */}
             </Typography>
             <div className={classes.appBarSpacer} />
             <Typography variant="h4" gutterBottom component="h2">
