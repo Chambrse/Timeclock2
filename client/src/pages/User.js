@@ -87,39 +87,6 @@ class User extends Component {
           </div>
 
           <div className="row" style={styles1}>
-<<<<<<< HEAD
-                      <Grid container spacing={40} justify="space-evenly">
-                          <Grid item xs={4}>
-                              <Admin />
-                            </Grid>
-                          <Grid item xs={4}>
-                              <h1>Clock IN/OUT</h1>
-                              {this.props.status}
-                              <p id="ClockIN/OUT">
-{this.props.status ? ( 
-                                    <div>
-                                        You are clocked in.
-                                        <br/>
-                                <Button onClick={this.props.clockOut} style={styles2} >
-                                    Clock Out
-                         </Button>
-                                    </div>
-                                 ): ( 
-                                    <div>
-                                    You are clocked out.
-                                    <br/>
-                                <Button onClick={this.props.clockIn} style={styles3}  >
-                                    Clock In
-                        </Button>
-                                    </div>
-                                  )}
-
-                                </p>
-                            </Grid>
-                        </Grid>
-                      <Dashboard />
-                    </div>
-=======
             <Grid container spacing={40} justify="space-evenly">
               <Grid item xs={4}>
                 <Admin />
@@ -152,7 +119,6 @@ class User extends Component {
             </Grid>
             <Dashboard />
           </div>
->>>>>>> 41324e48642aeb64613a5afe5ee1d2eb2fabf0f0
         </div>
       </div>
     );
