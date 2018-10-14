@@ -3,6 +3,8 @@ import { Button, /* Icon, */ Grid } from '@material-ui/core';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import Dashboard from './managerClockView';
+import { Redirect } from 'react-router-dom';
+
 
 
 const styles1 = {
@@ -28,13 +30,22 @@ const styles3 = {
 };
 
 class User extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      redirectTo: null,
+    };
+  }
+
   render() {
-    // console.log(user);
     const user = {
       firstname1: 'Keith Jones',
       isAdmin: true,
     };
-
+    if (!this.props.loggedIn) {
+      return <Redirect to={{ pathname: '/login' }} />;
+    }
     return (
       <div>
         <div>

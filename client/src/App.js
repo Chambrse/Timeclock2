@@ -46,7 +46,7 @@ class App extends Component {
   // Clock in; gets current geolocation before making the post request.
   clockIn() {
     this.getGeoLocation()
-      .then(() =>{
+      .then(() => {
         axios.post('/user/clockIn/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
           this.setState({
             status: true
@@ -58,13 +58,13 @@ class App extends Component {
   // Clock out; gets current geolocation begore making the post request.
   clockOut() {
     this.getGeoLocation()
-      .then(() =>{
-      axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
-        this.setState({
-          status: false
+      .then(() => {
+        axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+          this.setState({
+            status: false
+          });
         });
       });
-    });
   };
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
@@ -138,6 +138,7 @@ class App extends Component {
           path="/user"
           render={() =>
             <User
+              loggedIn={this.state.loggedIn}
               User={this.username}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
