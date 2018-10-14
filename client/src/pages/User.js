@@ -86,16 +86,16 @@ Sunday: Off
 
           </div>
 
-<<<<<<< HEAD
-                    <div className="row" style={styles1}>
-                        <Grid container spacing={40} justify="space-evenly">
-                            <Grid item xs={4} >
-                                <Admin></Admin>
+          <div className="row" style={styles1}>
+                      <Grid container spacing={40} justify="space-evenly">
+                          <Grid item xs={4}>
+                              <Admin />
                             </Grid>
-                            <Grid item xs={4} >
-                                <h1>Clock IN/OUT</h1>
-                                {this.props.status}
-                                <p id="ClockIN/OUT">{this.props.status ? ( 
+                          <Grid item xs={4}>
+                              <h1>Clock IN/OUT</h1>
+                              {this.props.status}
+                              <p id="ClockIN/OUT">
+{this.props.status ? ( 
                                     <div>
                                         You are clocked in.
                                         <br/>
@@ -111,45 +111,17 @@ Sunday: Off
                                     Clock In
                         </Button>
                                     </div>
-                                  )}</p>
+                                  )}
+
+                                </p>
                             </Grid>
                         </Grid>
-                        <Dashboard/>
+                      <Dashboard />
                     </div>
-                </div>
-            </div>
-        );
-    }
-=======
-          <div className="row" style={styles1}>
-            <Grid container spacing={40} justify="space-evenly">
-              <Grid item xs={4}>
-                {/* <h6>CEO / CO-FOUNDER</h6>
-                                <h4>Keith Jones</h4>  */}
-                <Admin />
-              </Grid>
-              <Grid item xs={4}>
-                <h1>Clock IN/OUT</h1>
-                <p id="ClockIN/OUT"> See Your Clock Status Here!! </p>
-                <Button onClick={this.props.clockIn} style={styles3}>
-                                    Clock In
-                </Button>
-                <br />
-                <br />
-                <br />
-                <Button onClick={() => { document.getElementById('ClockIN/OUT').innerHTML = `${'You Are Now Clocked OUT @' + ('<br />')}${this.state.time}`; }} style={styles2}>
-                                    Clock Out
-                </Button>
-              </Grid>
-            </Grid>
-            {/* </Grid> */}
-            <Dashboard />
-          </div>
         </div>
       </div>
     );
   }
->>>>>>> ea8f2136db950c9465bf0ac7effd73dfaaa7748c
 }
 
 export default User;
