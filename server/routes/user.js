@@ -136,7 +136,9 @@ router.post('/login',
     console.log(req.session);
     const userInfo = {
       username: req.user.username,
-      id: req.user._id,
+      _id: req.user._id,
+      companyName: req.user.companyName,
+      employeeType: req.user.employeeType,
     };
     res.send(userInfo);
   });

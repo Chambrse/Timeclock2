@@ -52,7 +52,7 @@ class User extends Component {
           <h2>
             Welcome,
             {' '}
-            {user.firstname1}
+            {this.props.username}
             !
           </h2>
           <div className="row">
@@ -89,9 +89,9 @@ class User extends Component {
               </Grid>
               <Grid item xs={3}>
                 <img id="Keith" img src="http://images6.fanpop.com/image/user_images/5768000/kebo83-5768074_650_567.jpg" width="225" height="200" alt="Keith Jones" className="col-lg-3" />
-                <h6>Kebo Co.</h6>
+                <h6>{this.props.companyName}</h6>
                 <h6>CEO / CO-FOUNDER</h6>
-                <h4>Keith Jones</h4>
+                <h4>{this.props.username}</h4>
               </Grid>
             </Grid>
 

@@ -17,6 +17,8 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
+      companyName: null,
+      employeeType: null,
       id: null,
       status: false,
       currentLocation: {
@@ -100,7 +102,9 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
-          id: response.data.user._id
+          id: response.data.user._id,
+          companyName: response.data.user.companyName,
+          employeeType: response.data.user.employeeType
         });
       } else {
         console.log('Get user: no user');
@@ -139,7 +143,9 @@ class App extends Component {
           render={() =>
             <User
               loggedIn={this.state.loggedIn}
-              User={this.username}
+              username={this.state.username}
+              companyName={this.state.companyName}
+              employeeType={this.state.employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={this.state.status}

@@ -80,11 +80,14 @@ class Signup extends Component {
             }
           });
           this.setState(newErrorsObj);
-          
+
         } else {
           this.props.updateUser({
             loggedIn: true,
             username: response.data.username,
+            id: response.data.user._id,
+            companyName: response.data.user.companyName,
+            employeeType: response.data.user.employeeType
           });
 
           this.setState({
