@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import {Route, Link} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 // components
 import Signup from './pages/sign-up'
 import LoginForm from './pages/login-form'
@@ -18,17 +18,22 @@ class App extends Component {
       loggedIn: false,
       username: null,
       id: null,
-      status: false
+      status: false,
+      currentLocation: {
+        lat: 0,
+        long: 0
+      }
     }
 
     this.getUser = this.getUser.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.clockIn = this.clockIn.bind(this)
-
-
+    this.clockOut = this.clockOut.bind(this)
+    this.getGeoLocation = this.getGeoLocation.bind(this)
   }
 
+  
   componentDidMount() {
     this.getUser();
   }
@@ -38,14 +43,47 @@ class App extends Component {
   }
 
   clockIn() {
-    axios.post('/user/clockIn/' + this.state.id, { coords: "Some fake coords"}).then((response) => {
-      console.log("stuff clockIn");
-      this.setState({
-        status: true
+    this.getGeoLocation()
+      .then(() =>{
+        axios.post('/user/clockIn/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+          this.setState({
+            status: true
+          });
+        });
+      });
+  };
+
+  clockOut() {
+    this.getGeoLocation()
+      .then(() =>{
+      axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+        this.setState({
+          status: false
+        });
       });
     });
   };
 
+  getGeoLocation = () => {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            this.setState({
+              currentLocation: {
+                lat: position.coords.latitude,
+                long: position.coords.longitude
+              }
+            });
+            resolve();
+          }
+        )
+      } else {
+        error => console.log(error)
+        reject();
+      }
+    });
+  }
 
   getUser() {
     axios.get('/user/').then((response) => {
@@ -76,9 +114,9 @@ class App extends Component {
 
         <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         {/* greet user if logged in: */}
-        {this.state.loggedIn 
-        // &&
-        //   <p>Join the party, {this.state.username}!</p>
+        {this.state.loggedIn
+          // &&
+          //   <p>Join the party, {this.state.username}!</p>
         }
         {/* Routes to different components */}
         <Route
@@ -97,6 +135,8 @@ class App extends Component {
             <User
               User={this.username}
               clockIn={this.clockIn}
+              clockOut={this.clockOut}
+              status={this.state.status}
             />}
         />
         <Route
