@@ -101,6 +101,7 @@ Sunday: Off
                                         <br/>
                                 <Button onClick={this.props.clockOut} style={styles2} >
                                     Clock Out
+                         
                          </Button>
                                     </div>
                                  ): ( 
