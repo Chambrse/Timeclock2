@@ -71,10 +71,10 @@ class Signup extends Component {
             passwordMatchErrors: [],
           };
 
-          // for (const key in response.data) {
+          
           Object.keys(response.data).forEach((key) => {
             console.log([key]);
-            if ([key] !== 'errors') {
+            if ([key] != 'errors') {
               response.data[key].forEach((element) => {
                 newErrorsObj[key].push(element.msg);
               });
@@ -88,7 +88,7 @@ class Signup extends Component {
           });
 
           this.setState({
-            redirectTo: '/',
+            redirectTo: '/user',
           });
         }
       }).catch((error) => {
@@ -289,6 +289,26 @@ class Signup extends Component {
                 }
             </div>
           </div>
+             <div className="form-group">
+            <div className="col-1 col-ml-auto">
+              <label className="form-label" htmlFor="password">Password: </label>
+            </div>
+            <div className="col-3 col-mr-auto">
+              <input
+                className="form-input"
+                placeholder="password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              {this.state.passwordErrors.length > 0 ? (
+                this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+              ) : console.log('it was false')
+                }
+            </div>
+          </div>
+   
           <div className="form-group">
             <div className="col-1 col-ml-auto">
               <label className="form-label" htmlFor="password">Password: </label>
