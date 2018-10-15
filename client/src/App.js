@@ -2,21 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Route /* , Link */} from 'react-router-dom';
 // components
-<<<<<<< HEAD
-import EditorFormatListBulleted from 'material-ui/SvgIcon';
-=======
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
 import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
-<<<<<<< HEAD
 import Map from './components/map';
-=======
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 
 
 class App extends Component {
@@ -31,11 +24,7 @@ class App extends Component {
       status: false,
       currentLocation: {
         lat: 0,
-<<<<<<< HEAD
         lng: 0,
-=======
-        long: 0,
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
       },
     };
 
@@ -53,7 +42,6 @@ class App extends Component {
     this.getUser();
   }
 
-<<<<<<< HEAD
   componentWillMount() {
     this.getGeoLocation();
   }
@@ -61,30 +49,6 @@ class App extends Component {
   // Change the user data
   updateUser(userObject) {
     this.setState(userObject);
-  }
-
-  // Clock in; gets current geolocation before making the post request.
-  clockIn() {
-    this.getGeoLocation()
-      .then(() => {
-        axios.post(`/user/clockIn/${this.state.id}`, { coords: this.state.currentLocation }).then((response) => {
-          this.setState({
-            status: true,
-          });
-        });
-      });
-  }
-
-  // Clock out; gets current geolocation begore making the post request.
-  clockOut() {
-    this.getGeoLocation()
-      .then(() => {
-        axios.post(`/user/clockOut/${this.state.id}`, { coords: this.state.currentLocation }).then((response) => {
-          this.setState({
-            status: false,
-          });
-        });
-      });
   }
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
@@ -106,28 +70,6 @@ class App extends Component {
       reject();
     }
   })
-=======
-  // Used navigator to store the latitude and longitude from the browser. Returns a promise.
-  getGeoLocation = () => new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.setState({
-            currentLocation: {
-              lat: position.coords.latitude,
-              long: position.coords.longitude,
-            },
-          });
-          resolve();
-        },
-      );
-    } else {
-      // error => console.error(error);
-      reject();
-    }
-  })
-
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 
   // Get the user data from the database, if there is any.
   getUser() {
@@ -153,11 +95,6 @@ class App extends Component {
         });
       }
     });
-  }
-
-  // Change the user data
-  updateUser(userObject) {
-    this.setState(userObject);
   }
 
   // Clock in; gets current geolocation before making the post request.
@@ -224,11 +161,7 @@ class App extends Component {
               employeeType={employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
-<<<<<<< HEAD
               status={this.state.status}
-=======
-              status={status}
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
             />
           )}
         />
@@ -248,7 +181,6 @@ class App extends Component {
               signup={this.signup}
             />
           )}
-<<<<<<< HEAD
         />
 
         <Route
@@ -259,8 +191,6 @@ class App extends Component {
               getGeoLocation={this.getGeoLocation}
             />
           )}
-=======
->>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
         />
 
       </div>

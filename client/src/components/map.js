@@ -17,7 +17,6 @@ class Map extends Component {
 
   render() {
     const { currentLocation } = this.props;
-    console.log(currentLocation);
     return (
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
