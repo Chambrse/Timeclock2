@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route, Link } from 'react-router-dom';
+import { Route /* , Link */} from 'react-router-dom';
 // components
+<<<<<<< HEAD
 import EditorFormatListBulleted from 'material-ui/SvgIcon';
+=======
+// import EditorFormatListBulleted from 'material-ui/SvgIcon';
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
 import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
+<<<<<<< HEAD
 import Map from './components/map';
+=======
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 
 
 class App extends Component {
@@ -24,7 +31,11 @@ class App extends Component {
       status: false,
       currentLocation: {
         lat: 0,
+<<<<<<< HEAD
         lng: 0,
+=======
+        long: 0,
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
       },
     };
 
@@ -36,11 +47,13 @@ class App extends Component {
     this.getGeoLocation = this.getGeoLocation.bind(this);
   }
 
-  // Upon loading the page, see if there is a user stored in the session and update the state variables appropriately
+  // Upon loading the page, see if there is a user stored in the session
+  // and update the state variables appropriately
   componentDidMount() {
     this.getUser();
   }
 
+<<<<<<< HEAD
   componentWillMount() {
     this.getGeoLocation();
   }
@@ -93,6 +106,28 @@ class App extends Component {
       reject();
     }
   })
+=======
+  // Used navigator to store the latitude and longitude from the browser. Returns a promise.
+  getGeoLocation = () => new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.setState({
+            currentLocation: {
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+            },
+          });
+          resolve();
+        },
+      );
+    } else {
+      // error => console.error(error);
+      reject();
+    }
+  })
+
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
 
   // Get the user data from the database, if there is any.
   getUser() {
@@ -120,13 +155,48 @@ class App extends Component {
     });
   }
 
+  // Change the user data
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
+  // Clock in; gets current geolocation before making the post request.
+  clockIn() {
+    const { id, currentLocation } = this.state;
+    this.getGeoLocation()
+      .then(() => {
+        axios.post(`/user/clockIn/${id}`, { coords: currentLocation }).then(() => {
+          this.setState({
+            status: true,
+          });
+        });
+      });
+  }
+
+  // Clock out; gets current geolocation before making the post request.
+  clockOut() {
+    const { id, currentLocation } = this.state;
+    this.getGeoLocation()
+      .then(() => {
+        axios.post(`/user/clockOut/${id}`, { coords: currentLocation }).then(() => {
+          this.setState({
+            status: false,
+          });
+        });
+      });
+  }
+
+
   render() {
+    const {
+      loggedIn, username, companyName, employeeType, status,
+    } = this.state;
     return (
       <div className="App">
 
-        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+        <Navbar updateUser={this.updateUser} loggedIn={loggedIn} />
         {/* greet user if logged in: */}
-        {this.state.loggedIn
+        {loggedIn
           // &&
           //   <p>Join the party, {this.state.username}!</p>
         }
@@ -148,13 +218,17 @@ class App extends Component {
           path="/user"
           render={() => (
             <User
-              loggedIn={this.state.loggedIn}
-              username={this.state.username}
-              companyName={this.state.companyName}
-              employeeType={this.state.employeeType}
+              loggedIn={loggedIn}
+              username={username}
+              companyName={companyName}
+              employeeType={employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
+<<<<<<< HEAD
               status={this.state.status}
+=======
+              status={status}
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
             />
           )}
         />
@@ -174,6 +248,7 @@ class App extends Component {
               signup={this.signup}
             />
           )}
+<<<<<<< HEAD
         />
 
         <Route
@@ -184,6 +259,8 @@ class App extends Component {
               getGeoLocation={this.getGeoLocation}
             />
           )}
+=======
+>>>>>>> 86455205bf48c8f07fbe02e3d55dea46d151b550
         />
 
       </div>
