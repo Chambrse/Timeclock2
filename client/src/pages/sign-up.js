@@ -98,7 +98,7 @@ class Signup extends Component {
           });
 
           this.setState({
-            redirectTo: '/',
+            redirectTo: '/user',
           });
         }
       }).catch((error) => {
