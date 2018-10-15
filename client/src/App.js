@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, Link } from 'react-router-dom';
 // components
-import Signup from './pages/sign-up'
-import LoginForm from './pages/login-form'
-import Navbar from './components/navbar'
-import Home from './pages/home'
-import User from './pages/User'
-import Admin from './pages/Admin'
+import Signup from './pages/sign-up';
+import LoginForm from './pages/login-form';
+import Navbar from './components/navbar';
+import Home from './pages/home';
+import User from './pages/User';
+import Admin from './pages/Admin';
+import BottomNav from './components/bottomNav'
 import EditorFormatListBulleted from 'material-ui/SvgIcon';
 
 
@@ -159,7 +160,8 @@ class App extends Component {
               signup={this.signup}
             />}
         />
-
+        <br></br>
+        <BottomNav />
       </div>
     );
   }
