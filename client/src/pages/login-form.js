@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Paper, TextField, Grid, Button,
+} from '@material-ui/core';
 
 class LoginForm extends Component {
   constructor() {
@@ -57,53 +60,50 @@ class LoginForm extends Component {
       return <Redirect to={{ pathname: this.state.redirectTo }} />;
     }
     return (
-      <div>
-        <h4>Login</h4>
-        <form className="form-horizontal">
-          <div className="form-group">
-            <div className="col-1 col-ml-auto">
-              <label className="form-label" htmlFor="username">Username</label>
-            </div>
-            <div className="col-3 col-mr-auto">
-              <input
-                className="form-input"
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="col-1 col-ml-auto">
-              <label className="form-label" htmlFor="password">Password: </label>
-            </div>
-            <div className="col-3 col-mr-auto">
-              <input
-                className="form-input"
-                placeholder="password"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </div>
-          </div>
-          <div className="form-group ">
-            <div className="col-7" />
-            <button
+      <Paper className="container" elevation={10}>
+        <br />
+        <Grid container spacing={24} alignItems="center" justify="center">
+          <Grid item xs={12}>
+            <h4>Login</h4>
+          </Grid>
+          <Grid item xs={12} md={4}>
+              Username
+            <TextField
+              className="form-input"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+              Password:
+            <TextField
+              className="form-input"
+              placeholder="password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+
+          </Grid>
+          <Grid item xs={12}>
+            <Button
               className="btn btn-primary col-1 col-mr-auto"
               onClick={this.handleSubmit}
               type="submit"
             >
 Login
 
-            </button>
-          </div>
-        </form>
-      </div>
+            </Button>
+          </Grid>
+        </Grid>
+        <br />
+      </Paper>
     );
   }
 }

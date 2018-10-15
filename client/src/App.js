@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Route /* , Link */} from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
+import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
@@ -10,6 +11,7 @@ import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
 import Map from './components/map';
+import BottomNav from './components/bottomNav'
 
 
 class App extends Component {
@@ -193,6 +195,8 @@ class App extends Component {
           )}
         />
 
+        <br />
+        <BottomNav />
       </div>
     );
   }
