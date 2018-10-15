@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, Link } from 'react-router-dom';
 // components
-import Signup from './pages/sign-up'
-import LoginForm from './pages/login-form'
-import Navbar from './components/navbar'
-import Home from './pages/home'
-import User from './pages/User'
-import Admin from './pages/Admin'
 import EditorFormatListBulleted from 'material-ui/SvgIcon';
+import Signup from './pages/sign-up';
+import LoginForm from './pages/login-form';
+import Navbar from './components/navbar';
+import Home from './pages/home';
+import User from './pages/User';
+import Admin from './pages/Admin';
+import Map from './components/map';
 
 
 class App extends Component {
@@ -23,16 +24,16 @@ class App extends Component {
       status: false,
       currentLocation: {
         lat: 0,
-        long: 0
-      }
-    }
+        lng: 0,
+      },
+    };
 
-    this.getUser = this.getUser.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
-    this.updateUser = this.updateUser.bind(this)
-    this.clockIn = this.clockIn.bind(this)
-    this.clockOut = this.clockOut.bind(this)
-    this.getGeoLocation = this.getGeoLocation.bind(this)
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.clockIn = this.clockIn.bind(this);
+    this.clockOut = this.clockOut.bind(this);
+    this.getGeoLocation = this.getGeoLocation.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session and update the state variables appropriately
@@ -40,56 +41,58 @@ class App extends Component {
     this.getUser();
   }
 
+  componentWillMount() {
+    this.getGeoLocation();
+  }
+
   // Change the user data
   updateUser(userObject) {
-    this.setState(userObject)
+    this.setState(userObject);
   }
 
   // Clock in; gets current geolocation before making the post request.
   clockIn() {
     this.getGeoLocation()
       .then(() => {
-        axios.post('/user/clockIn/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+        axios.post(`/user/clockIn/${this.state.id}`, { coords: this.state.currentLocation }).then((response) => {
           this.setState({
-            status: true
+            status: true,
           });
         });
       });
-  };
+  }
 
   // Clock out; gets current geolocation begore making the post request.
   clockOut() {
     this.getGeoLocation()
       .then(() => {
-        axios.post('/user/clockOut/' + this.state.id, { coords: this.state.currentLocation }).then((response) => {
+        axios.post(`/user/clockOut/${this.state.id}`, { coords: this.state.currentLocation }).then((response) => {
           this.setState({
-            status: false
+            status: false,
           });
         });
       });
-  };
+  }
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
-  getGeoLocation = () => {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            this.setState({
-              currentLocation: {
-                lat: position.coords.latitude,
-                long: position.coords.longitude
-              }
-            });
-            resolve();
-          }
-        )
-      } else {
-        error => console.log(error)
-        reject();
-      }
-    });
-  }
+  getGeoLocation = () => new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.setState({
+            currentLocation: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          });
+          resolve();
+        },
+      );
+    } else {
+      error => console.log(error);
+      reject();
+    }
+  })
 
   // Get the user data from the database, if there is any.
   getUser() {
@@ -104,14 +107,14 @@ class App extends Component {
           username: response.data.user.username,
           id: response.data.user._id,
           companyName: response.data.user.companyName,
-          employeeType: response.data.user.employeeType
+          employeeType: response.data.user.employeeType,
         });
       } else {
         console.log('Get user: no user');
         this.setState({
           loggedIn: false,
           username: null,
-          id: null
+          id: null,
         });
       }
     });
@@ -129,18 +132,21 @@ class App extends Component {
         }
         {/* Routes to different components */}
         <Route
-          exact path="/"
-          component={Home} />
+          exact
+          path="/"
+          component={Home}
+        />
         <Route
           path="/login"
-          render={() =>
+          render={() => (
             <LoginForm
               updateUser={this.updateUser}
-            />}
+            />
+          )}
         />
         <Route
           path="/user"
-          render={() =>
+          render={() => (
             <User
               loggedIn={this.state.loggedIn}
               username={this.state.username}
@@ -149,22 +155,35 @@ class App extends Component {
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={this.state.status}
-            />}
+            />
+          )}
         />
         <Route
           path="/admin"
-          render={() =>
+          render={() => (
             <Admin
               User={this.username}
-            />}
+            />
+          )}
         />
         <Route
           path="/signup"
-          render={() =>
+          render={() => (
             <Signup
               updateUser={this.updateUser}
               signup={this.signup}
-            />}
+            />
+          )}
+        />
+
+        <Route
+          path="/map"
+          render={() => (
+            <Map
+              currentLocation={this.state.currentLocation}
+              getGeoLocation={this.getGeoLocation}
+            />
+          )}
         />
 
       </div>
