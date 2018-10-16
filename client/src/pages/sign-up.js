@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {
   Button, TextField, Grid, Paper,
 } from '@material-ui/core';
-
+import PropTypes from 'prop-types';
 
 const pstyle = {
   color: 'red',
@@ -359,5 +359,9 @@ class Signup extends Component {
     );
   }
 }
+
+Signup.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+};
 
 export default Signup;
