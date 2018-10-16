@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import {
-  Button, Icon, Grid, TextField,
+  Button, TextField, Select, MenuItem, InputLabel, FormControl,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
 
@@ -35,14 +35,14 @@ class AddUserModal extends React.Component {
       countryErrors: [],
       postalCode: '',
       postalCodeErrors: [],
-      // brand: '',
-      // brandErrors: [],
       email: '',
       emailErrors: [],
       adminFirstName: '',
       adminFirstNameErrors: [],
       adminLastName: '',
       adminLastNameErrors: [],
+      employeeType: [],
+      employeeTypeErrors: [],
       password: '',
       passwordErrors: [],
       passwordMatch: '',
@@ -72,13 +72,11 @@ class AddUserModal extends React.Component {
         if (response.data.errors) {
           const newErrorsObj = {
             companyNameErrors: [],
-            usernameErrors: [],
-            emailErrors: [],
-            adminFirstNameErrors: [],
             adminLastNameErrors: [],
             cityErrors: [],
             countryErrors: [],
             postalCodeErrors: [],
+            employeeTypeErrors: [],
             passwordErrors: [],
             passwordMatchErrors: [],
           };
@@ -92,15 +90,7 @@ class AddUserModal extends React.Component {
             }
           }
           this.setState(newErrorsObj);
-        } else {
-          // alert("New User Added!!")
-          // this.props.updateUser({
-          //   loggedIn: true,
-          //   username: response.data.username,
-          // });
-
-          if (!alert('New User Added!!')) { window.location.reload(); }
-        }
+        } else if (!alert('New User Added!!')) { window.location.reload(); }
       }).catch((error) => {
         console.log('signup error: ');
         console.log(error);
@@ -142,7 +132,7 @@ class AddUserModal extends React.Component {
                   {this.state.usernameErrors.length > 0 ? (
                     this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
 
 
@@ -164,7 +154,7 @@ class AddUserModal extends React.Component {
                   {this.state.companyNameErrors.length > 0 ? (
                     this.state.companyNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -185,7 +175,7 @@ class AddUserModal extends React.Component {
 
                     this.state.cityErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -205,7 +195,7 @@ class AddUserModal extends React.Component {
                   {this.state.countryErrors.length > 0 ? (
                     this.state.countryErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -225,7 +215,7 @@ class AddUserModal extends React.Component {
                   {this.state.postalCodeErrors.length > 0 ? (
                     this.state.postalCodeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               {/* <div className="form-group"> */}
@@ -266,7 +256,7 @@ class AddUserModal extends React.Component {
                   {this.state.emailErrors.length > 0 ? (
                     this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -279,14 +269,14 @@ class AddUserModal extends React.Component {
                     type="text"
                     id="adminFirstName"
                     name="adminFirstName"
-                    placeholder="adminFirstName"
+                    placeholder="first name"
                     value={this.state.adminFirstName}
                     onChange={this.handleChange}
                   />
                   {this.state.adminFirstNameErrors.length > 0 ? (
                     this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -299,19 +289,53 @@ class AddUserModal extends React.Component {
                     type="text"
                     id="adminLastName"
                     name="adminLastName"
-                    placeholder="adminLastName"
+                    placeholder="last name"
                     value={this.state.adminLastName}
                     onChange={this.handleChange}
                   />
                   {this.state.adminLastNameErrors.length > 0 ? (
                     this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
                 <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="password">Password: </label>
+                  <label className="form-label">
+Employee Type
+                    {' '}
+
+                  </label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <FormControl className="col-12">
+                    <InputLabel htmlFor="label">Select</InputLabel>
+                    <Select
+                      name="employeeType"
+                      value={this.state.employeeType}
+                      onChange={this.handleChange}
+                      inputProps={{
+                        id: 'label',
+                      }}
+                      className="col-12"
+                      style={{ minWidth: '100%' }}
+                    >
+
+                      <MenuItem value="employee">employee</MenuItem>
+                      <MenuItem value="manager">manager</MenuItem>
+                      <MenuItem value="admin">admin</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {this.state.employeeTypeErrors.length > 0 ? (
+                    this.state.employeeTypeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                  ) : console.log('it was false')
+                }
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="password">Password </label>
                 </div>
                 <div className="col-6 col-mr-auto">
                   <TextField
@@ -325,7 +349,7 @@ class AddUserModal extends React.Component {
                   {this.state.passwordErrors.length > 0 ? (
                     this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <div className="form-group">
@@ -345,7 +369,7 @@ class AddUserModal extends React.Component {
                   {this.state.passwordMatchErrors.length > 0 ? (
                     this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
-                }
+                  }
                 </div>
               </div>
               <br />

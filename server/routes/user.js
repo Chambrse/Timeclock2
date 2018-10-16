@@ -93,7 +93,7 @@ router.post('/', (req, res) => {
   } else {
     console.log('user signup');
 
-    const { username, password } = req.body;
+    const { username } = req.body;
     // ADD VALIDATION
     User.findOne({ username }, (err, user) => {
       if (err) {
@@ -143,7 +143,7 @@ router.post('/login',
     res.send(userInfo);
   });
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   console.log('===== user!!======');
   console.log(req.user);
   if (req.user) {

@@ -3,14 +3,15 @@ import axios from 'axios';
 import { Route /* , Link */} from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
+import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
 import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
+import Map from './components/map';
 import BottomNav from './components/bottomNav'
-import EditorFormatListBulleted from 'material-ui/SvgIcon';
 
 
 class App extends Component {
@@ -25,7 +26,7 @@ class App extends Component {
       status: false,
       currentLocation: {
         lat: 0,
-        long: 0,
+        lng: 0,
       },
     };
 
@@ -43,6 +44,15 @@ class App extends Component {
     this.getUser();
   }
 
+  componentWillMount() {
+    this.getGeoLocation();
+  }
+
+  // Change the user data
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
     if (navigator.geolocation) {
@@ -51,18 +61,17 @@ class App extends Component {
           this.setState({
             currentLocation: {
               lat: position.coords.latitude,
-              long: position.coords.longitude,
+              lng: position.coords.longitude,
             },
           });
           resolve();
         },
       );
     } else {
-      // error => console.error(error);
+      error => console.log(error);
       reject();
     }
   })
-
 
   // Get the user data from the database, if there is any.
   getUser() {
@@ -88,11 +97,6 @@ class App extends Component {
         });
       }
     });
-  }
-
-  // Change the user data
-  updateUser(userObject) {
-    this.setState(userObject);
   }
 
   // Clock in; gets current geolocation before making the post request.
@@ -159,7 +163,7 @@ class App extends Component {
               employeeType={employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
-              status={status}
+              status={this.state.status}
             />
           )}
         />
@@ -180,7 +184,18 @@ class App extends Component {
             />
           )}
         />
-        <br></br>
+
+        <Route
+          path="/map"
+          render={() => (
+            <Map
+              currentLocation={this.state.currentLocation}
+              getGeoLocation={this.getGeoLocation}
+            />
+          )}
+        />
+
+        <br />
         <BottomNav />
       </div>
     );

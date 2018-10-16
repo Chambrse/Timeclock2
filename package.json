@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "@material-ui/core": "^3.2.0",
+    "@material-ui/core": "^3.2.1",
     "axios": "^0.17.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
@@ -35,6 +35,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
+    "google-map-react": "^1.0.9",
     "if-env": "^1.0.4",
     "material-ui": "^0.20.2",
     "material-ui-icons": "^1.0.0-beta.36",

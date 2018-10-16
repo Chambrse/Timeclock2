@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Button, /* Icon, */ Grid } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import Dashboard from './managerClockView';
-import { Redirect } from 'react-router-dom';
-
 
 
 const styles1 = {
@@ -30,29 +29,32 @@ const styles3 = {
 };
 
 class User extends Component {
-
   constructor() {
     super();
     this.state = {
-      redirectTo: null,
+      // redirectTo: null,
     };
   }
 
   render() {
-    const user = {
-      firstname1: 'Keith Jones',
-      isAdmin: true,
-    };
-    if (!this.props.loggedIn) {
+    const {
+      status, loggedIn, username, companyName, clockIn, clockOut,
+    } = this.props;
+    // const user = {
+    //   firstname1: 'Keith Jones',
+    //   isAdmin: true,
+    // };
+    if (!loggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+  
     return (
       <div>
         <div>
           <h2>
             Welcome,
             {' '}
-            {this.props.username}
+            {username}
             !
           </h2>
           <div className="row">
@@ -77,7 +79,7 @@ class User extends Component {
                     Thursday: 8AM-5PM
                   </li>
                   <li>
-                    Fiday: 8AM-5PM
+                    Friday: 8AM-5PM
                   </li>
                   <li>
                     Saturday: Off
@@ -89,9 +91,9 @@ class User extends Component {
               </Grid>
               <Grid item xs={3}>
                 <img id="Keith" img src="http://images6.fanpop.com/image/user_images/5768000/kebo83-5768074_650_567.jpg" width="225" height="200" alt="Keith Jones" className="col-lg-3" />
-                <h6>{this.props.companyName}</h6>
+                <h6>{companyName}</h6>
                 <h6>CEO / CO-FOUNDER</h6>
-                <h4>{this.props.username}</h4>
+                <h4>{username}</h4>
               </Grid>
             </Grid>
 
@@ -104,13 +106,13 @@ class User extends Component {
               </Grid>
               <Grid item xs={4}>
                 <h1>Clock IN/OUT</h1>
-                {this.props.status}
+                {status}
                 <p id="ClockIN/OUT">
-                  {this.props.status ? (
+                  {status ? (
                     <div>
                                         You are clocked in.
                       <br />
-                      <Button onClick={this.props.clockOut} style={styles2}>
+                      <Button onClick={clockOut} style={styles2}>
                                     Clock Out
 
                       </Button>
@@ -119,7 +121,7 @@ class User extends Component {
                     <div>
                                     You are clocked out.
                       <br />
-                      <Button onClick={this.props.clockIn} style={styles3}>
+                      <Button onClick={clockIn} style={styles3}>
                                     Clock In
                       </Button>
                     </div>

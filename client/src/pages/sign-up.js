@@ -18,6 +18,7 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      id: '',
       username: '',
       usernameErrors: [],
       companyName: '',
@@ -53,8 +54,8 @@ class Signup extends Component {
   }
 
   handleSubmit(event) {
-    console.log('sign-up handleSubmit, username: ');
-    console.log(this.state.username);
+    const { username } = this.state;
+    console.log('sign-up handleSubmit, username: ', username);
     event.preventDefault();
 
     // request to server to add a new username/password
@@ -79,37 +80,51 @@ class Signup extends Component {
 
           Object.keys(response.data).forEach((key) => {
             console.log([key]);
-            if ([key] != 'errors') {
+            if ([key].toString() !== 'errors') {
               response.data[key].forEach((element) => {
                 newErrorsObj[key].push(element.msg);
               });
             }
           });
           this.setState(newErrorsObj);
-
         } else {
-          this.props.updateUser({
+          const { updateUser } = this.props;
+          updateUser({
             loggedIn: true,
             username: response.data.username,
-            id: response.data.user._id,
-            companyName: response.data.user.companyName,
-            employeeType: response.data.user.employeeType
+            id: response.data.id,
+            companyName: response.data.companyName,
+            employeeType: response.data.employeeType,
           });
 
           this.setState({
-            redirectTo: '/',
+            redirectTo: '/user',
           });
         }
       }).catch((error) => {
-        console.log('signup error: ');
-        console.log(error);
+        console.error('signup error: ', error);
       });
   }
 
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={{ pathname: this.state.redirectTo }} />;
+    const {
+      id,
+      username, usernameErrors,
+      companyName, companyNameErrors,
+      city, cityErrors,
+      country, countryErrors,
+      postalCode, postalCodeErrors,
+      brand, brandErrors,
+      email, emailErrors,
+      adminFirstName, adminFirstNameErrors,
+      adminLastName, adminLastNameErrors,
+      password, passwordErrors,
+      passwordMatch, passwordMatchErrors,
+      redirectTo,
+    } = this.state;
+    if (redirectTo) {
+      return <Redirect to={{ pathname: redirectTo }} />;
     }
     return (
       <Paper className="container" elevation={10}>
@@ -128,12 +143,12 @@ class Signup extends Component {
               id="username"
               name="username"
               placeholder="Username"
-              value={this.state.username}
+              value={username}
               onChange={this.handleChange}
             />
-            {this.state.usernameErrors.length > 0 ? (
-              this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {usernameErrors.length > 0 ? (
+              usernameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
           <Grid item xs={12} md={6}>
@@ -144,12 +159,12 @@ class Signup extends Component {
               id="companyName"
               name="companyName"
               placeholder="companyName"
-              value={this.state.companyName}
+              value={companyName}
               onChange={this.handleChange}
             />
-            {this.state.companyNameErrors.length > 0 ? (
-              this.state.companyNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {companyNameErrors.length > 0 ? (
+              companyNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -161,13 +176,13 @@ class Signup extends Component {
               id="city"
               name="city"
               placeholder="city"
-              value={this.state.city}
+              value={city}
               onChange={this.handleChange}
             />
-            {this.state.cityErrors.length > 0 ? (
+            {cityErrors.length > 0 ? (
 
-              this.state.cityErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+              cityErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -181,12 +196,12 @@ class Signup extends Component {
               id="country"
               name="country"
               placeholder="country"
-              value={this.state.country}
+              value={country}
               onChange={this.handleChange}
             />
-            {this.state.countryErrors.length > 0 ? (
-              this.state.countryErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {countryErrors.length > 0 ? (
+              countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -200,12 +215,12 @@ class Signup extends Component {
               id="postalCode"
               name="postalCode"
               placeholder="postalCode"
-              value={this.state.postalCode}
+              value={postalCode}
               onChange={this.handleChange}
             />
-            {this.state.postalCodeErrors.length > 0 ? (
-              this.state.postalCodeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {postalCodeErrors.length > 0 ? (
+              postalCodeErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -219,12 +234,12 @@ class Signup extends Component {
               id="brand"
               name="brand"
               placeholder="Brand Statement here"
-              value={this.state.brand}
+              value={brand}
               onChange={this.handleChange}
             />
-            {this.state.brandErrors.length > 0 ? (
-              this.state.brandErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {brandErrors.length > 0 ? (
+              brandErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -238,12 +253,12 @@ class Signup extends Component {
               id="email"
               name="email"
               placeholder="enter valid email"
-              value={this.state.email}
+              value={email}
               onChange={this.handleChange}
             />
-            {this.state.emailErrors.length > 0 ? (
-              this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {emailErrors.length > 0 ? (
+              emailErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -257,12 +272,12 @@ class Signup extends Component {
               id="adminFirstName"
               name="adminFirstName"
               placeholder="Enter first name"
-              value={this.state.adminFirstName}
+              value={adminFirstName}
               onChange={this.handleChange}
             />
-            {this.state.adminFirstNameErrors.length > 0 ? (
-              this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {adminFirstNameErrors.length > 0 ? (
+              adminFirstNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -276,13 +291,14 @@ class Signup extends Component {
               id="adminLastName"
               name="adminLastName"
               placeholder="Enter last name"
-              value={this.state.adminLastName}
+              value={adminLastName}
               onChange={this.handleChange}
             />
-            {this.state.adminLastNameErrors.length > 0 ? (
-              this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {adminLastNameErrors.length > 0 ? (
+              adminLastNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
+
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -294,12 +310,12 @@ class Signup extends Component {
               placeholder="Password"
               type="password"
               name="password"
-              value={this.state.password}
+              value={password}
               onChange={this.handleChange}
             />
-            {this.state.passwordErrors.length > 0 ? (
-              this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {passwordErrors.length > 0 ? (
+              passwordErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
@@ -315,12 +331,12 @@ class Signup extends Component {
               id="passwordMatch"
               name="passwordMatch"
               placeholder="Please re-enter password"
-              value={this.state.passwordMatch}
+              value={passwordMatch}
               onChange={this.handleChange}
             />
-            {this.state.passwordMatchErrors.length > 0 ? (
-              this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-            ) : console.log('it was false')
+            {passwordMatchErrors.length > 0 ? (
+              passwordMatchErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+            ) : null
                 }
           </Grid>
 
