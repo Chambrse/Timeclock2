@@ -35,48 +35,49 @@ class DeleteUserModal extends React.Component {
   }
   handleSubmit(event) {
     // console.log('sign-up handleSubmit, username: ');
-    console.log(this.state.username );
+    console.log(this.response);
     event.preventDefault();
 
     // request to server to delete a new username/password
-    axios.post('/user/', this.state)
+    axios.get('/addDelete/')
         .then((response) => {
           console.log('Delete Route needs to be created!!');
+          console.log(response);
 
-          if (response.data.errors) {
-            let newErrorsObj = {
-              companyNameErrors: [],
-              usernameErrors: [],
-              emailErrors: [],
-              adminFirstNameErrors: [],
-              adminLastNameErrors: [],
-              cityErrors: [],
-              countryErrors: [],
-              postalCodeErrors: [],
-              brandErrors: [],
-              passwordErrors: [],
-              passwordMatchErrors: [],
-            };
+          // if (response.data.errors) {
+          //   let newErrorsObj = {
+          //     companyNameErrors: [],
+          //     usernameErrors: [],
+          //     emailErrors: [],
+          //     adminFirstNameErrors: [],
+          //     adminLastNameErrors: [],
+          //     cityErrors: [],
+          //     countryErrors: [],
+          //     postalCodeErrors: [],
+          //     brandErrors: [],
+          //     passwordErrors: [],
+          //     passwordMatchErrors: [],
+          //   };
 
-            for (let key in response.data) {
-              console.log([key]);
-              if ([key] != 'errors') {
-                response.data[key].forEach((element) => {
-                  newErrorsObj[key].push(element.msg);
-                });
-              }
-            }
-            this.setState(newErrorsObj);
-          } else {
-            // this.props.updateUser({
-            //   loggedIn: true,
-            //   username: response.data.username,
-            // });
+          //   for (let key in response.data) {
+          //     console.log([key]);
+          //     if ([key] != 'errors') {
+          //       response.data[key].forEach((element) => {
+          //         newErrorsObj[key].push(element.msg);
+          //       });
+          //     }
+          //   }
+          //   this.setState(newErrorsObj);
+          // } else {
+          //   // this.props.updateUser({
+          //   //   loggedIn: true,
+          //   //   username: response.data.username,
+          //   // });
 
-            this.setState({
-              redirectTo: '/',
-            });
-          }
+          //   this.setState({
+          //     redirectTo: '/',
+          //   });
+          // }
         }).catch((error) => {
           console.log('signup error: ');
           console.log(error);
@@ -96,11 +97,11 @@ class DeleteUserModal extends React.Component {
     const { open } = this.state;
     return (
       <div>
-        Delete Box dynamically created with  + Mapped users from Database.
-        Delete Button to Delete user  that is checked.
+       
         <Button style={styles1} onClick={this.onOpenModal}>Delete Employee</Button>
         <Modal open={open} onClose={this.onCloseModal} center>
-     
+      Delete Box dynamically created with  + Mapped users from Database.
+        Delete Button to Delete user  that is checked.
             <div className="form-group ">
               <div className="col-12"></div>
               <button

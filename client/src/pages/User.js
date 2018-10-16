@@ -47,6 +47,7 @@ class User extends Component {
     if (!loggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+  
     return (
       <div>
         <div>
@@ -137,4 +138,5 @@ class User extends Component {
   }
 }
 
+}
 export default User;

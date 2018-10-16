@@ -1,7 +1,8 @@
 const express = require('express');
+
 const router = express.Router();
 const User = require('../database/models/user');
-const passport = require('../passport');
+// const passport = require('../passport');
 
 router.post('/', (req, res) => {
   req.checkBody('companyName', 'Company field cannot be empty.').notEmpty();
@@ -14,6 +15,7 @@ router.post('/', (req, res) => {
   req.checkBody('city', 'City field cannot be empty.').notEmpty();
   req.checkBody('country', 'Country field cannot be empty.').notEmpty();
   req.checkBody('postalCode', 'Postal code field cannot be empty.').notEmpty();
+  req.checkBody('employeeType', 'Please select the Employee Type.').notEmpty();
   req.checkBody('password', 'Password must be between 8-100 characters long.').len(8, 100);
   req.checkBody('password', 'Password must include one lowercase character, one uppercase character, a number, and a special character.').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/, 'i');
   req.checkBody('passwordMatch', 'Password must be between 8-100 characters long.').len(8, 100);
@@ -24,18 +26,19 @@ router.post('/', (req, res) => {
   if (errors) {
     console.log(JSON.stringify(errors));
 
-    let companyNameErrors = [];
-    let usernameErrors = [];
-    let emailErrors = [];
-    let adminFirstNameErrors = [];
-    let adminLastNameErrors = [];
-    let cityErrors = [];
-    let countryErrors = [];
-    let postalCodeErrors = [];
-    let passwordErrors = [];
-    let passwordMatchErrors = [];
+    const companyNameErrors = [];
+    const usernameErrors = [];
+    const emailErrors = [];
+    const adminFirstNameErrors = [];
+    const adminLastNameErrors = [];
+    const cityErrors = [];
+    const countryErrors = [];
+    const postalCodeErrors = [];
+    const employeeTypeErrors = [];
+    const passwordErrors = [];
+    const passwordMatchErrors = [];
 
-    errors.forEach(function(element) {
+    errors.forEach((element) => {
       switch (element.param) {
         case 'companyName':
           companyNameErrors.push(element);
@@ -61,7 +64,9 @@ router.post('/', (req, res) => {
         case 'postalCode':
           postalCodeErrors.push(element);
           break;
-  
+        case 'employeeType':
+          postalCodeErrors.push(element);
+          break;
         case 'password':
           passwordErrors.push(element);
           break;
@@ -73,25 +78,26 @@ router.post('/', (req, res) => {
 
     res.send({
       errors: true,
-      companyNameErrors: companyNameErrors,
-      usernameErrors: usernameErrors,
-      emailErrors: emailErrors,
-      adminFirstNameErrors: adminFirstNameErrors,
-      adminLastNameErrors: adminLastNameErrors,
-      cityErrors: cityErrors,
-      countryErrors: countryErrors,
-      postalCodeErrors: postalCodeErrors,
-      passwordErrors: passwordErrors,
-      passwordMatchErrors: passwordMatchErrors,
+      companyNameErrors,
+      usernameErrors,
+      emailErrors,
+      adminFirstNameErrors,
+      adminLastNameErrors,
+      cityErrors,
+      countryErrors,
+      postalCodeErrors,
+      employeeTypeErrors,
+      passwordErrors,
+      passwordMatchErrors,
     });
   } else {
     console.log('user signup');
 
-    const {username, password} = req.body;
+    const { username } = req.body;
     // ADD VALIDATION
-    User.find().map(function(i) { return i.item; })
+    User.find().map(i => i.item);
 
-    User.findOne({username: username}, (err, user) => {
+    User.findOne({ username }, (err, user) => {
       if (err) {
         console.log('User.js post error: ', err);
       } else if (user) {
@@ -105,8 +111,8 @@ router.post('/', (req, res) => {
 
           console.log('test 111');
 
-          req.login(savedUser, function(err) {
-            if ( ! err ) {
+          req.login(savedUser, (err) => {
+            if (!err) {
               console.log('inside the login stuff!!!');
               res.send(savedUser);
             } else {
@@ -116,7 +122,7 @@ router.post('/', (req, res) => {
         });
       }
     });
-  };
+  }
 });
 
 // router.post(
@@ -138,16 +144,18 @@ router.post('/', (req, res) => {
 //     }
 // );
 
-router.get('/', (req, res, next) => {
-  console.log('===== user!!======');
-  console.log(req.user);
-  if (req.user) {
-    res.json({user: req.user});
+router.get('/', (req, res, err) => {
+  User.find(
+    { companyName: '1983' }).sort({ name: 1 });
+  console.log('kebo');
+  // console.log(res.user);
+  if (err) {
+    res.json(err);
   } else {
-    res.json({user: null});
+    res.json(res);
   }
 });
-
+// .find().map(i => i.item);
 // router.post('/logout', (req, res) => {
 //   if (req.user) {
 //     req.logout();
