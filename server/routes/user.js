@@ -136,7 +136,9 @@ router.post('/login',
     console.log(req.session);
     const userInfo = {
       username: req.user.username,
-      id: req.user._id,
+      _id: req.user._id,
+      companyName: req.user.companyName,
+      employeeType: req.user.employeeType,
     };
     res.send(userInfo);
   });
@@ -170,7 +172,7 @@ router.post('/clockIn/:id', (req, res) => {
         },
       },
       status: true,
-    })
+    }, { new: true })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
@@ -185,7 +187,7 @@ router.post('/clockOut/:id', (req, res) => {
         },
       },
       status: false,
-    })
+    }, { new: true })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
