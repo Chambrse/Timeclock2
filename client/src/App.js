@@ -48,21 +48,21 @@ class App extends Component {
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.setState({
-            currentLocation: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-          });
-          resolve();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
         });
-      } else {
-        error => console.log(error);
-        reject();
-      }
-    });
+        resolve();
+      });
+    } else {
+      // error => console.log(error);
+      reject();
+    }
+  });
 
   // Get the user data from the database, if there is any.
   getUser() {
