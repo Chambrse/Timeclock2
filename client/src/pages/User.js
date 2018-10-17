@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import Dashboard from './managerClockView';
+import profile from '../blank-profile-picture.png';
 
 
 const styles1 = {
@@ -91,7 +92,7 @@ const User = ({
               </ul>
             </Grid>
             <Grid item xs={3}>
-              <img id="Keith" img src="http://images6.fanpop.com/image/user_images/5768000/kebo83-5768074_650_567.jpg" width="225" height="200" alt="Keith Jones" className="col-lg-3" />
+              <img id="PIC" img src={profile} width='200'alt="profile" />
               <h6>{companyName}</h6>
               <h6>CEO / CO-FOUNDER</h6>
               <h4>{username}</h4>
