@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 
 const express = require('express');
@@ -13,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 // Route requires
 const user = require('./routes/user');
+const addDelete = require('./routes/addDelete');
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -44,7 +44,9 @@ app.use(passport.session()); // calls the deserializeUser
 
 
 // Routes
+
 app.use('/user', user);
+app.use('/addDelete', addDelete);
 
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));

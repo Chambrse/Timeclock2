@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import SimpleLineChart from '../components/SimpleLineChart';
 import SimpleTable from '../components/SimpleTable';
 import SimpleMenu from '../components/rangeMenu';
-import Grid from '@material-ui/core/Grid'
-import Schedule from '../components/scheduleView'
+// import Schedule from '../components/scheduleView';
 
 
 const drawerWidth = 240;
@@ -36,9 +36,7 @@ const styles = theme => ({
 });
 
 
-
 class Dashboard extends React.Component {
-  
   render() {
     const { classes } = this.props;
 
@@ -46,12 +44,12 @@ class Dashboard extends React.Component {
       <React.Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          
-          
+
+
           <main className={classes.content}>
-          <Typography>
-            <Schedule/>
-          </Typography>
+            <Typography>
+              {/* <Schedule /> */}
+            </Typography>
             <div className={classes.appBarSpacer} />
             <Typography variant="h4" gutterBottom component="h2">
               How many clocked in
@@ -59,16 +57,13 @@ class Dashboard extends React.Component {
             <Typography component="div" className={classes.chartContainer}>
               <SimpleLineChart />
             </Typography>
-            <Typography variant="h4" gutterBottom component="h2">
-              
-            </Typography>
-            
-          
-          
+            <Typography variant="h4" gutterBottom component="h2" />
+
+
             <div className={classes.tableContainer}>
-            <Grid  container justify="flex-start">
-            <SimpleMenu />
-            </Grid>
+              <Grid container justify="flex-start">
+                <SimpleMenu />
+              </Grid>
               <SimpleTable />
             </div>
           </main>

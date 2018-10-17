@@ -207,10 +207,7 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'name',
     selected: [],
-    data: [
-      createData('Cupcake', '8-5', '8-5', '8-5', '8-5')
-      
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5,
   };

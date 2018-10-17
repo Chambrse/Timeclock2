@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const User = require('../database/models/user');
 const passport = require('../passport');
@@ -25,19 +26,19 @@ router.post('/', (req, res) => {
   if (errors) {
     console.log(JSON.stringify(errors));
 
-    let companyNameErrors = [];
-    let usernameErrors = [];
-    let emailErrors = [];
-    let adminFirstNameErrors = [];
-    let adminLastNameErrors = [];
-    let cityErrors = [];
-    let countryErrors = [];
-    let postalCodeErrors = [];
-    let brandErrors = [];
-    let passwordErrors = [];
-    let passwordMatchErrors = [];
+    const companyNameErrors = [];
+    const usernameErrors = [];
+    const emailErrors = [];
+    const adminFirstNameErrors = [];
+    const adminLastNameErrors = [];
+    const cityErrors = [];
+    const countryErrors = [];
+    const postalCodeErrors = [];
+    const brandErrors = [];
+    const passwordErrors = [];
+    const passwordMatchErrors = [];
 
-    errors.forEach(function(element) {
+    errors.forEach((element) => {
       switch (element.param) {
         case 'companyName':
           companyNameErrors.push(element);
@@ -71,30 +72,31 @@ router.post('/', (req, res) => {
           break;
         case 'passwordMatch':
           passwordMatchErrors.push(element);
+          break;
         default:
       }
     });
 
     res.send({
       errors: true,
-      companyNameErrors: companyNameErrors,
-      usernameErrors: usernameErrors,
-      emailErrors: emailErrors,
-      adminFirstNameErrors: adminFirstNameErrors,
-      adminLastNameErrors: adminLastNameErrors,
-      cityErrors: cityErrors,
-      countryErrors: countryErrors,
-      postalCodeErrors: postalCodeErrors,
-      brandErrors: brandErrors,
-      passwordErrors: passwordErrors,
-      passwordMatchErrors: passwordMatchErrors,
+      companyNameErrors,
+      usernameErrors,
+      emailErrors,
+      adminFirstNameErrors,
+      adminLastNameErrors,
+      cityErrors,
+      countryErrors,
+      postalCodeErrors,
+      brandErrors,
+      passwordErrors,
+      passwordMatchErrors,
     });
   } else {
     console.log('user signup');
 
-    const {username, password} = req.body;
+    const { username, password } = req.body;
     // ADD VALIDATION
-    User.findOne({username: username}, (err, user) => {
+    User.findOne({ username }, (err, user) => {
       if (err) {
         console.log('User.js post error: ', err);
       } else if (user) {
@@ -108,8 +110,8 @@ router.post('/', (req, res) => {
 
           console.log('test 111');
 
-          req.login(savedUser, function(err) {
-            if ( ! err ) {
+          req.login(savedUser, (err) => {
+            if (!err) {
               console.log('inside the login stuff!!!');
               res.send(savedUser);
             } else {
@@ -119,45 +121,81 @@ router.post('/', (req, res) => {
         });
       }
     });
-  };
+  }
 });
 
-router.post(
-    '/login',
-    function(req, res, next) {
-      console.log('routes/user.js, login, req.body: ');
-      console.log(req.body);
-      console.log(req.session);
-      next();
-    },
-    passport.authenticate('local'),
-    (req, res) => {
-      console.log('logged in', req.user);
-      console.log(req.session);
-      let userInfo = {
-        username: req.user.username,
-      };
-      res.send(userInfo);
-    }
-);
+router.post('/login',
+  (req, res, next) => {
+    console.log('routes/user.js, login, req.body: ');
+    console.log(req.body);
+    console.log(req.session);
+    next();
+  },
+  passport.authenticate('local'),
+  (req, res) => {
+    console.log('logged in', req.user);
+    console.log(req.session);
+    const userInfo = {
+      username: req.user.username,
+      _id: req.user._id,
+      companyName: req.user.companyName,
+      employeeType: req.user.employeeType,
+      adminFirstName: req.user.adminFirstName,
+      adminLastName: req.user.adminLastName,
+    };
+    res.send(userInfo);
+  });
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
   console.log(req.user);
   if (req.user) {
-    res.json({user: req.user});
+    res.json({ user: req.user });
   } else {
-    res.json({user: null});
+    res.json({ user: null });
   }
 });
 
 router.post('/logout', (req, res) => {
   if (req.user) {
     req.logout();
-    res.send({msg: 'logging out'});
+    res.send({ msg: 'logging out' });
   } else {
-    res.send({msg: 'no user to log out'});
+    res.send({ msg: 'no user to log out' });
   }
 });
+
+router.post('/clockIn/:id', (req, res) => {
+  User
+    .findOneAndUpdate({ _id: req.params.id }, {
+      $push: {
+        clockIn: {
+          time: Date.now(),
+          coords: req.body.coords,
+        },
+      },
+      status: true,
+    }, { new: true })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
+router.post('/clockOut/:id', (req, res) => {
+  User
+    .findOneAndUpdate({ _id: req.params.id }, {
+      $push: {
+        clockOut: {
+          time: Date.now(),
+          coords: req.body.coords,
+        },
+      },
+      status: false,
+    }, { new: true })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+});
+
+
+// router.post('/newdbtest', (req, res) => {)
 
 module.exports = router;
