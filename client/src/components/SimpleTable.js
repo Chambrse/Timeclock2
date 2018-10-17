@@ -21,7 +21,9 @@ const styles = {
 let id = 0;
 function createData(name, timeIn, breakStart, breakEnd, timeOut) {
   id += 1;
-  return { id, name, timeIn, breakStart, breakEnd, timeOut };
+  return {
+ id, name, timeIn, breakStart, breakEnd, timeOut 
+};
 }
 
 const data = [
@@ -41,26 +43,24 @@ function SimpleTable(props) {
         <TableHead>
           <TableRow>
             <TableCell>Employee Name</TableCell>
-            <TableCell numeric>Time In</TableCell>
-            <TableCell numeric>Break Start</TableCell>
-            <TableCell numeric>Break End</TableCell>
-            <TableCell numeric>Time Out</TableCell>
+            <TableCell>Time In</TableCell>
+            <TableCell>Break Start</TableCell>
+            <TableCell>Break End</TableCell>
+            <TableCell>Time Out</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
-            return (
+          {data.map((n) => (
               <TableRow key={n.id}>
                 <TableCell component="th" scope="row">
                   {n.name}
                 </TableCell>
-                <TableCell numeric>{n.timeIn}</TableCell>
-                <TableCell numeric>{n.breakStart}</TableCell>
-                <TableCell numeric>{n.breakEnd}</TableCell>
-                <TableCell numeric>{n.timeOut}</TableCell>
+                <TableCell>{n.timeIn}</TableCell>
+                <TableCell>{n.breakStart}</TableCell>
+                <TableCell>{n.breakEnd}</TableCell>
+                <TableCell>{n.timeOut}</TableCell>
               </TableRow>
-            );
-          })}
+            ))}
         </TableBody>
       </Table>
     </Paper>

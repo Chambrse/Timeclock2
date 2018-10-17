@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const User = require('../database/models/user');
-const passport = require('../passport');
+// const passport = require('../passport');
 
 router.post('/', (req, res) => {
   req.checkBody('companyName', 'Company field cannot be empty.').notEmpty();
@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   req.checkBody('city', 'City field cannot be empty.').notEmpty();
   req.checkBody('country', 'Country field cannot be empty.').notEmpty();
   req.checkBody('postalCode', 'Postal code field cannot be empty.').notEmpty();
-  req.checkBody('brand', 'Brand Statement field cannot be empty.').notEmpty();
+  req.checkBody('employeeType', 'Please select the Employee Type.').notEmpty();
   req.checkBody('password', 'Password must be between 8-100 characters long.').len(8, 100);
   req.checkBody('password', 'Password must include one lowercase character, one uppercase character, a number, and a special character.').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/, 'i');
   req.checkBody('passwordMatch', 'Password must be between 8-100 characters long.').len(8, 100);
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     const cityErrors = [];
     const countryErrors = [];
     const postalCodeErrors = [];
-    const brandErrors = [];
+    const employeeTypeErrors = [];
     const passwordErrors = [];
     const passwordMatchErrors = [];
 
@@ -64,8 +64,8 @@ router.post('/', (req, res) => {
         case 'postalCode':
           postalCodeErrors.push(element);
           break;
-        case 'brand':
-          brandErrors.push(element);
+        case 'employeeType':
+          postalCodeErrors.push(element);
           break;
         case 'password':
           passwordErrors.push(element);
@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
       cityErrors,
       countryErrors,
       postalCodeErrors,
-      brandErrors,
+      employeeTypeErrors,
       passwordErrors,
       passwordMatchErrors,
     });
@@ -95,6 +95,8 @@ router.post('/', (req, res) => {
 
     const { username } = req.body;
     // ADD VALIDATION
+    User.find().map(i => i.item);
+
     User.findOne({ username }, (err, user) => {
       if (err) {
         console.log('User.js post error: ', err);
@@ -123,73 +125,44 @@ router.post('/', (req, res) => {
   }
 });
 
-router.post('/login',
-  (req, res, next) => {
-    console.log('routes/user.js, login, req.body: ');
-    console.log(req.body);
-    console.log(req.session);
-    next();
-  },
-  passport.authenticate('local'),
-  (req, res) => {
-    console.log('logged in', req.user);
-    console.log(req.session);
-    const userInfo = {
-      username: req.user.username,
-      _id: req.user._id,
-      companyName: req.user.companyName,
-      employeeType: req.user.employeeType,
-    };
-    res.send(userInfo);
-  });
+// router.post(
+//     '/login',
+//     function(req, res, next) {
+//       console.log('routes/user.js, login, req.body: ');
+//       console.log(req.body);
+//       console.log(req.session);
+//       next();
+//     },
+//     passport.authenticate('local'),
+//     (req, res) => {
+//       console.log('logged in', req.user);
+//       console.log(req.session);
+//       let userInfo = {
+//         username: req.user.username,
+//       };
+//       res.send(userInfo);
+//     }
+// );
 
-router.get('/', (req, res) => {
-  console.log('===== user!!======');
-  console.log(req.user);
-  if (req.user) {
-    res.json({ user: req.user });
+router.get('/', (req, res, err) => {
+  User.find(
+    { companyName: '1983' }).sort({ name: 1 });
+  console.log('kebo');
+  // console.log(res.user);
+  if (err) {
+    res.json(err);
   } else {
-    res.json({ user: null });
+    res.json(res);
   }
 });
-
-router.post('/logout', (req, res) => {
-  if (req.user) {
-    req.logout();
-    res.send({ msg: 'logging out' });
-  } else {
-    res.send({ msg: 'no user to log out' });
-  }
-});
-
-router.post('/clockIn/:id', (req, res) => {
-  User
-    .findOneAndUpdate({ _id: req.params.id }, {
-      $push: {
-        clockIn: {
-          time: Date.now(),
-          coords: req.body.coords,
-        },
-      },
-      status: true,
-    }, { new: true })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
-});
-
-router.post('/clockOut/:id', (req, res) => {
-  User
-    .findOneAndUpdate({ _id: req.params.id }, {
-      $push: {
-        clockOut: {
-          time: Date.now(),
-          coords: req.body.coords,
-        },
-      },
-      status: false,
-    }, { new: true })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
-});
+// .find().map(i => i.item);
+// router.post('/logout', (req, res) => {
+//   if (req.user) {
+//     req.logout();
+//     res.send({msg: 'logging out'});
+//   } else {
+//     res.send({msg: 'no user to log out'});
+//   }
+// });
 
 module.exports = router;
