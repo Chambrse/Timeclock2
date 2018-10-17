@@ -48,7 +48,6 @@ const User = ({
       </Grid>
 
 
-<<<<<<< HEAD
       <div className="row">
         <Grid container spacing={40} justify="space-evenly">
           {employeeType === 'admin'
@@ -61,18 +60,6 @@ const User = ({
             ) : (
               null
             )
-=======
-        <div className="row">
-          <Grid container spacing={40} justify="space-evenly">
-            {employeeType === 'admin'
-              ? (
-                <Grid item xs={12} md={4}>
-                  <Admin adminUsername={username} />
-                </Grid>
-              ) : (
-                null
-              )
->>>>>>> b4572122508e21ca83ed3e26f4df755c1fdd1706
           }
           <Grid item xs={12} md={4}>
             <Paper elevation={10}>
