@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { Button, Icon, Grid } from '@material-ui/core'
 import Modal from 'react-responsive-modal';
+import Schedule from '../components/scheduleView';
 
 
 const styles1 = {
@@ -103,7 +104,9 @@ class DeleteUserModal extends React.Component {
       Delete Box dynamically created with  + Mapped users from Database.
         Delete Button to Delete user  that is checked.
             <div className="form-group ">
-              <div className="col-12"></div>
+              <div className="col-12">
+              <Schedule />
+              </div>
               <button
                 className="btn btn-warning col-12 col-mr-auto"
                 onClick={this.handleSubmit}

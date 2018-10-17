@@ -90,7 +90,8 @@ class AddUserModal extends React.Component {
             }
           });
           this.setState(newErrorsObj);
-        } else if (!alert('New User Added!!')) { this.setState({ open: false }); }
+        }
+        // else if (!alert('New User Added!!')) { this.setState({ open: false }); }
       }).catch((error) => {
         console.log('signup error: ');
         console.log(error);

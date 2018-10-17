@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Clock from '../components/clock';
 import Admin from './Admin';
-import Dashboard from './managerClockView';
 import profile from '../blank-profile-picture.png';
 
 
@@ -40,12 +39,16 @@ const styles3 = {
 
 //   render() {
 const User = ({
-  status, loggedIn, username, companyName, clockIn, clockOut,
+  status,
+  loggedIn,
+  username,
+  companyName,
+  clockIn,
+  clockOut,
+  adminFirstName,
+  adminLastName,
+  employeeType,
 }) => {
-  // const user = {
-  //   firstname1: 'Keith Jones',
-  //   isAdmin: true,
-  // };
   if (!loggedIn) {
     return <Redirect to={{ pathname: '/login' }} />;
   }
@@ -62,40 +65,18 @@ const User = ({
         <div className="row">
 
           <Grid container spacing={40} justify="space-evenly">
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
               <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
             </Grid>
-            <Grid item xs={3}>
-              <ul>
-                  Your Schedule:
-                <li>
-                    Monday: 8AM-5PM
-                </li>
-                <li>
-                    Tuesday: 8AM-5PM
-                </li>
-                <li>
-                    Wednesday: 8AM-5PM
-                </li>
-                <li>
-                    Thursday: 8AM-5PM
-                </li>
-                <li>
-                    Friday: 8AM-5PM
-                </li>
-                <li>
-                    Saturday: Off
-                </li>
-                <li>
-                    Sunday: Off
-                </li>
-              </ul>
-            </Grid>
-            <Grid item xs={3}>
-              <img id="PIC" img src={profile} width='200'alt="profile" />
+            <Grid item xs={12} md={3}>
+              <img id="PIC" img src={profile} width="200" alt="profile" />
               <h6>{companyName}</h6>
               <h6>CEO / CO-FOUNDER</h6>
-              <h4>{username}</h4>
+              <h4>
+                {adminFirstName}
+                {''}
+                {adminLastName}
+              </h4>
             </Grid>
           </Grid>
 
@@ -103,10 +84,16 @@ const User = ({
 
         <div className="row" style={styles1}>
           <Grid container spacing={40} justify="space-evenly">
-            <Grid item xs={4}>
-              <Admin />
-            </Grid>
-            <Grid item xs={4}>
+            {employeeType === 'admin'
+              ? (
+                <Grid item xs={12} md={4}>
+                  <Admin />
+                </Grid>
+              ) : (
+                null
+              )
+          }
+            <Grid item xs={12} md={4}>
               <h1>Clock IN/OUT</h1>
               {status}
               <p id="ClockIN/OUT">
@@ -132,7 +119,6 @@ const User = ({
               </p>
             </Grid>
           </Grid>
-          <Dashboard />
         </div>
       </div>
     </div>
@@ -146,6 +132,9 @@ User.propTypes = {
   companyName: PropTypes.string.isRequired,
   clockIn: PropTypes.func.isRequired,
   clockOut: PropTypes.func.isRequired,
+  adminFirstName: PropTypes.string.isRequired,
+  adminLastName: PropTypes.string.isRequired,
+  employeeType: PropTypes.string.isRequired,
 };
 
 export default User;
