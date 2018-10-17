@@ -42,7 +42,9 @@ class LoginForm extends Component {
             username: response.data.username,
             id: response.data._id,
             companyName: response.data.companyName,
-            employeeType: response.data.employeeType
+            employeeType: response.data.employeeType,
+            adminFirstName: response.data.adminFirstName,
+            adminLastName: response.data.adminLastName,
           });
           // update the state to redirect to home
           this.setState({

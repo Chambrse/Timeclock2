@@ -3,6 +3,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import AddUserModal from '../components/AddUserModal';
 import DeleteUserModal from '../components/DeleteUserModal';
+import Tools from '../components/toolsModal';
 
 
 function Admin(props) {
@@ -16,8 +17,10 @@ function Admin(props) {
         <AddUserModal adminUsername={adminUsername} />
         <br />
         <br />
-        <br />
         <DeleteUserModal />
+        <br />
+        <br />
+        <Tools />
         <br />
       </Paper>
       
