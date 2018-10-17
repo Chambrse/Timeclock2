@@ -142,6 +142,8 @@ router.post('/login',
       employeeType: req.user.employeeType,
       adminFirstName: req.user.adminFirstName,
       adminLastName: req.user.adminLastName,
+      clockIn: req.user.clockIn,
+      clockOut: req.user.clockOut,
     };
     res.send(userInfo);
   });
