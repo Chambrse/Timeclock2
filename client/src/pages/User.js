@@ -87,7 +87,7 @@ const User = ({
             {employeeType === 'admin'
               ? (
                 <Grid item xs={12} md={4}>
-                  <Admin />
+                  <Admin adminUsername={username} />
                 </Grid>
               ) : (
                 null
