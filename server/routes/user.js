@@ -142,6 +142,8 @@ router.post('/login',
       employeeType: req.user.employeeType,
       adminFirstName: req.user.adminFirstName,
       adminLastName: req.user.adminLastName,
+      clockIn: req.user.clockIn,
+      clockOut: req.user.clockOut,
     };
     res.send(userInfo);
   });
@@ -194,8 +196,5 @@ router.post('/clockOut/:id', (req, res) => {
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
-
-
-// router.post('/newdbtest', (req, res) => {)
 
 module.exports = router;
