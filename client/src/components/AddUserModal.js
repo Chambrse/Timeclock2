@@ -81,16 +81,16 @@ class AddUserModal extends React.Component {
             passwordMatchErrors: [],
           };
 
-          for (const key in response.data) {
+          Object.keys(response.data).forEach((key) => {
             console.log([key]);
-            if ([key] != 'errors') {
+            if ([key].toString() !== 'errors') {
               response.data[key].forEach((element) => {
                 newErrorsObj[key].push(element.msg);
               });
             }
-          }
+          });
           this.setState(newErrorsObj);
-        } else if (!alert('New User Added!!')) { window.location.reload(); }
+        } else if (!alert('New User Added!!')) { this.setState({ open: false }); }
       }).catch((error) => {
         console.log('signup error: ');
         console.log(error);
