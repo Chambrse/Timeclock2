@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
@@ -9,52 +10,49 @@ const userSchema = new Schema({
   companyName: {
     type: String,
     default: '',
-	  },
-	  username: {
+  },
+  manager: String,
+  username: {
     type: String,
     default: '',
-	  },
-	  city: {
+  },
+  city: {
     type: String,
     default: '',
-	  },
-	  country: {
+  },
+  country: {
     type: String,
     default: '',
-	  },
-	  postalCode: {
+  },
+  postalCode: {
     type: String,
     default: '',
-	  },
-	  brand: {
+  },
+  brand: {
     type: String,
     default: '',
-	  },
-	  email: {
+  },
+  email: {
     type: String,
     default: '',
-	  },
-	  adminFirstName: {
+  },
+  adminFirstName: {
     type: String,
     default: '',
-	  },
-	  adminLastName: {
+  },
+  adminLastName: {
     type: String,
     default: '',
-	  },
-	  password: {
+  },
+  password: {
     type: String,
     default: '',
-	  },
-  /* 	  isDeleted: {
-		type: Boolean,
-		default: false,
-		}, */
+  },
   status: {
     type: Boolean,
     default: false,
   },
-	  employeeType: {
+  employeeType: {
     type: String,
     default: 'admin',
   },

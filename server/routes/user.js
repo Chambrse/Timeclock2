@@ -93,7 +93,7 @@ router.post('/', (req, res) => {
   } else {
     console.log('user signup');
 
-    const { username } = req.body;
+    const { username, password } = req.body;
     // ADD VALIDATION
     User.findOne({ username }, (err, user) => {
       if (err) {
@@ -143,7 +143,7 @@ router.post('/login',
     res.send(userInfo);
   });
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   console.log('===== user!!======');
   console.log(req.user);
   if (req.user) {
@@ -191,5 +191,8 @@ router.post('/clockOut/:id', (req, res) => {
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
+
+
+// router.post('/newdbtest', (req, res) => {)
 
 module.exports = router;
