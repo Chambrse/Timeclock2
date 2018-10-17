@@ -101,6 +101,7 @@ class AddUserModal extends React.Component {
       });
     }
 
+<<<<<<< HEAD
     render() {
       const { open } = this.state;
       return (
@@ -112,6 +113,19 @@ class AddUserModal extends React.Component {
               <form className="form-horizontal">
                 <div className="form-group">
                   <div className="col-6 col-ml-auto">
+=======
+  render() {
+    const { open } = this.state;
+    return (
+      <div>
+        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <div className="SignupForm">
+            <h4>Add New Employee</h4>
+            <form className="form-horizontal">
+              <div className="form-group">
+                <div className="col-6 col-ml-auto">
+>>>>>>> 0d31a626d656dd2df493f6213ff09ba73d4ab248
                   <label className="form-label" htmlFor="username">Username</label>
                 </div>
                   <div className="col-6 col-mr-auto">
