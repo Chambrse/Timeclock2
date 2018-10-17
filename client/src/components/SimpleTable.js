@@ -6,7 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import axios from 'axios';
 
 
 const styles = {
@@ -19,24 +19,27 @@ const styles = {
   },
 };
 
-let id = 0;
-function createData(name, timeIn, breakStart, breakEnd, timeOut) {
-  id += 1;
-  return {
-    id, name, timeIn, breakStart, breakEnd, timeOut,
-  };
-}
 
-const data = [
-  createData('Eric Clapton', 10.01, 12.10, 14.99, 15.01),
-  createData('Sting', 13.12, 13.13, 15.56, 16.09),
-  createData('Kurt Cobain', 10.01, undefined, undefined, 10.02),
-  createData('Cupcake', undefined, undefined, undefined, undefined),
-  createData('Gingerbread Man', undefined, undefined, undefined, undefined),
-];
+const SimpleTable = ({
+  classes, adminFirstName,
+}) => {
+  let id = 0;
+  function createData(name, timeIn, breakStart, breakEnd, timeOut) {
+    id += 1;
+    return {
+      id, name, timeIn, breakStart, breakEnd, timeOut,
+    };
+  }
 
-function SimpleTable(props) {
-  const { classes } = props;
+
+  const data = [
+    createData(adminFirstName, 10.01, 12.10, 14.99, 15.01),
+    createData('Sting', 13.12, 13.13, 15.56, 16.09),
+    createData('Kurt Cobain', 10.01, undefined, undefined, 10.02),
+    createData('Cupcake', undefined, undefined, undefined, undefined),
+    createData('Gingerbread Man', undefined, undefined, undefined, undefined),
+  ];
+
 
   return (
     <div>
@@ -76,10 +79,11 @@ function SimpleTable(props) {
       </div>
     </div>
   );
-}
+};
 
 SimpleTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.string.isRequired,
+  adminFirstName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);

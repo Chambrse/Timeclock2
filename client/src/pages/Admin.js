@@ -20,7 +20,6 @@ function Admin() {
         <Tools />
         <br />
       </Paper>
-      
     </div>
   );
 }
