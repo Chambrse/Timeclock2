@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Paper from '@material-ui/core/Paper';
 import AddUserModal from '../components/AddUserModal';
 import DeleteUserModal from '../components/DeleteUserModal';
 
@@ -8,7 +9,8 @@ function Admin(props) {
   const { adminUsername } = props;
   return (
     <div>
-      <div>
+      <Paper elevation={10}>
+        <br />
         <h1> Admin Tools</h1>
         <p id="Employee"> Add Employee Or Delete Employee </p>
         <AddUserModal adminUsername={adminUsername} />
@@ -16,7 +18,9 @@ function Admin(props) {
         <br />
         <br />
         <DeleteUserModal />
-      </div>
+        <br />
+      </Paper>
+      
     </div>
   );
 }

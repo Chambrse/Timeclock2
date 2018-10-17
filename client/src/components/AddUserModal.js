@@ -6,15 +6,6 @@ import {
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
 
-
-const styles1 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Green',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-
 const pstyle = {
   color: 'red',
   margin: '0px',
@@ -110,6 +101,7 @@ class AddUserModal extends React.Component {
       });
     }
 
+<<<<<<< HEAD
     render() {
       const { open } = this.state;
       return (
@@ -117,6 +109,15 @@ class AddUserModal extends React.Component {
           <Button style={styles1} onClick={this.onOpenModal}>Add Employee</Button>
           <Modal open={open} onClose={this.onCloseModal} center>
             <div className="SignupForm">
+=======
+  render() {
+    const { open } = this.state;
+    return (
+      <div>
+        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <div className="SignupForm">
+>>>>>>> d308a091be3184109119fe5f58d6f235d9377b39
             <h4>Add New Employee</h4>
             <form className="form-horizontal">
               <div className="form-group">

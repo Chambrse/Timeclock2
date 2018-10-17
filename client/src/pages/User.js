@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, /* Icon, */ Grid } from '@material-ui/core';
+import { Button, /* Icon, */ Grid, Paper } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Clock from '../components/clock';
@@ -7,37 +7,6 @@ import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 
 
-const styles1 = {
-  color: 'red',
-  textAlign: 'center',
-  backgroundColor: 'black',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-const styles2 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Red',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-const styles3 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Green',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-
-// class User extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       // redirectTo: null,
-//     };
-//   }
-
-//   render() {
 const User = ({
   status,
   loggedIn,
@@ -54,7 +23,6 @@ const User = ({
   }
 
   return (
-    <div>
       <div>
         <h2>
             Welcome,
@@ -62,7 +30,7 @@ const User = ({
           {username}
             !
         </h2>
-        <div className="row">
+       
 
           <Grid container spacing={40} justify="space-evenly">
             <Grid item xs={12} md={3}>
@@ -80,9 +48,8 @@ const User = ({
             </Grid>
           </Grid>
 
-        </div>
 
-        <div className="row" style={styles1}>
+        <div className="row">
           <Grid container spacing={40} justify="space-evenly">
             {employeeType === 'admin'
               ? (
@@ -94,34 +61,37 @@ const User = ({
               )
           }
             <Grid item xs={12} md={4}>
-              <h1>Clock IN/OUT</h1>
-              {status}
-              <p id="ClockIN/OUT">
-                {status ? (
-                  <div>
+              <Paper elevation={10}>
+                <br />
+                <h1>Clock IN/OUT</h1>
+                {status}
+                <p id="ClockIN/OUT">
+                  {status ? (
+                    <div>
                                         You are clocked in.
-                    <br />
-                    <Button onClick={clockOut} style={styles2}>
+                      <br />
+                      <Button className="btn btn-primary" onClick={clockOut}>
                                     Clock Out
 
-                    </Button>
-                  </div>
-                ) : (
-                  <div>
+                      </Button>
+                    </div>
+                  ) : (
+                    <div>
                                     You are clocked out.
-                    <br />
-                    <Button onClick={clockIn} style={styles3}>
+                      <br />
+                      <Button className="btn btn-success" onClick={clockIn}>
                                     Clock In
-                    </Button>
-                  </div>
-                )}
+                      </Button>
+                    </div>
+                  )}
 
-              </p>
+                </p>
+                <br />
+              </Paper>
             </Grid>
           </Grid>
         </div>
       </div>
-    </div>
   );
 };
 
