@@ -15,6 +15,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      clockInData: [],
+      clockOutData: [],
       loggedIn: false,
       username: null,
       companyName: null,
@@ -47,8 +49,6 @@ class App extends Component {
   componentDidMount() {
     this.getUser();
   }
-
-
   // Change the user data
 
 
@@ -89,6 +89,8 @@ class App extends Component {
           employeeType: response.data.user.employeeType,
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
+          clockInData: response.data.user.clockIn,
+          clockOutData: response.data.user.clockOut,
         });
       } else {
         console.log('Get user: no user');
@@ -110,9 +112,10 @@ class App extends Component {
     const { id, currentLocation } = this.state;
     this.getGeoLocation()
       .then(() => {
-        axios.post(`/user/clockIn/${id}`, { coords: currentLocation }).then(() => {
+        axios.post(`/user/clockIn/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: true,
+            clockInData: response.data.clockIn,
           });
         });
       });
@@ -123,9 +126,10 @@ class App extends Component {
     const { id, currentLocation } = this.state;
     this.getGeoLocation()
       .then(() => {
-        axios.post(`/user/clockOut/${id}`, { coords: currentLocation }).then(() => {
+        axios.post(`/user/clockOut/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: false,
+            clockOutData: response.data.clockOut,
           });
         });
       });
@@ -134,7 +138,7 @@ class App extends Component {
 
   render() {
     const {
-      loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
+      clockInData, clockOutData, loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
     } = this.state;
     return (
       <div className="App">
