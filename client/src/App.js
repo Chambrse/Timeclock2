@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Route /* , Link */} from 'react-router-dom';
-// components
-// import EditorFormatListBulleted from 'material-ui/SvgIcon';
-import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
@@ -11,7 +8,7 @@ import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
 import Map from './components/map';
-import BottomNav from './components/bottomNav'
+import BottomNav from './components/bottomNav';
 
 
 class App extends Component {
@@ -28,6 +25,8 @@ class App extends Component {
         lat: 0,
         lng: 0,
       },
+      adminFirstName: null,
+      adminLastName: null,
     };
 
     this.getUser = this.getUser.bind(this);
@@ -40,18 +39,18 @@ class App extends Component {
 
   // Upon loading the page, see if there is a user stored in the session
   // and update the state variables appropriately
-  componentDidMount() {
-    this.getUser();
-  }
 
   componentWillMount() {
     this.getGeoLocation();
   }
 
-  // Change the user data
-  updateUser(userObject) {
-    this.setState(userObject);
+  componentDidMount() {
+    this.getUser();
   }
+
+
+  // Change the user data
+
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
@@ -73,6 +72,7 @@ class App extends Component {
     }
   })
 
+
   // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
@@ -87,6 +87,8 @@ class App extends Component {
           id: response.data.user._id,
           companyName: response.data.user.companyName,
           employeeType: response.data.user.employeeType,
+          adminFirstName: response.data.user.adminFirstName,
+          adminLastName: response.data.user.adminLastName,
         });
       } else {
         console.log('Get user: no user');
@@ -97,6 +99,10 @@ class App extends Component {
         });
       }
     });
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
   }
 
   // Clock in; gets current geolocation before making the post request.
@@ -128,7 +134,7 @@ class App extends Component {
 
   render() {
     const {
-      loggedIn, username, companyName, employeeType, status,
+      loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
     } = this.state;
     return (
       <div className="App">
@@ -163,7 +169,9 @@ class App extends Component {
               employeeType={employeeType}
               clockIn={this.clockIn}
               clockOut={this.clockOut}
-              status={this.state.status}
+              status={status}
+              adminFirstName={this.adminFirstName}
+              adminLastName={this.adminLastName}
             />
           )}
         />
@@ -189,7 +197,7 @@ class App extends Component {
           path="/map"
           render={() => (
             <Map
-              currentLocation={this.state.currentLocation}
+              currentLocation={this.currentLocation}
               getGeoLocation={this.getGeoLocation}
             />
           )}
