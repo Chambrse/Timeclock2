@@ -8,10 +8,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
 const styles = {
   root: {
     width: '100%',
-    overflowX: 'auto',
+    overflowX: 'none',
   },
   table: {
     minWidth: 700,
@@ -22,8 +23,8 @@ let id = 0;
 function createData(name, timeIn, breakStart, breakEnd, timeOut) {
   id += 1;
   return {
- id, name, timeIn, breakStart, breakEnd, timeOut 
-};
+    id, name, timeIn, breakStart, breakEnd, timeOut,
+  };
 }
 
 const data = [
@@ -38,7 +39,7 @@ function SimpleTable(props) {
   const { classes } = props;
 
   return (
-    <Paper className={classes.root}>
+    <div>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -50,20 +51,30 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((n) => (
-              <TableRow key={n.id}>
-                <TableCell component="th" scope="row">
-                  {n.name}
-                </TableCell>
-                <TableCell>{n.timeIn}</TableCell>
-                <TableCell>{n.breakStart}</TableCell>
-                <TableCell>{n.breakEnd}</TableCell>
-                <TableCell>{n.timeOut}</TableCell>
-              </TableRow>
-            ))}
+          {data.map(n => (
+            <TableRow key={n.id}>
+              <TableCell component="th" scope="row">
+                {n.name}
+              </TableCell>
+              <TableCell>{n.timeIn}</TableCell>
+              <TableCell>{n.breakStart}</TableCell>
+              <TableCell>{n.breakEnd}</TableCell>
+              <TableCell>{n.timeOut}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-    </Paper>
+      <div className="row">
+        <div className="col-6">
+          <h2>Clocked in</h2>
+          <p>0</p>
+        </div>
+        <div className="col-6">
+          <h2>Clocked out</h2>
+          <p>0</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

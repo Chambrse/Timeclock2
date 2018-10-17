@@ -170,8 +170,8 @@ class App extends Component {
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={status}
-              adminFirstName={this.adminFirstName}
-              adminLastName={this.adminLastName}
+              adminFirstName={adminFirstName}
+              adminLastName={adminLastName}
             />
           )}
         />

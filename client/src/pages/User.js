@@ -23,75 +23,74 @@ const User = ({
   }
 
   return (
-      <div>
-        <h2>
+    <div>
+      <h2>
             Welcome,
-          {' '}
-          {username}
+        {' '}
+        {username}
             !
-        </h2>
-       
+      </h2>
 
-          <Grid container spacing={40} justify="space-evenly">
-            <Grid item xs={12} md={3}>
-              <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <img id="PIC" img src={profile} width="200" alt="profile" />
-              <h6>{companyName}</h6>
-              <h6>CEO / CO-FOUNDER</h6>
-              <h4>
-                {adminFirstName}
-                {''}
-                {adminLastName}
-              </h4>
-            </Grid>
-          </Grid>
+      <Grid container spacing={40} justify="space-evenly">
+        <Grid item xs={12} md={3}>
+          <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <img id="PIC" img src={profile} width="200" alt="profile" />
+          <h6>{companyName}</h6>
+          <h6>{employeeType}</h6>
+          <h4>
+            {adminFirstName}
+            {' '}
+            {adminLastName}
+          </h4>
+        </Grid>
+      </Grid>
 
 
-        <div className="row">
-          <Grid container spacing={40} justify="space-evenly">
-            {employeeType === 'admin'
-              ? (
-                <Grid item xs={12} md={4}>
-                  <Admin />
-                </Grid>
-              ) : (
-                null
-              )
+      <div className="row">
+        <Grid container spacing={40} justify="space-evenly">
+          {employeeType === 'admin'
+            ? (
+              <Grid item xs={12} md={4}>
+                <Admin />
+              </Grid>
+            ) : (
+              null
+            )
           }
-            <Grid item xs={12} md={4}>
-              <Paper elevation={10}>
-                <br />
-                <h1>Clock IN/OUT</h1>
-                {status}
-                <p id="ClockIN/OUT">
-                  {status ? (
-                    <div>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={10}>
+              <br />
+              <h1>Clock IN/OUT</h1>
+              {status}
+              <p id="ClockIN/OUT">
+                {status ? (
+                  <div>
                                         You are clocked in.
-                      <br />
-                      <Button className="btn btn-primary" onClick={clockOut}>
+                    <br />
+                    <Button className="btn btn-primary" onClick={clockOut}>
                                     Clock Out
 
-                      </Button>
-                    </div>
-                  ) : (
-                    <div>
+                    </Button>
+                  </div>
+                ) : (
+                  <div>
                                     You are clocked out.
-                      <br />
-                      <Button className="btn btn-success" onClick={clockIn}>
+                    <br />
+                    <Button className="btn btn-success" onClick={clockIn}>
                                     Clock In
-                      </Button>
-                    </div>
-                  )}
+                    </Button>
+                  </div>
+                )}
 
-                </p>
-                <br />
-              </Paper>
-            </Grid>
+              </p>
+              <br />
+            </Paper>
           </Grid>
-        </div>
+        </Grid>
       </div>
+    </div>
   );
 };
 

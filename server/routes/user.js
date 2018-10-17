@@ -72,6 +72,7 @@ router.post('/', (req, res) => {
           break;
         case 'passwordMatch':
           passwordMatchErrors.push(element);
+          break;
         default:
       }
     });
@@ -139,6 +140,8 @@ router.post('/login',
       _id: req.user._id,
       companyName: req.user.companyName,
       employeeType: req.user.employeeType,
+      adminFirstName: req.user.adminFirstName,
+      adminLastName: req.user.adminLastName,
     };
     res.send(userInfo);
   });
