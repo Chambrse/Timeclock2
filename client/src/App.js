@@ -15,6 +15,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      clockInData: [],
+      clockOutData: [],
       loggedIn: false,
       username: null,
       companyName: null,
@@ -47,8 +49,6 @@ class App extends Component {
   componentDidMount() {
     this.getUser();
   }
-
-
   // Change the user data
 
 
@@ -134,7 +134,7 @@ class App extends Component {
 
   render() {
     const {
-      loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
+      clockInData, clockOutData, loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
     } = this.state;
     return (
       <div className="App">

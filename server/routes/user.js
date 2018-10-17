@@ -192,7 +192,4 @@ router.post('/clockOut/:id', (req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
-
-// router.post('/newdbtest', (req, res) => {)
-
 module.exports = router;

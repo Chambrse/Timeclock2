@@ -101,30 +101,20 @@ class AddUserModal extends React.Component {
       });
     }
 
-<<<<<<< HEAD
     render() {
       const { open } = this.state;
       return (
         <div>
-          <Button style={styles1} onClick={this.onOpenModal}>Add Employee</Button>
+          <Button onClick={this.onOpenModal}>Add Employee</Button>
           <Modal open={open} onClose={this.onCloseModal} center>
             <div className="SignupForm">
-=======
-  render() {
-    const { open } = this.state;
-    return (
-      <div>
-        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="SignupForm">
->>>>>>> d308a091be3184109119fe5f58d6f235d9377b39
-            <h4>Add New Employee</h4>
-            <form className="form-horizontal">
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+              <h4>Add New Employee</h4>
+              <form className="form-horizontal">
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="username">Username</label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     type="text"
@@ -140,13 +130,12 @@ class AddUserModal extends React.Component {
                   }
                 </div>
 
-
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                </div>
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="email">Email</label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     type="text"
@@ -161,12 +150,12 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                </div>
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminFirstName">First Name</label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     type="text"
@@ -181,12 +170,12 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                </div>
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminLastName">Last Name</label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     type="text"
@@ -201,16 +190,16 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                </div>
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label">
                     Employee Type
                     {' '}
 
                   </label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <FormControl className="col-12">
                     <InputLabel htmlFor="label">Select</InputLabel>
                     <Select
@@ -234,13 +223,13 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
+                </div>
 
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="password">Password </label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     placeholder="password"
@@ -254,12 +243,12 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
+                </div>
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
                 </div>
-                <div className="col-6 col-mr-auto">
+                  <div className="col-6 col-mr-auto">
                   <TextField
                     className="form-input"
                     type="password"
@@ -274,11 +263,11 @@ class AddUserModal extends React.Component {
                   ) : console.log('it was false')
                   }
                 </div>
-              </div>
-              <br />
-              <div className="form-group ">
-                <div className="col-12" />
-                <Button
+                </div>
+                <br />
+                <div className="form-group ">
+                  <div className="col-12" />
+                  <Button
                   className="btn btn-primary col-12 col-mr-auto"
                   onClick={this.handleSubmit}
                   type="submit"
@@ -286,9 +275,9 @@ class AddUserModal extends React.Component {
                   Add User
 
                 </Button>
-              </div>
-            </form>
-          </div>
+                </div>
+              </form>
+            </div>
           </Modal>
         </div>
       );

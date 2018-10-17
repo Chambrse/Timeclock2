@@ -8,6 +8,8 @@ import profile from '../blank-profile-picture.png';
 
 
 const User = ({
+  clockInData,
+  clockOutData,
   status,
   loggedIn,
   username,
@@ -23,16 +25,16 @@ const User = ({
   }
 
   return (
-      <div>
+    <div>
         <h2>
             Welcome,
           {' '}
           {username}
             !
         </h2>
-       
 
-          <Grid container spacing={40} justify="space-evenly">
+
+        <Grid container spacing={40} justify="space-evenly">
             <Grid item xs={12} md={3}>
               <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
             </Grid>
