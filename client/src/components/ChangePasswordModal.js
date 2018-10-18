@@ -44,7 +44,13 @@ class ChangePasswordModal extends Component {
     if (newPassword1 === newPassword2) {
       console.log(this.state);
       axios.post(`changePassword/${id}`, this.state).then((response) => {
-        console.log('response', response);
+        console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRresponse', response);
+        if (response.status === 400) {
+          alert(response.data.errors);
+        }
+      }).catch((error) => {
+        // handle error
+        alert(error);
       });
     } else {
       alert('passwords do not match');
@@ -94,7 +100,7 @@ class ChangePasswordModal extends Component {
         </Modal>
       </div>
     );
-  }
+  }// end render() {
 } // end class ChangePasswordModal extends Component {
 
 export default ChangePasswordModal;
