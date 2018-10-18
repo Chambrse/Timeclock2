@@ -5,6 +5,7 @@ import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
+import profile from '../blank-profile-picture.png';
 
 const pstyle = {
   color: 'red',
@@ -105,7 +106,11 @@ class AddUserModal extends React.Component {
     const { open } = this.state;
     return (
       <div>
-        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+        <img id="PIC"  img src={profile} width="200" alt="profile"  
+        // />
+        /* <Button className="btn btn-success"  */
+        onClick={this.onOpenModal}/>
+        {/* Add Employee</Button> */}
         <Modal open={open} onClose={this.onCloseModal} center>
           <div className="SignupForm">
             <h4>Add New Employee</h4>

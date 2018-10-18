@@ -5,6 +5,12 @@ import PropTypes from 'prop-types';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
+import ChangePhotoModal from '../components/ChangePhotoModal';
+
+
+const handleClick = () =>{
+<ChangePhotoModal/>
+};
 
 
 const User = ({
@@ -18,16 +24,18 @@ const User = ({
   adminLastName,
   employeeType,
 }) => {
+  
   if (!loggedIn) {
     return <Redirect to={{ pathname: '/login' }} />;
   }
 
   return (
     <div>
+      
       <h2>
             Welcome,
         {' '}
-        {username}
+        {adminFirstName + ' ' + adminLastName}
             !
       </h2>
 
@@ -36,7 +44,18 @@ const User = ({
           <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
         </Grid>
         <Grid item xs={12} md={3}>
-          <img id="PIC" img src={profile} width="200" alt="profile" />
+        <ChangePhotoModal/>
+       {/* <img id="PIC"  img src={profile} width="200" alt="profile"  /> */}
+         {/* <Link
+  to={{
+    id:"PIC" , src:{profile} ,width:"200", alt:"profile",
+    // pathname: "/photo",
+    state: { modal: true },
+  }}
+  className="link"
+>
+  View Photo
+</Link> */}
           <h6>{companyName}</h6>
           <h6>{employeeType}</h6>
           <h4>

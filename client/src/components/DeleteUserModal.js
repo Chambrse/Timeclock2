@@ -47,40 +47,6 @@ class DeleteUserModal extends React.Component {
         console.log('Delete Route needs to be created!!');
         console.log(response);
 
-        // if (response.data.errors) {
-        //   let newErrorsObj = {
-        //     companyNameErrors: [],
-        //     usernameErrors: [],
-        //     emailErrors: [],
-        //     adminFirstNameErrors: [],
-        //     adminLastNameErrors: [],
-        //     cityErrors: [],
-        //     countryErrors: [],
-        //     postalCodeErrors: [],
-        //     brandErrors: [],
-        //     passwordErrors: [],
-        //     passwordMatchErrors: [],
-        //   };
-
-        //   for (let key in response.data) {
-        //     console.log([key]);
-        //     if ([key] != 'errors') {
-        //       response.data[key].forEach((element) => {
-        //         newErrorsObj[key].push(element.msg);
-        //       });
-        //     }
-        //   }
-        //   this.setState(newErrorsObj);
-        // } else {
-        //   // this.props.updateUser({
-        //   //   loggedIn: true,
-        //   //   username: response.data.username,
-        //   // });
-
-        //   this.setState({
-        //     redirectTo: '/',
-        //   });
-        // }
       }).catch((error) => {
         console.log('signup error: ');
         console.log(error);
