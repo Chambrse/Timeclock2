@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 8080;
 // Route requires
 const user = require('./routes/user');
 const addDelete = require('./routes/addDelete');
+const changePassword = require('./routes/changePassword');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -49,9 +50,10 @@ app.use(passport.session()); // calls the deserializeUser
 
 app.use('/user', user);
 app.use('/addDelete', addDelete);
+app.use('/changePassword', changePassword);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // Starting Server
