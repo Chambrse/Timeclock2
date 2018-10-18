@@ -20,7 +20,6 @@ class Navbar extends Component {
   logout(event) {
     event.preventDefault();
     console.log('logging out');
-    this.props.history.push('/');
     axios.post('/user/logout').then((response) => {
       console.log(response.data);
       if (response.status === 200) {
@@ -28,6 +27,7 @@ class Navbar extends Component {
           loggedIn: false,
           username: null,
         });
+        this.props.history.push('/');
       }
     }).catch((error) => {
       console.log('Logout error');
@@ -43,14 +43,14 @@ class Navbar extends Component {
 
       <AppBar position="static">
         <Toolbar>
-          
-          
+
+
           <Typography variant="h6" color="inherit">
             TimeClock 9000
           </Typography>
           {loggedIn ? (
             <section className="navbar-section">
-              <Button href="/logout" onClick={this.logout}>
+              <Button onClick={this.logout}>
                 <span>logout</span>
 
               </Button>
@@ -58,16 +58,22 @@ class Navbar extends Component {
             </section>
           ) : (
             <section className="navbar-section">
-              <Button href="/">
-                home
-              </Button>
-              <Button href="/login">
-                login
-              </Button>
-              <Button href="/signup">
-                sign up
-              </Button>
-            </section>
+                <Link to="/">
+                  <Button>
+                    home
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button href="/login">
+                    login
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button href="/signup">
+                  sign up
+                </Button>
+                </Link>
+              </section>
           )}
         </Toolbar>
       </AppBar>

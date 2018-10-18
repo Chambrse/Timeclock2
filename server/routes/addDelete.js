@@ -68,8 +68,9 @@ router.post('/', (req, res) => {
     });
   } else {
     console.log('user signup');
+    console.log(req.body);
 
-    const { username } = req.body;
+    const { adminUsername, username } = req.body;
     // ADD VALIDATION
     User.find().map(i => i.item);
 
@@ -81,17 +82,20 @@ router.post('/', (req, res) => {
           error: `Sorry, already a user with the username: ${username}`,
         });
       } else {
-        User.findOne({ username: req.body.adminUsername }, (err, user) => {
+        console.log(adminUsername);
+        User.findOne({ username: adminUsername }, (err, user1) => {
           if (err) return res.json(err);
+
+          console.log('user after finding admin', user1);
 
           const userObj = req.body;
 
-          userObj.companyName = user.companyName;
-          userObj.manager = user.username;
-          userObj.city = user.city;
-          userObj.country = user.country;
-          userObj.postalCode = user.postalCode;
-          userObj.brand = user.brand;
+          userObj.companyName = user1.companyName;
+          userObj.manager = user1.username;
+          userObj.city = user1.city;
+          userObj.country = user1.country;
+          userObj.postalCode = user1.postalCode;
+          userObj.brand = user1.brand;
 
           const newUser = new User(userObj);
           newUser.save((err, savedUser) => {

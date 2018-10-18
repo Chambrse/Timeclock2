@@ -5,6 +5,7 @@ import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 
 const pstyle = {
   color: 'red',
@@ -104,18 +105,18 @@ class AddUserModal extends React.Component {
     render() {
       const { open } = this.state;
       return (
-      <div>
-        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="SignupForm">
-            <h4>Add New Employee</h4>
-            <form className="form-horizontal">
-              <div className="form-group">
+        <div>
+          <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <div className="SignupForm">
+              <h4>Add New Employee</h4>
+              <form className="form-horizontal">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="username">Username</label>
                 </div>
                 <div className="col-6 col-mr-auto">
-                    <TextField
+                  <TextField
                     className="form-input"
                     type="text"
                     id="username"
@@ -124,19 +125,19 @@ class AddUserModal extends React.Component {
                     value={this.state.username}
                     onChange={this.handleChange}
                   />
-                    {this.state.usernameErrors.length > 0 ? (
+                  {this.state.usernameErrors.length > 0 ? (
                     this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
+                </div>
 
               </div>
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="email">Email</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="email">Email</label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <TextField
                     className="form-input"
                     type="text"
                     id="email"
@@ -145,18 +146,18 @@ class AddUserModal extends React.Component {
                     value={this.state.email}
                     onChange={this.handleChange}
                   />
-                    {this.state.emailErrors.length > 0 ? (
+                  {this.state.emailErrors.length > 0 ? (
                     this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="adminFirstName">First Name</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
+              </div>
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="adminFirstName">First Name</label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <TextField
                     className="form-input"
                     type="text"
                     id="adminFirstName"
@@ -165,18 +166,18 @@ class AddUserModal extends React.Component {
                     value={this.state.adminFirstName}
                     onChange={this.handleChange}
                   />
-                    {this.state.adminFirstNameErrors.length > 0 ? (
+                  {this.state.adminFirstNameErrors.length > 0 ? (
                     this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="adminLastName">Last Name</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
+              </div>
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="adminLastName">Last Name</label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <TextField
                     className="form-input"
                     type="text"
                     id="adminLastName"
@@ -185,22 +186,22 @@ class AddUserModal extends React.Component {
                     value={this.state.adminLastName}
                     onChange={this.handleChange}
                   />
-                    {this.state.adminLastNameErrors.length > 0 ? (
+                  {this.state.adminLastNameErrors.length > 0 ? (
                     this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label">
+              </div>
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label">
                     Employee Type
                     {' '}
 
                   </label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <FormControl className="col-12">
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <FormControl className="col-12">
                     <InputLabel htmlFor="label">Select</InputLabel>
                     <Select
                       name="employeeType"
@@ -218,19 +219,19 @@ class AddUserModal extends React.Component {
                       <MenuItem value="admin">admin</MenuItem>
                     </Select>
                   </FormControl>
-                    {this.state.employeeTypeErrors.length > 0 ? (
+                  {this.state.employeeTypeErrors.length > 0 ? (
                     this.state.employeeTypeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
+              </div>
 
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="password">Password </label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="password">Password </label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <TextField
                     className="form-input"
                     placeholder="password"
                     type="password"
@@ -238,18 +239,18 @@ class AddUserModal extends React.Component {
                     value={this.state.password}
                     onChange={this.handleChange}
                   />
-                    {this.state.passwordErrors.length > 0 ? (
+                  {this.state.passwordErrors.length > 0 ? (
                     this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
-              <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
+              </div>
+                <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
+                </div>
+                <div className="col-6 col-mr-auto">
+                  <TextField
                     className="form-input"
                     type="password"
                     id="passwordMatch"
@@ -258,30 +259,34 @@ class AddUserModal extends React.Component {
                     value={this.state.passwordMatch}
                     onChange={this.handleChange}
                   />
-                    {this.state.passwordMatchErrors.length > 0 ? (
+                  {this.state.passwordMatchErrors.length > 0 ? (
                     this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                  </div>
                 </div>
-              <br />
-              <div className="form-group ">
-                  <div className="col-12" />
-                  <Button
-                    className="btn btn-primary col-12 col-mr-auto"
-                    onClick={this.handleSubmit}
-                    type="submit"
-                  >
+              </div>
+                <br />
+                <div className="form-group ">
+                <div className="col-12" />
+                <Button
+                  className="btn btn-primary col-12 col-mr-auto"
+                  onClick={this.handleSubmit}
+                  type="submit"
+                >
                   Add User
 
-                  </Button>
-                </div>
-            </form>
-          </div>
-        </Modal>
-      </div>
+                </Button>
+              </div>
+              </form>
+            </div>
+          </Modal>
+        </div>
       );
     }
 }
+
+AddUserModal.propTypes = {
+  adminUsername: PropTypes.string.isRequired,
+};
 
 export default AddUserModal;
