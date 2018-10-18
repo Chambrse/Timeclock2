@@ -51,7 +51,7 @@ app.use('/user', user);
 app.use('/addDelete', addDelete);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // Starting Server

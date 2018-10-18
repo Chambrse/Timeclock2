@@ -92,7 +92,7 @@ class Signup extends Component {
           updateUser({
             loggedIn: true,
             username: response.data.username,
-            id: response.data.id,
+            id: response.data._id,
             companyName: response.data.companyName,
             employeeType: response.data.employeeType,
             adminFirstName: response.data.adminFirstName,

@@ -62,7 +62,7 @@ const User = ({
             ? (
               <Grid item xs={12} md={4}>
                 <Admin
-                  adminFirstName={adminFirstName}
+                  adminUsername={username}
                 />
               </Grid>
             ) : (
@@ -87,11 +87,11 @@ const User = ({
                 ) : (
                   <div>
                       You are clocked out.
-                      <br />
-                      <Button className="btn btn-success" onClick={clockIn}>
+                    <br />
+                    <Button className="btn btn-success" onClick={clockIn}>
                         Clock In
                       </Button>
-                    </div>
+                  </div>
                 )}
 
               </p>
