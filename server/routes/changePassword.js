@@ -17,6 +17,7 @@ router.post('/:id', (req, res) => {
         console.log('Error finding ID in DB: ', err);
       } else if (user) {
         console.log('user', user);
+
         // update the password in the db
         // const newUser = new User(user);
       } else {

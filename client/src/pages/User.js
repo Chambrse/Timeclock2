@@ -1,45 +1,20 @@
 import React from 'react';
-import { Button, /* Icon, */ Grid } from '@material-ui/core';
+import { Button, /* Icon, */ Grid, Paper } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 
-
-const styles1 = {
-  color: 'red',
-  textAlign: 'center',
-  backgroundColor: 'black',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-const styles2 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Red',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-const styles3 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Green',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-
-// class User extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       // redirectTo: null,
-//     };
-//   }
-
-//   render() {
 const User = ({
+  clockInData,
+  clockOutData,
   status,
   loggedIn,
   username,
@@ -51,80 +26,102 @@ const User = ({
   employeeType,
   id,
 }) => {
+  // let allData = [clockInData, clockOutData].sort
+
   if (!loggedIn) {
     return <Redirect to={{ pathname: '/login' }} />;
   }
-
-  console.log('++++++++++++++++++++++++++id', id);
   return (
     <div>
-      <div>
-        <h2>
-            Welcome,
-          {' '}
-          {username}
-            !
-        </h2>
-        <div className="row">
+      <h2>
+        Welcome,
+        {' '}
+        {username}
+        !
+      </h2>
 
-          <Grid container spacing={40} justify="space-evenly">
-            <Grid item xs={12} md={3}>
-              <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <img id="PIC" img src={profile} width="200" alt="profile" />
-              <h6>{companyName}</h6>
-              <h6>CEO / CO-FOUNDER</h6>
-              <h4>
-                {adminFirstName}
-                {''}
-                {adminLastName}
-              </h4>
-            </Grid>
-          </Grid>
 
-        </div>
+      <Grid container spacing={40} justify="space-evenly">
+        <Grid item xs={12} md={3}>
+          <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <img id="PIC" img src={profile} width="200" alt="profile" />
+          <h6>{companyName}</h6>
+          <h6>CEO / CO-FOUNDER</h6>
+          <h4>
+            {adminFirstName}
+            {''}
+            {adminLastName}
+          </h4>
+        </Grid>
+      </Grid>
 
-        <div className="row" style={styles1}>
-          <Grid container spacing={40} justify="space-evenly">
-            {employeeType === 'admin'
-              ? (
-                <Grid item xs={12} md={4}>
-                  <Admin />
-                </Grid>
-              ) : (
-                null
-              )
+
+      <div className="row">
+        <Grid container spacing={40} justify="space-evenly">
+          {employeeType === 'admin'
+            ? (
+              <Grid item xs={12} md={4}>
+                <Admin
+                  adminFirstName={adminFirstName}
+                />
+              </Grid>
+            ) : (
+              null
+            )
           }
-            <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={10}>
+              <br />
               <h1>Clock IN/OUT</h1>
               {status}
               <p id="ClockIN/OUT">
                 {status ? (
                   <div>
-                                        You are clocked in.
+                    You are clocked in.
                     <br />
-                    <Button onClick={clockOut} style={styles2}>
-                                    Clock Out
+                    <Button className="btn btn-primary" onClick={clockOut}>
+                      Clock Out
 
                     </Button>
                   </div>
                 ) : (
                   <div>
-                                    You are clocked out.
+                      You are clocked out.
                     <br />
-                    <Button onClick={clockIn} style={styles3}>
-                                    Clock In
+                    <Button className="btn btn-success" onClick={clockIn}>
+                        Clock In
                     </Button>
                   </div>
                 )}
 
               </p>
               <ChangePasswordModal id={id} />
-            </Grid>
+            </Paper>
           </Grid>
-        </div>
+        </Grid>
       </div>
+      {/*       <div className="row">
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Event</TableCell>
+              <TableCell>Time</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map(n => (
+              <TableRow key={n.id}>
+                <TableCell component="th" scope="row">
+                  {n.name}
+                </TableCell>
+                <TableCell>{n.timeIn}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div> */}
     </div>
   );
 };

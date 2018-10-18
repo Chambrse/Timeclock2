@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const expressValidator = require('express-validator');
+const path = require('path');
 const dbConnection = require('./database');
 
 const passport = require('./passport');
@@ -52,7 +53,7 @@ app.use('/addDelete', addDelete);
 app.use('/changePassword', changePassword);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // Starting Server

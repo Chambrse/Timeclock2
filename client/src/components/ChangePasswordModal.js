@@ -10,14 +10,6 @@ import {
   '@material-ui/core';
 import Modal from 'react-responsive-modal';
 
-const styles1 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Green',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-
 class ChangePasswordModal extends Component {
   constructor({ id }) {
     super();
@@ -64,7 +56,7 @@ class ChangePasswordModal extends Component {
     const { open } = this.state;
     return (
       <div>
-        <Button style={styles1} onClick={this.onOpenModal}>
+        <Button onClick={this.onOpenModal}>
           Change password
         </Button>
         <Modal open={open} onClose={this.onCloseModal} center>

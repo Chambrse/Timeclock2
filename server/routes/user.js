@@ -72,6 +72,7 @@ router.post('/', (req, res) => {
           break;
         case 'passwordMatch':
           passwordMatchErrors.push(element);
+          break;
         default:
       }
     });
@@ -93,7 +94,7 @@ router.post('/', (req, res) => {
   } else {
     console.log('user signup');
 
-    const { username } = req.body;
+    const { username, password } = req.body;
     // ADD VALIDATION
     User.findOne({ username }, (err, user) => {
       if (err) {
@@ -139,11 +140,15 @@ router.post('/login',
       _id: req.user._id,
       companyName: req.user.companyName,
       employeeType: req.user.employeeType,
+      adminFirstName: req.user.adminFirstName,
+      adminLastName: req.user.adminLastName,
+      clockIn: req.user.clockIn,
+      clockOut: req.user.clockOut,
     };
     res.send(userInfo);
   });
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   console.log('===== user!!======');
   console.log(req.user);
   if (req.user) {

@@ -12,10 +12,13 @@ import Admin from './pages/Admin';
 import Map from './components/map';
 import BottomNav from './components/bottomNav';
 
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      clockInData: [],
+      clockOutData: [],
       loggedIn: false,
       username: null,
       companyName: null,
@@ -26,6 +29,8 @@ class App extends Component {
         lat: 0,
         lng: 0,
       },
+      adminFirstName: null,
+      adminLastName: null,
     };
 
     this.getUser = this.getUser.bind(this);
@@ -36,15 +41,18 @@ class App extends Component {
     this.getGeoLocation = this.getGeoLocation.bind(this);
   }
 
+  // Upon loading the page, see if there is a user stored in the session
+  // and update the state variables appropriately
+
   componentWillMount() {
     this.getGeoLocation();
   }
 
-  // Upon loading the page, see if there is a user stored in the session
-  // and update the state variables appropriately
   componentDidMount() {
     this.getUser();
   }
+  // Change the user data
+
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
@@ -64,6 +72,7 @@ class App extends Component {
     }
   });
 
+
   // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
@@ -81,6 +90,10 @@ class App extends Component {
           id: response.data.user._id,
           companyName: response.data.user.companyName,
           employeeType: response.data.user.employeeType,
+          adminFirstName: response.data.user.adminFirstName,
+          adminLastName: response.data.user.adminLastName,
+          clockInData: response.data.user.clockIn,
+          clockOutData: response.data.user.clockOut,
         });
       } else {
         console.log('Get user: no user');
@@ -93,7 +106,6 @@ class App extends Component {
     });
   }
 
-  // Change the user data
   updateUser(userObject) {
     this.setState(userObject);
   }
@@ -101,29 +113,29 @@ class App extends Component {
   // Clock in; gets current geolocation before making the post request.
   clockIn() {
     const { id, currentLocation } = this.state;
-    this.getGeoLocation().then(() => {
-      axios
-        .post(`/user/clockIn/${id}`, { coords: currentLocation })
-        .then(() => {
+    this.getGeoLocation()
+      .then(() => {
+        axios.post(`/user/clockIn/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: true,
+            clockInData: response.data.clockIn,
           });
         });
-    });
+      });
   }
 
   // Clock out; gets current geolocation before making the post request.
   clockOut() {
     const { id, currentLocation } = this.state;
-    this.getGeoLocation().then(() => {
-      axios
-        .post(`/user/clockOut/${id}`, { coords: currentLocation })
-        .then(() => {
+    this.getGeoLocation()
+      .then(() => {
+        axios.post(`/user/clockOut/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: false,
+            clockOutData: response.data.clockOut,
           });
         });
-    });
+      });
   }
 
   render() {
@@ -135,6 +147,7 @@ class App extends Component {
       status,
       currentLocation,
       id,
+      clockInData, clockOutData, adminFirstName, adminLastName,
     } = this.state;
     return (
       <div className="App">
@@ -161,6 +174,16 @@ class App extends Component {
               clockOut={this.clockOut}
               status={status}
               id={id}
+              adminFirstName={adminFirstName}
+              adminLastName={adminLastName}
+            />
+          )}
+        />
+        <Route
+          path="/admin"
+          render={() => (
+            <Admin
+              User={this.username}
             />
           )}
         />
@@ -176,7 +199,7 @@ class App extends Component {
           path="/map"
           render={() => (
             <Map
-              currentLocation={currentLocation}
+              currentLocation={this.currentLocation}
               getGeoLocation={this.getGeoLocation}
             />
           )}
