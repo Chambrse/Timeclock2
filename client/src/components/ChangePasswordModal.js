@@ -50,7 +50,8 @@ class ChangePasswordModal extends Component {
         }
       }).catch((error) => {
         // handle error
-        alert(error);
+        console.log(error);
+        alert('Error: Unable to change the password. Please try again.');
       });
     } else {
       alert('passwords do not match');
