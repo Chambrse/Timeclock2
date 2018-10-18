@@ -17,11 +17,29 @@ router.post('/:id', (req, res) => {
         console.log('Error finding ID in DB: ', err);
       } else if (user) {
         console.log('user', user);
+        const userTemp = user;
+        userTemp.password = newPassword1;
 
+        console.log('*********************************************', user);
         // update the password in the db
-        // const newUser = new User(user);
+        const newUser = new User(user);
+        console.log(' --------------------------------- newUser', newUser);
+        newUser.save((err, savedUser) => {
+          if (err) return res.json(err);
+
+          console.log('test zzzzzzzzzzzzzzzzzzzzz savedUser', savedUser);
+          User.findOneAndUpdate({ _id: id }, { password: newUser.password }, (err, match) => {
+            if (err) {
+              console.log('ERRRRRROR: cannot find ID', id);
+            } else if (match) {
+              console.log(' found match', match);
+            } else {
+              console.log('something happened');
+            }
+          });
+        });
       } else {
-        console.log(' *************************************** ');
+        console.log(' ******************* FOUND NONE BY ID ******************** ');
       }
     });
   }
