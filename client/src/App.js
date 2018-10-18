@@ -134,6 +134,7 @@ class App extends Component {
       employeeType,
       status,
       currentLocation,
+      id,
     } = this.state;
     return (
       <div className="App">
@@ -159,6 +160,7 @@ class App extends Component {
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={status}
+              id={id}
             />
           )}
         />

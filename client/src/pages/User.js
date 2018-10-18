@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
+import ChangePasswordModal from '../components/ChangePasswordModal';
 
 
 const styles1 = {
@@ -48,11 +49,13 @@ const User = ({
   adminFirstName,
   adminLastName,
   employeeType,
+  id,
 }) => {
   if (!loggedIn) {
     return <Redirect to={{ pathname: '/login' }} />;
   }
 
+  console.log('++++++++++++++++++++++++++id', id);
   return (
     <div>
       <div>
@@ -117,6 +120,7 @@ const User = ({
                 )}
 
               </p>
+              <ChangePasswordModal id={id} />
             </Grid>
           </Grid>
         </div>
