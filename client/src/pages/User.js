@@ -64,7 +64,7 @@ const User = ({
             ? (
               <Grid item xs={12} md={4}>
                 <Admin
-                  adminFirstName={adminFirstName}
+                  adminUsername={username}
                 />
               </Grid>
             ) : (
