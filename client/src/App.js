@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Route /* , Link */} from 'react-router-dom';
+// components
+// import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
@@ -55,22 +57,20 @@ class App extends Component {
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.setState({
-            currentLocation: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-          });
-          resolve();
-        },
-      );
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+        });
+        resolve();
+      });
     } else {
-      error => console.log(error);
+      // error => console.log(error);
       reject();
     }
-  })
+  });
 
 
   // Get the user data from the database, if there is any.
@@ -79,7 +79,10 @@ class App extends Component {
       console.log('Get user response: ');
       console.log(response.data);
       if (response.data.user) {
-        console.log('Get User: There is a user saved in the server session: ', response.data.user);
+        console.log(
+          'Get User: There is a user saved in the server session: ',
+          response.data.user,
+        );
 
         this.setState({
           loggedIn: true,
@@ -135,34 +138,30 @@ class App extends Component {
       });
   }
 
-
   render() {
     const {
-      clockInData, clockOutData, loggedIn, username, companyName, employeeType, status, adminFirstName, adminLastName,
+      loggedIn,
+      username,
+      companyName,
+      employeeType,
+      status,
+      currentLocation,
+      id,
+      clockInData, clockOutData, adminFirstName, adminLastName,
     } = this.state;
     return (
       <div className="App">
 
         <Navbar updateUser={this.updateUser} loggedIn={loggedIn} />
         {/* greet user if logged in: */}
-        {loggedIn
+        {
+          loggedIn
           // &&
           //   <p>Join the party, {this.state.username}!</p>
         }
         {/* Routes to different components */}
-        <Route
-          exact
-          path="/"
-          component={Home}
-        />
-        <Route
-          path="/login"
-          render={() => (
-            <LoginForm
-              updateUser={this.updateUser}
-            />
-          )}
-        />
+        <Route exact path="/" component={Home} />
+        <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
         <Route
           path="/user"
           render={() => (
@@ -174,6 +173,7 @@ class App extends Component {
               clockIn={this.clockIn}
               clockOut={this.clockOut}
               status={status}
+              id={id}
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
             />
@@ -187,13 +187,11 @@ class App extends Component {
             />
           )}
         />
+        <Route path="/admin" render={() => <Admin User={this.username} />} />
         <Route
           path="/signup"
           render={() => (
-            <Signup
-              updateUser={this.updateUser}
-              signup={this.signup}
-            />
+            <Signup updateUser={this.updateUser} signup={this.signup} />
           )}
         />
 

@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
+import ChangePasswordModal from '../components/ChangePasswordModal';
 
 const User = ({
   clockInData,
@@ -23,6 +24,7 @@ const User = ({
   adminFirstName,
   adminLastName,
   employeeType,
+  id,
 }) => {
   // let allData = [clockInData, clockOutData].sort
 
@@ -87,15 +89,15 @@ const User = ({
                 ) : (
                   <div>
                       You are clocked out.
-                      <br />
-                      <Button className="btn btn-success" onClick={clockIn}>
+                    <br />
+                    <Button className="btn btn-success" onClick={clockIn}>
                         Clock In
-                      </Button>
-                    </div>
+                    </Button>
+                  </div>
                 )}
 
               </p>
-              <br />
+              <ChangePasswordModal id={id} />
             </Paper>
           </Grid>
         </Grid>
