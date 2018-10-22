@@ -271,7 +271,6 @@ class Signup extends Component {
           <Grid item xs={12} md={4}>
 
             First Name
- 
             <TextField
               className="form-input"
               type="text"
