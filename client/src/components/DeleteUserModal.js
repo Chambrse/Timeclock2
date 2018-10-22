@@ -24,8 +24,6 @@ class DeleteUserModal extends React.Component {
   };
 
   handleSubmit(event) {
-    // console.log('sign-up handleSubmit, username: ');
-    console.log(this.response);
     event.preventDefault();
 
     // request to server to delete a new username/password
