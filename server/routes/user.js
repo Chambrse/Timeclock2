@@ -199,4 +199,9 @@ router.post('/clockOut/:id', (req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
+router.get('/getEmpData', (req, res) => {
+  User.find({ manager: req.user.username }).then(results => res.json(results));
+});
+
+
 module.exports = router;

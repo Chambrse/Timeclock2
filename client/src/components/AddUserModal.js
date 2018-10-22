@@ -129,74 +129,74 @@ class AddUserModal extends React.Component {
                     this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
-                </div>
+                  </div>
 
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="email">Email</label>
                 </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="email"
-                    name="email"
-                    placeholder="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.emailErrors.length > 0 ? (
-                    this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
+                    <label className="form-label" htmlFor="email">Email</label>
+                  </div>
+                  <div className="col-6 col-mr-auto">
+                    <TextField
+                      className="form-input"
+                      type="text"
+                      id="email"
+                      name="email"
+                      placeholder="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                    {this.state.emailErrors.length > 0 ? (
+                      this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    ) : null
                   }
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="adminFirstName">First Name</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="adminFirstName"
-                    name="adminFirstName"
-                    placeholder="first name"
-                    value={this.state.adminFirstName}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.adminFirstNameErrors.length > 0 ? (
-                    this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
+                    <label className="form-label" htmlFor="adminFirstName">First Name</label>
+                  </div>
+                  <div className="col-6 col-mr-auto">
+                    <TextField
+                      className="form-input"
+                      type="text"
+                      id="adminFirstName"
+                      name="adminFirstName"
+                      placeholder="first name"
+                      value={this.state.adminFirstName}
+                      onChange={this.handleChange}
+                    />
+                    {this.state.adminFirstNameErrors.length > 0 ? (
+                      this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    ) : null
                   }
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="adminLastName">Last Name</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="adminLastName"
-                    name="adminLastName"
-                    placeholder="last name"
-                    value={this.state.adminLastName}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.adminLastNameErrors.length > 0 ? (
-                    this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
+                    <label className="form-label" htmlFor="adminLastName">Last Name</label>
+                  </div>
+                  <div className="col-6 col-mr-auto">
+                    <TextField
+                      className="form-input"
+                      type="text"
+                      id="adminLastName"
+                      name="adminLastName"
+                      placeholder="last name"
+                      value={this.state.adminLastName}
+                      onChange={this.handleChange}
+                    />
+                    {this.state.adminLastNameErrors.length > 0 ? (
+                      this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    ) : null
                   }
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label">
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
+                    <label className="form-label">
                     Employee Type
-                    {' '}
+                      {' '}
 
                   </label>
                 </div>
@@ -224,8 +224,9 @@ class AddUserModal extends React.Component {
                     this.state.employeeTypeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
+                  </div>
                 </div>
-              </div>
+              {/* </div> */}
               <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label">
@@ -264,46 +265,46 @@ class AddUserModal extends React.Component {
                     this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
+                  </div>
                 </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="password"
-                    id="passwordMatch"
-                    name="passwordMatch"
-                    placeholder="passwordMatch"
-                    value={this.state.passwordMatch}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.passwordMatchErrors.length > 0 ? (
-                    this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
+                <div className="form-group">
+                  <div className="col-6 col-ml-auto">
+                    <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
+                  </div>
+                  <div className="col-6 col-mr-auto">
+                    <TextField
+                      className="form-input"
+                      type="password"
+                      id="passwordMatch"
+                      name="passwordMatch"
+                      placeholder="passwordMatch"
+                      value={this.state.passwordMatch}
+                      onChange={this.handleChange}
+                    />
+                    {this.state.passwordMatchErrors.length > 0 ? (
+                      this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    ) : null
                   }
+                  </div>
                 </div>
-              </div>
-              <br />
-              <div className="form-group ">
-                <div className="col-12" />
-                <Button
-                  className="btn btn-primary col-12 col-mr-auto"
-                  onClick={this.handleSubmit}
-                  type="submit"
-                >
+                <br />
+                <div className="form-group ">
+                  <div className="col-12" />
+                  <Button
+                    className="btn btn-primary col-12 col-mr-auto"
+                    onClick={this.handleSubmit}
+                    type="submit"
+                  >
                   Add User
 
-                </Button>
-              </div>
-            </form>
-          </div>
-        </Modal>
-      </div>
-    );
-  }
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal>
+        </div>
+      );
+    }
 }
 
 AddUserModal.propTypes = {
