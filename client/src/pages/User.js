@@ -19,8 +19,7 @@ const handleClick = () =>{
 
 
 const User = ({
-  clockInData,
-  clockOutData,
+  timeClockData,
   status,
   loggedIn,
   username,
@@ -32,7 +31,11 @@ const User = ({
   employeeType,
   id,
 }) => {
-  // let allData = [clockInData, clockOutData].sort
+  console.log(timeClockData);
+
+  timeClockData.forEach((element, index, theArray) => {
+    theArray[index].time = new Date(element.time).toLocaleString();
+  });
 
   if (!loggedIn) {
     return <Redirect to={{ pathname: '/login' }} />;
@@ -110,7 +113,7 @@ const User = ({
                     <br />
                     <Button className="btn btn-success" onClick={clockIn}>
                         Clock In
-                    </Button>
+                      </Button>
                   </div>
                 )}
 
@@ -120,8 +123,8 @@ const User = ({
           </Grid>
         </Grid>
       </div>
-      {/*       <div className="row">
-        <Table className={classes.table}>
+      <div className="row">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Event</TableCell>
@@ -129,17 +132,17 @@ const User = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(n => (
-              <TableRow key={n.id}>
+            {timeClockData.map(n => (
+              <TableRow>
                 <TableCell component="th" scope="row">
-                  {n.name}
+                  {n.time}
                 </TableCell>
-                <TableCell>{n.timeIn}</TableCell>
+                <TableCell>{n.time}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </div> */}
+      </div>
     </div>
   );
 };
@@ -154,6 +157,8 @@ User.propTypes = {
   adminFirstName: PropTypes.string.isRequired,
   adminLastName: PropTypes.string.isRequired,
   employeeType: PropTypes.string.isRequired,
+  clockInData: PropTypes.arrayOf.isRequired,
+  clockOutData: PropTypes.arrayOf.isRequired,
 };
 
 export default User;

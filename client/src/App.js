@@ -17,8 +17,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      clockInData: [],
-      clockOutData: [],
+      timeClockData: [],
       loggedIn: false,
       username: null,
       companyName: null,
@@ -92,8 +91,7 @@ class App extends Component {
           employeeType: response.data.user.employeeType,
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
-          clockInData: response.data.user.clockIn,
-          clockOutData: response.data.user.clockOut,
+          timeClockData: response.data.user.timeClockData,
         });
       } else {
         console.log('Get user: no user');
@@ -118,7 +116,7 @@ class App extends Component {
         axios.post(`/user/clockIn/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: true,
-            clockInData: response.data.clockIn,
+            timeClockData: response.data.timeClockData,
           });
         });
       });
@@ -132,7 +130,7 @@ class App extends Component {
         axios.post(`/user/clockOut/${id}`, { coords: currentLocation }).then((response) => {
           this.setState({
             status: false,
-            clockOutData: response.data.clockOut,
+            timeClockData: response.data.timeClockData,
           });
         });
       });
@@ -145,6 +143,7 @@ class App extends Component {
       companyName,
       employeeType,
       status,
+      timeClockData,
       currentLocation,
       id,
       clockInData, clockOutData, adminFirstName, adminLastName,
@@ -176,6 +175,7 @@ class App extends Component {
               id={id}
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
+              timeClockData={timeClockData}
             />
           )}
         />
