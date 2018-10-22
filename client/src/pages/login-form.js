@@ -45,8 +45,7 @@ class LoginForm extends Component {
             employeeType: response.data.employeeType,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
-            clockInData: response.data.clockIn,
-            clockOutData: response.data.clockOut,
+            timeClockData: response.data.timeClockData,
           });
           // update the state to redirect to home
           this.setState({
