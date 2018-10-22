@@ -29,7 +29,6 @@ class ChangePasswordModal extends Component {
   onCloseModal = () => this.setState({ open: false });
 
   handleChange(event) {
-    // console.log('[event.target.id]: event.target.value,', [event.target.id], event.target.value);
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -39,10 +38,8 @@ class ChangePasswordModal extends Component {
     const { id, newPassword1, newPassword2 } = this.state;
     event.preventDefault();
     console.log("Change password's handleSubmit, event: ", event);
-    console.log(this.state);
 
     if (newPassword1 === newPassword2) {
-      console.log(this.state);
       axios.post(`changePassword/${id}`, this.state).then((response) => {
         console.log('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRresponse', response);
         if (response.status === 400) {

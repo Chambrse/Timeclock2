@@ -21,7 +21,6 @@ class Navbar extends Component {
     event.preventDefault();
     console.log('logging out');
     axios.post('/user/logout').then((response) => {
-      console.log(response.data);
       if (response.status === 200) {
         this.props.updateUser({
           loggedIn: false,
@@ -58,22 +57,22 @@ class Navbar extends Component {
             </section>
           ) : (
             <section className="navbar-section">
-                <Link to="/">
+              <Link to="/">
                   <Button>
                     home
                   </Button>
                 </Link>
-                <Link to="/login">
+              <Link to="/login">
                   <Button href="/login">
                     login
                   </Button>
                 </Link>
-                <Link to="/signup">
+              <Link to="/signup">
                   <Button href="/signup">
                   sign up
-                </Button>
+                  </Button>
                 </Link>
-              </section>
+            </section>
           )}
         </Toolbar>
       </AppBar>
