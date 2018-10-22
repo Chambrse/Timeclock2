@@ -39,6 +39,7 @@
     "if-env": "^1.0.4",
     "material-ui": "^0.20.2",
     "material-ui-icons": "^1.0.0-beta.36",
+    "moment": "^2.22.2",
     "mongoose": "^5.0.2",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",

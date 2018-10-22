@@ -97,8 +97,7 @@ class Signup extends Component {
             employeeType: response.data.employeeType,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
-            clockInData: response.data.clockIn,
-            clockOutData: response.data.clockOut,
+            timeClockData: response.data.timeClockData,
           });
 
           this.setState({
