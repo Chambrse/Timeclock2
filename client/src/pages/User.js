@@ -13,7 +13,6 @@ import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 
-<<<<<<< HEAD
 const User = ({
   timeClockData,
   status,
@@ -33,20 +32,12 @@ const User = ({
   timeClockData.forEach((element, index, theArray) => {
     theArray[index].time = new Date(element.time).toLocaleString();
   });
-=======
-class User extends Component {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
->>>>>>> 4778ccecd31a3e6a63fbb15607e45cfd54aaeccc
 
-  componentWillMount() {
-    const { getEmpData } = this.props;
-    getEmpData();
-  }
-<<<<<<< HEAD
+  // componentWillMount() {
+  //   const { getEmpData } = this.props;
+  //   getEmpData();
+  // };
+
   return (
     <div>
       <h2>
@@ -55,8 +46,6 @@ class User extends Component {
         {`${adminFirstName } ${ adminLastName}`}
         !
       </h2>
-=======
->>>>>>> 4778ccecd31a3e6a63fbb15607e45cfd54aaeccc
 
   render() {
     const {
@@ -74,7 +63,6 @@ class User extends Component {
       EmpData,
     } = this.props;
 
-<<<<<<< HEAD
       <Grid container spacing={40} justify="space-evenly">
         <Grid item xs={12} md={3}>
           <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
@@ -90,28 +78,6 @@ class User extends Component {
           <h6><ChangePasswordModal/></h6>
         </Grid>
       </Grid>
-=======
-    console.log(this.props);
-    console.log(EmpData);
-
-    timeClockData.forEach((element, index, theArray) => {
-      theArray[index].time = new Date(element.time).toLocaleString();
-    });
-
-    timeClockData.reverse();
-
-    if (!loggedIn) {
-      return <Redirect to={{ pathname: '/login' }} />;
-    }
-    return (
-      <div>
-        <h2>
-          Welcome,
-          {' '}
-          {username}
-          !
-        </h2>
->>>>>>> 4778ccecd31a3e6a63fbb15607e45cfd54aaeccc
 
 
         <Grid container spacing={40} justify="space-evenly">
