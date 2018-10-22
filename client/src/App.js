@@ -17,6 +17,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      EmpData: {},
       timeClockData: [],
       loggedIn: false,
       username: null,
@@ -38,6 +39,7 @@ class App extends Component {
     this.clockIn = this.clockIn.bind(this);
     this.clockOut = this.clockOut.bind(this);
     this.getGeoLocation = this.getGeoLocation.bind(this);
+    this.getEmpData = this.getEmpData.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -50,8 +52,14 @@ class App extends Component {
   componentDidMount() {
     this.getUser();
   }
-  // Change the user data
 
+  getEmpData() {
+    axios.get('user/getEmpData').then((results) => {
+      this.setState({
+        EmpData: results,
+      });
+    });
+  }
 
   // Used navigator to store the latitude and longitude from the browser. Returns a promise.
   getGeoLocation = () => new Promise((resolve, reject) => {
@@ -66,7 +74,6 @@ class App extends Component {
         resolve();
       });
     } else {
-      // error => console.log(error);
       reject();
     }
   });
@@ -75,14 +82,7 @@ class App extends Component {
   // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
-      console.log('Get user response: ');
-      console.log(response.data);
       if (response.data.user) {
-        console.log(
-          'Get User: There is a user saved in the server session: ',
-          response.data.user,
-        );
-
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
@@ -92,6 +92,7 @@ class App extends Component {
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
           timeClockData: response.data.user.timeClockData,
+          EmpData: response.data.user.EmpData,
         });
       } else {
         console.log('Get user: no user');
@@ -145,6 +146,7 @@ class App extends Component {
       status,
       timeClockData,
       currentLocation,
+      EmpData,
       id,
       clockInData, clockOutData, adminFirstName, adminLastName,
     } = this.state;
@@ -178,6 +180,8 @@ class App extends Component {
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
               timeClockData={timeClockData}
+              EmpData={EmpData}
+              getEmpData={this.getEmpData}
             />
           )}
         />
