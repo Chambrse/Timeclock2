@@ -142,8 +142,7 @@ router.post('/login',
       employeeType: req.user.employeeType,
       adminFirstName: req.user.adminFirstName,
       adminLastName: req.user.adminLastName,
-      clockIn: req.user.clockIn,
-      clockOut: req.user.clockOut,
+      timeClockData: req.user.timeClockData,
     };
     res.send(userInfo);
   });
@@ -171,9 +170,10 @@ router.post('/clockIn/:id', (req, res) => {
   User
     .findOneAndUpdate({ _id: req.params.id }, {
       $push: {
-        clockIn: {
+        timeClockData: {
           time: Date.now(),
           coords: req.body.coords,
+          clockType: 'clockIn',
         },
       },
       status: true,
@@ -186,9 +186,10 @@ router.post('/clockOut/:id', (req, res) => {
   User
     .findOneAndUpdate({ _id: req.params.id }, {
       $push: {
-        clockOut: {
+        timeClockData: {
           time: Date.now(),
           coords: req.body.coords,
+          clockType: 'clockOut',
         },
       },
       status: false,
@@ -196,5 +197,10 @@ router.post('/clockOut/:id', (req, res) => {
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
+
+router.get('/getEmpData', (req, res) => {
+  User.find({ manager: req.user.username }).then(results => res.json(results));
+});
+
 
 module.exports = router;

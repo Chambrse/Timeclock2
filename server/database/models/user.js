@@ -11,6 +11,7 @@ const userSchema = new Schema({
     type: String,
     default: '',
   },
+  position: String,
   manager: String,
   username: {
     type: String,
@@ -56,13 +57,10 @@ const userSchema = new Schema({
     type: String,
     default: 'admin',
   },
-  clockIn: [{
+  timeClockData: [{
     time: Date,
     coords: Object,
-  }],
-  clockOut: [{
-    time: Date,
-    coords: Object,
+    clockType: String,
   }],
 });
 

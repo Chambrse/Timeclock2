@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
+import Subtle from '../img/full-bloom.png';
 
 
 const styles = {
   root: {
     width: 500,
+    backgroundImage: `url(${Subtle})`,
+    margin: '0 auto',
+    lineHeight: '2.5',
   },
 };
 
@@ -32,7 +36,7 @@ class SimpleBottomNavigation extends React.Component {
         className={classes.root}
         style={{ position: 'fixed', bottom: -10, width: '100%' }}
       >
-        <p>TimeClock9000</p>
+        <b>TimeClock9000</b>
       </BottomNavigation>
     );
   }
