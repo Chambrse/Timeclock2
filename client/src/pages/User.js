@@ -55,14 +55,7 @@ const User = ({
             {`${adminFirstName } ${ adminLastName}`}
           </h4>
           <h6>Company: {companyName}</h6>
-          {/* <h6> 
-{' '}
-{employeeType}
-</h6> */}
           <h6>Job Title: {position}</h6>
-          {/* <h4>
-            {`${adminFirstName } ${ adminLastName}`}
-          </h4> */}
           <h6>User Name: {username} </h6>
           <h6><ChangePasswordModal/></h6>
         </Grid>

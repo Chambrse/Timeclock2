@@ -29,8 +29,15 @@ class DeleteUserModal extends React.Component {
     event.preventDefault();
 
     // request to server to delete a new username/password
-    axios.get('/addDelete/').then(response => response)
-      .catch(error => error);
+    axios.get('/addDelete/')
+      .then((response) => {
+        console.log('Delete Route needs to be created!!');
+        console.log(response);
+
+      }).catch((error) => {
+        console.log('signup error: ');
+        console.log(error);
+      });
   }
 
   handleChange(event) {
