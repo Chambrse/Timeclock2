@@ -1,23 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
-import { Button, Icon, Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
 import Schedule from './scheduleView';
-
-
-const styles1 = {
-  color: 'Black',
-  textAlign: 'center',
-  backgroundColor: 'Red',
-  fontWeight: 'bold',
-  padding: '20px',
-};
-
-const pstyle = {
-  color: 'red',
-  margin: '0px',
-};
 
 class DeleteUserModal extends React.Component {
   constructor() {
@@ -30,11 +15,13 @@ class DeleteUserModal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
   handleSubmit(event) {
     // console.log('sign-up handleSubmit, username: ');
@@ -53,14 +40,11 @@ class DeleteUserModal extends React.Component {
       });
   }
 
-
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
-
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
 
   render() {
     const { open } = this.state;

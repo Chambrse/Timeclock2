@@ -5,6 +5,7 @@ import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 
 const pstyle = {
   color: 'red',
@@ -101,16 +102,16 @@ class AddUserModal extends React.Component {
       });
     }
 
-  render() {
-    const { open } = this.state;
-    return (
-      <div>
-        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="SignupForm">
-            <h4>Add New Employee</h4>
-            <form className="form-horizontal">
-              <div className="form-group">
+    render() {
+      const { open } = this.state;
+      return (
+        <div>
+          <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <div className="SignupForm">
+              <h4>Add New Employee</h4>
+              <form className="form-horizontal">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="username">Username</label>
                 </div>
@@ -130,9 +131,8 @@ class AddUserModal extends React.Component {
                   }
                 </div>
 
-
               </div>
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="email">Email</label>
                 </div>
@@ -152,7 +152,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminFirstName">First Name</label>
                 </div>
@@ -172,7 +172,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminLastName">Last Name</label>
                 </div>
@@ -192,7 +192,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label">
                     Employee Type
@@ -226,7 +226,7 @@ class AddUserModal extends React.Component {
                 </div>
               </div>
 
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="password">Password </label>
                 </div>
@@ -245,7 +245,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-              <div className="form-group">
+                <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
                 </div>
@@ -265,8 +265,8 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-              <br />
-              <div className="form-group ">
+                <br />
+                <div className="form-group ">
                 <div className="col-12" />
                 <Button
                   className="btn btn-primary col-12 col-mr-auto"
@@ -277,12 +277,16 @@ class AddUserModal extends React.Component {
 
                 </Button>
               </div>
-            </form>
-          </div>
+              </form>
+            </div>
           </Modal>
         </div>
       );
     }
 }
+
+AddUserModal.propTypes = {
+  adminUsername: PropTypes.string.isRequired,
+};
 
 export default AddUserModal;

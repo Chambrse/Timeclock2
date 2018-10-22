@@ -45,6 +45,8 @@ class LoginForm extends Component {
             employeeType: response.data.employeeType,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
+            clockInData: response.data.clockIn,
+            clockOutData: response.data.clockOut,
           });
           // update the state to redirect to home
           this.setState({
@@ -54,6 +56,7 @@ class LoginForm extends Component {
       }).catch((error) => {
         console.log('login error: ');
         console.log(error);
+        alert('Username or password is incorrect');
       });
   }
 

@@ -20,10 +20,9 @@ function Admin(props) {
         <DeleteUserModal />
         <br />
         <br />
-        <Tools />
+        {/* <Tools /> */}
         <br />
       </Paper>
-      
     </div>
   );
 }
