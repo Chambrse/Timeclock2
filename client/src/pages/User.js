@@ -23,9 +23,10 @@ const User = ({
   adminFirstName,
   adminLastName,
   employeeType,
+  position,
   id,
 }) => {
-  console.log(timeClockData);
+  console.log(position);
 
   timeClockData.forEach((element, index, theArray) => {
     theArray[index].time = new Date(element.time).toLocaleString();
@@ -39,7 +40,7 @@ const User = ({
       <h2>
         Welcome,
         {' '}
-        {username}
+        {`${adminFirstName } ${ adminLastName}`}
         !
       </h2>
 
@@ -50,13 +51,20 @@ const User = ({
         </Grid>
         <Grid item xs={12} md={3}>
           <img id="PIC" img src={profile} width="200" alt="profile" />
-          <h6>{companyName}</h6>
-          <h6>CEO / CO-FOUNDER</h6>
           <h4>
-            {adminFirstName}
-            {''}
-            {adminLastName}
+            {`${adminFirstName } ${ adminLastName}`}
           </h4>
+          <h6>Company: {companyName}</h6>
+          {/* <h6> 
+{' '}
+{employeeType}
+</h6> */}
+          <h6>Job Title: {position}</h6>
+          {/* <h4>
+            {`${adminFirstName } ${ adminLastName}`}
+          </h4> */}
+          <h6>User Name: {username} </h6>
+          <h6><ChangePasswordModal/></h6>
         </Grid>
       </Grid>
 
@@ -95,7 +103,7 @@ const User = ({
                     <br />
                     <Button className="btn btn-success" onClick={clockIn}>
                         Clock In
-                      </Button>
+                    </Button>
                   </div>
                 )}
 
@@ -139,6 +147,7 @@ User.propTypes = {
   adminFirstName: PropTypes.string.isRequired,
   adminLastName: PropTypes.string.isRequired,
   employeeType: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   clockInData: PropTypes.arrayOf.isRequired,
   clockOutData: PropTypes.arrayOf.isRequired,
 };

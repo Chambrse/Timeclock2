@@ -22,6 +22,7 @@ class App extends Component {
       username: null,
       companyName: null,
       employeeType: null,
+      position: null,
       id: null,
       status: false,
       currentLocation: {
@@ -89,6 +90,7 @@ class App extends Component {
           id: response.data.user._id,
           companyName: response.data.user.companyName,
           employeeType: response.data.user.employeeType,
+          position: response.data.user.position,
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
           timeClockData: response.data.user.timeClockData,
@@ -144,6 +146,7 @@ class App extends Component {
       employeeType,
       status,
       timeClockData,
+      position,
       currentLocation,
       id,
       clockInData, clockOutData, adminFirstName, adminLastName,
@@ -176,6 +179,7 @@ class App extends Component {
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
               timeClockData={timeClockData}
+              position={position}
             />
           )}
         />

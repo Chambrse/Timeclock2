@@ -37,6 +37,7 @@ class Signup extends Component {
       adminFirstNameErrors: [],
       adminLastName: '',
       adminLastNameErrors: [],
+      position: '',
       password: '',
       passwordErrors: [],
       passwordMatch: '',
@@ -95,6 +96,7 @@ class Signup extends Component {
             id: response.data._id,
             companyName: response.data.companyName,
             employeeType: response.data.employeeType,
+            position: response.data.position,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,
@@ -124,6 +126,7 @@ class Signup extends Component {
       adminLastName, adminLastNameErrors,
       password, passwordErrors,
       passwordMatch, passwordMatchErrors,
+      position,
       redirectTo,
     } = this.state;
     if (redirectTo) {
@@ -152,7 +155,7 @@ class Signup extends Component {
             {usernameErrors.length > 0 ? (
               usernameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
           <Grid item xs={12} md={6}>
             Company
@@ -168,7 +171,7 @@ class Signup extends Component {
             {companyNameErrors.length > 0 ? (
               companyNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -186,7 +189,7 @@ class Signup extends Component {
 
               cityErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -205,7 +208,7 @@ class Signup extends Component {
             {countryErrors.length > 0 ? (
               countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -224,7 +227,7 @@ class Signup extends Component {
             {postalCodeErrors.length > 0 ? (
               postalCodeErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={10}>
@@ -243,7 +246,7 @@ class Signup extends Component {
             {brandErrors.length > 0 ? (
               brandErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -262,13 +265,13 @@ class Signup extends Component {
             {emailErrors.length > 0 ? (
               emailErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
 
-           First Name
-
+            First Name
+ 
             <TextField
               className="form-input"
               type="text"
@@ -281,7 +284,7 @@ class Signup extends Component {
             {adminFirstNameErrors.length > 0 ? (
               adminFirstNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -300,10 +303,21 @@ class Signup extends Component {
             {adminLastNameErrors.length > 0 ? (
               adminLastNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
 
           </Grid>
-
+          <Grid item xs={12} md={4}>
+            Job Title
+            <TextField
+              className="form-input"
+              type="text"
+              id="position"
+              name="position"
+              placeholder="Job Title"
+              value={position}
+              onChange={this.handleChange}
+            />
+          </Grid>
           <Grid item xs={12} md={4}>
 
             Password: Must be 8 characters long with 1 capital and 1 symbol
@@ -319,14 +333,14 @@ class Signup extends Component {
             {passwordErrors.length > 0 ? (
               passwordErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={4}>
 
             Re-enter password:
             <br />
-             Passwords must match
+            Passwords must match
 
             <TextField
               className="form-input"
@@ -340,7 +354,7 @@ class Signup extends Component {
             {passwordMatchErrors.length > 0 ? (
               passwordMatchErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-                }
+            }
           </Grid>
 
           <Grid item xs={12} md={10}>
@@ -350,7 +364,7 @@ class Signup extends Component {
               onClick={this.handleSubmit}
               type="submit"
             >
-            Sign up
+              Sign up
             </Button>
 
 

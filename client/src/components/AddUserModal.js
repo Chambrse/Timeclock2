@@ -47,71 +47,71 @@ class AddUserModal extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-    onOpenModal = () => {
-      this.setState({ open: true });
-    };
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
 
-    onCloseModal = () => {
-      this.setState({ open: false });
-    };
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
-    handleSubmit(event) {
-      console.log('sign-up handleSubmit, username: ');
-      console.log(this.state.username);
-      event.preventDefault();
+  handleSubmit(event) {
+    console.log('sign-up handleSubmit, username: ');
+    console.log(this.state.username);
+    event.preventDefault();
 
-      // request to server to add a new username/password
-      axios.post('/addDelete/', this.state)
-        .then((response) => {
-          console.log('test');
+    // request to server to add a new username/password
+    axios.post('/addDelete/', this.state)
+      .then((response) => {
+        console.log('test');
 
-          if (response.data.errors) {
-            const newErrorsObj = {
-              companyNameErrors: [],
-              adminLastNameErrors: [],
-              cityErrors: [],
-              countryErrors: [],
-              postalCodeErrors: [],
-              employeeTypeErrors: [],
-              passwordErrors: [],
-              passwordMatchErrors: [],
-            };
+        if (response.data.errors) {
+          const newErrorsObj = {
+            companyNameErrors: [],
+            adminLastNameErrors: [],
+            cityErrors: [],
+            countryErrors: [],
+            postalCodeErrors: [],
+            employeeTypeErrors: [],
+            passwordErrors: [],
+            passwordMatchErrors: [],
+          };
 
-            Object.keys(response.data).forEach((key) => {
-              console.log([key]);
-              if ([key].toString() !== 'errors') {
-                response.data[key].forEach((element) => {
-                  newErrorsObj[key].push(element.msg);
-                });
-              }
-            });
-            this.setState(newErrorsObj);
-          } else {
-            this.setState({ open: false });
-          }
-        }).catch((error) => {
-          console.log('signup error: ');
-          console.log(error);
-        });
-    }
-
-
-    handleChange(event) {
-      this.setState({
-        [event.target.name]: event.target.value,
+          Object.keys(response.data).forEach((key) => {
+            console.log([key]);
+            if ([key].toString() !== 'errors') {
+              response.data[key].forEach((element) => {
+                newErrorsObj[key].push(element.msg);
+              });
+            }
+          });
+          this.setState(newErrorsObj);
+        } else {
+          this.setState({ open: false });
+        }
+      }).catch((error) => {
+        console.log('signup error: ');
+        console.log(error);
       });
-    }
+  }
 
-    render() {
-      const { open } = this.state;
-      return (
-        <div>
-          <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <div className="SignupForm">
-              <h4>Add New Employee</h4>
-              <form className="form-horizontal">
-                <div className="form-group">
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  render() {
+    const { open } = this.state;
+    return (
+      <div>
+        <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <div className="SignupForm">
+            <h4>Add New Employee</h4>
+            <form className="form-horizontal">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="username">Username</label>
                 </div>
@@ -132,7 +132,7 @@ class AddUserModal extends React.Component {
                 </div>
 
               </div>
-                <div className="form-group">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="email">Email</label>
                 </div>
@@ -152,7 +152,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-                <div className="form-group">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminFirstName">First Name</label>
                 </div>
@@ -172,7 +172,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-                <div className="form-group">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="adminLastName">Last Name</label>
                 </div>
@@ -192,7 +192,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-                <div className="form-group">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label">
                     Employee Type
@@ -200,6 +200,7 @@ class AddUserModal extends React.Component {
 
                   </label>
                 </div>
+
                 <div className="col-6 col-mr-auto">
                   <FormControl className="col-12">
                     <InputLabel htmlFor="label">Select</InputLabel>
@@ -215,7 +216,7 @@ class AddUserModal extends React.Component {
                     >
 
                       <MenuItem value="employee">employee</MenuItem>
-                      <MenuItem value="manager">manager</MenuItem>
+                      {/* <MenuItem value="manager">manager</MenuItem> */}
                       <MenuItem value="admin">admin</MenuItem>
                     </Select>
                   </FormControl>
@@ -225,8 +226,28 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
+              <div className="form-group">
+                <div className="col-6 col-ml-auto">
+                  <label className="form-label">
+                    Job Title
+                    {' '}
 
-                <div className="form-group">
+                  </label>
+                </div>
+                {/* </div> */}
+              <div className="col-6 col-ml-auto">
+                <TextField
+                  className="form-input"
+                  type="text"
+                  id="position"
+                  name="position"
+                  placeholder="jobtitle"
+                  value={this.state.position}
+                  onChange={this.handleChange}
+                />
+              </div>
+              </div>
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="password">Password </label>
                 </div>
@@ -245,7 +266,7 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-                <div className="form-group">
+              <div className="form-group">
                 <div className="col-6 col-ml-auto">
                   <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
                 </div>
@@ -265,8 +286,8 @@ class AddUserModal extends React.Component {
                   }
                 </div>
               </div>
-                <br />
-                <div className="form-group ">
+              <br />
+              <div className="form-group ">
                 <div className="col-12" />
                 <Button
                   className="btn btn-primary col-12 col-mr-auto"
@@ -277,12 +298,12 @@ class AddUserModal extends React.Component {
 
                 </Button>
               </div>
-              </form>
-            </div>
-          </Modal>
-        </div>
-      );
-    }
+            </form>
+          </div>
+        </Modal>
+      </div>
+    );
+  }
 }
 
 AddUserModal.propTypes = {
