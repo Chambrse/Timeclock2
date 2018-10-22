@@ -56,10 +56,10 @@ class Home extends Component {
         <p>
           Please click the Log-in or Sign-Up Button below to be redirected to the appropriate page.
         </p>
-        <Button onClick={this.routeChange} style={styles1}>
+        <Button onClick={this.routeChange} color="primary" variant="contained">
                        Login
         </Button>&emsp;
-        <Button onClick={this.routeChange2} style={styles2}>
+        <Button onClick={this.routeChange2} color="secondary" variant="contained">
                        Sign-Up
         </Button>
         <br />

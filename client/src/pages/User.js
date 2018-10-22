@@ -84,7 +84,7 @@ const User = ({
                   <div>
                     You are clocked in.
                     <br />
-                    <Button className="btn btn-primary" onClick={clockOut}>
+                    <Button color="primary" variant="contained" onClick={clockOut}>
                       Clock Out
 
                     </Button>
@@ -93,7 +93,7 @@ const User = ({
                   <div>
                       You are clocked out.
                     <br />
-                    <Button className="btn btn-success" onClick={clockIn}>
+                    <Button color="primary" variant="contained" onClick={clockIn}>
                         Clock In
                       </Button>
                   </div>

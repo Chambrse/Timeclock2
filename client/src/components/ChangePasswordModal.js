@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-  Button,
+  Button, TextField, Grid,
 } from /*  TextField,
   Select,
   MenuItem,
-  InputLabel,
+  TextFieldLabel,
   FormControl, */
   '@material-ui/core';
 import Modal from 'react-responsive-modal';
@@ -63,38 +63,45 @@ class ChangePasswordModal extends Component {
     const { open } = this.state;
     return (
       <div>
-        <Button onClick={this.onOpenModal}>
-          Change password
+        <Button color="secondary" onClick={this.onOpenModal}>
+          <b>Change password</b>
         </Button>
         <Modal open={open} onClose={this.onCloseModal} center>
           Change password
           <div className="form-group">
+            <br />
             <form onSubmit={this.handleSubmit}>
-              <label htmlFor="name">
-                Password:
-                <input
+              <Grid xs={12}>
+                <TextField
                   type="password"
+                  label="Old Password"
                   id="password"
                   onChange={this.handleChange}
                 />
-              </label>
-              <label htmlFor="name">
-                New Password:
-                <input
+              </Grid>
+              <br />
+              <Grid xs={12}>
+                <TextField
                   type="password"
+                  label="New Password"
                   id="newPassword1"
                   onChange={this.handleChange}
                 />
-              </label>
-              <label htmlFor="name">
-                Repeat New Password:
-                <input
+              </Grid>
+              <br />
+              <Grid xs={12}>
+                <TextField
                   type="password"
+                  label="Confrim Password"
                   id="newPassword2"
                   onChange={this.handleChange}
                 />
-              </label>
-              <button type="submit">Submit</button>
+              </Grid>
+              <br />
+              <Button color="secondary" variant="contained" type="submit">
+              Submit
+              </Button>
+              <br />
             </form>
           </div>
 
