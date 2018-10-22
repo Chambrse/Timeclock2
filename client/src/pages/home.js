@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, /* Icon, */ Grid } from '@material-ui/core';
+import { Button, /* Icon, */ Grid, Paper } from '@material-ui/core';
+import logo from '../TC9000.jpg';
 // import { Redirect } from 'react-router-dom';
 // import { Route, Link } from 'react-router-dom';
 // import color from '@material-ui/core/colors/pink';
@@ -46,22 +47,24 @@ class Home extends Component {
     };
 
     return (
-      <div>
-
-
+      <Paper xs={6} className="container" elevation={10}>
+        <br />
         <p>Welcome to</p>
         <Grid item xs={12}>
-          <img style={imageStyle} src={require('../TC9000.jpg')} />
+          <img style={imageStyle} src={logo} alt="Timeclock 9000" />
         </Grid>
-        <br />
-        <p>Please click the Log-in or Sign-Up Button below to be redirected to the appropriate page.</p>
+        <p>
+          Please click the Log-in or Sign-Up Button below to be redirected to the appropriate page.
+        </p>
         <Button onClick={this.routeChange} style={styles1}>
                        Login
         </Button>&emsp;
         <Button onClick={this.routeChange2} style={styles2}>
                        Sign-Up
         </Button>
-      </div>
+        <br />
+        <br />
+      </Paper>
     );
   }
 }

@@ -101,6 +101,7 @@ const User = ({
 
               </p>
               <ChangePasswordModal id={id} />
+              <br />
             </Paper>
           </Grid>
         </Grid>
@@ -124,6 +125,8 @@ const User = ({
             ))}
           </TableBody>
         </Table>
+        <br />
+        <br />
       </div>
     </div>
   );

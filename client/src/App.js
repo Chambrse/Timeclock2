@@ -152,6 +152,8 @@ class App extends Component {
       <div className="App">
 
         <Navbar updateUser={this.updateUser} loggedIn={loggedIn} />
+        <br />
+        <br />
         {/* greet user if logged in: */}
         {
           loggedIn
@@ -204,7 +206,7 @@ class App extends Component {
             />
           )}
         />
-
+        <br />
         <br />
         <BottomNav />
       </div>
