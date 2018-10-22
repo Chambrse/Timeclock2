@@ -64,6 +64,7 @@ class User extends Component {
 
 
         <Grid container spacing={40} justify="space-evenly">
+<<<<<<< HEAD
           <Grid item xs={12} md={3}>
             <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
           </Grid>
@@ -114,14 +115,55 @@ class User extends Component {
                       <br />
                       <Button className="btn btn-success" onClick={clockIn}>
                           Clock In
+=======
+          {employeeType === 'admin'
+            ? (
+              <Grid item xs={12} md={4}>
+                <Admin
+                  adminUsername={username}
+                />
+              </Grid>
+            ) : (
+              null
+            )
+          }
+          <Grid item xs={12} md={4}>
+            <Paper elevation={10}>
+              <br />
+              <h1>Clock IN/OUT</h1>
+              {status}
+              <p id="ClockIN/OUT">
+                {status ? (
+                  <div>
+                    You are clocked in.
+                    <br />
+                    <Button color="primary" variant="contained" onClick={clockOut}>
+                      Clock Out
+
+                    </Button>
+                  </div>
+                ) : (
+                  <div>
+                      You are clocked out.
+                    <br />
+                    <Button color="primary" variant="contained" onClick={clockIn}>
+                        Clock In
+>>>>>>> 6c6c4a76d96561b4856b2302f95cd94088189557
                       </Button>
                     </div>
                   )}
 
+<<<<<<< HEAD
                 </p>
                 <ChangePasswordModal id={id} />
               </Paper>
             </Grid>
+=======
+              </p>
+              <ChangePasswordModal id={id} />
+              <br />
+            </Paper>
+>>>>>>> 6c6c4a76d96561b4856b2302f95cd94088189557
           </Grid>
         </div>
         {employeeType === 'admin' && EmpData && EmpData.data
@@ -162,6 +204,7 @@ class User extends Component {
                 <TableCell>Event</TableCell>
                 <TableCell>Time</TableCell>
               </TableRow>
+<<<<<<< HEAD
             </TableHead>
             <TableBody>
               {timeClockData.map(n => (
@@ -175,6 +218,13 @@ class User extends Component {
             </TableBody>
           </Table>
         </div>
+=======
+            ))}
+          </TableBody>
+        </Table>
+        <br />
+        <br />
+>>>>>>> 6c6c4a76d96561b4856b2302f95cd94088189557
       </div>
     );
   }
