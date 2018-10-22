@@ -4,7 +4,6 @@ import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl, Grid,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
-import PropTypes from 'prop-types';
 
 class AddUserModal extends React.Component {
   constructor() {
@@ -55,15 +54,14 @@ class AddUserModal extends React.Component {
       // request to server to add a new username/password
       axios.post('/addDelete/', this.state)
         .then((response) => {
-          console.log('response', response.data.errors);
+          console.log('response', response);
 
           if (response.data.errors) {
             const newErrorsObj = {
-              companyNameErrors: [],
+              usernameErrors: [],
+              emailErrors: [],
+              adminFirstNameErrors: [],
               adminLastNameErrors: [],
-              cityErrors: [],
-              countryErrors: [],
-              postalCodeErrors: [],
               employeeTypeErrors: [],
               passwordErrors: [],
               passwordMatchErrors: [],
@@ -113,7 +111,6 @@ class AddUserModal extends React.Component {
               <h4>Add New Employee</h4>
               <form className="form-horizontal">
                 <Grid xs={12}>
-                
                   <TextField
                     margin="normal"
                     type="text"
@@ -129,7 +126,6 @@ class AddUserModal extends React.Component {
                     }
                   />
                 </Grid>
-
                 <Grid xs={12}>
                   <TextField
                     margin="normal"
@@ -147,7 +143,6 @@ class AddUserModal extends React.Component {
                   />
                 </Grid>
                 <Grid xs={12}>
-                
                   <TextField
                     margin="normal"
                     type="text"
@@ -162,11 +157,8 @@ class AddUserModal extends React.Component {
                     ) : (null)
                     }
                   />
-
                 </Grid>
-
                 <Grid xs={12}>
-
                   <TextField
                     margin="normal"
                     type="text"
@@ -182,7 +174,6 @@ class AddUserModal extends React.Component {
                     }
                   />
                 </Grid>
-
                 <Grid xs={12}>
                   <FormControl className="col-12">
                     <InputLabel htmlFor="label">Select</InputLabel>
@@ -196,7 +187,6 @@ class AddUserModal extends React.Component {
                       className="col-12"
                       style={{ minWidth: '100%' }}
                     >
-
                       <MenuItem value="employee">employee</MenuItem>
                       <MenuItem value="manager">manager</MenuItem>
                       <MenuItem value="admin">admin</MenuItem>
@@ -257,8 +247,5 @@ class AddUserModal extends React.Component {
     }
 }
 
-AddUserModal.propTypes = {
-  adminUsername: PropTypes.string.isRequired,
-};
 
 export default AddUserModal;

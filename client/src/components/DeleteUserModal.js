@@ -43,7 +43,6 @@ class DeleteUserModal extends React.Component {
     const { open } = this.state;
     return (
       <div>
-
         <Button color="secondary" variant="contained" onClick={this.onOpenModal}>Delete Employee</Button>
         <Modal open={open} onClose={this.onCloseModal} center>
       Delete Box dynamically created with  + Mapped users from Database.
@@ -58,9 +57,7 @@ class DeleteUserModal extends React.Component {
               type="submit"
             >
 Delete User
-
             </button>
-
           </div>
         </Modal>
       </div>
