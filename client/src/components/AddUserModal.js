@@ -4,12 +4,15 @@ import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl, Grid,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 
 class AddUserModal extends React.Component {
-  constructor() {
+  constructor(props) {
+    const { adminUsername } = props;
     super();
     this.state = {
       open: false,
+      adminUsername,
       username: '',
       usernameErrors: [],
       companyName: '',
@@ -28,6 +31,7 @@ class AddUserModal extends React.Component {
       adminLastNameErrors: [],
       employeeType: [],
       employeeTypeErrors: [],
+      position: '',
       password: '',
       passwordErrors: [],
       passwordMatch: '',
@@ -102,6 +106,7 @@ class AddUserModal extends React.Component {
         passwordMatch, passwordMatchErrors,
         employeeTypeErrors, open,
         employeeType,
+        position,
       } = this.state;
       return (
         <div>
@@ -203,7 +208,7 @@ class AddUserModal extends React.Component {
                     id="position"
                     name="position"
                     label="job title"
-                    value={this.state.position}
+                    value={position}
                     onChange={this.handleChange}
                   />
                 </Grid>
@@ -257,5 +262,8 @@ class AddUserModal extends React.Component {
     }
 }
 
+AddUserModal.propTypes = {
+  adminUsername: PropTypes.string.isRequired,
+};
 
 export default AddUserModal;

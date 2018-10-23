@@ -58,20 +58,20 @@ class Navbar extends Component {
           ) : (
             <section className="navbar-section">
               <Link to="/">
-                  <Button>
+                <Button>
                     home
-                  </Button>
-                </Link>
+                </Button>
+              </Link>
               <Link to="/login">
-                  <Button href="/login">
+                <Button href="/login">
                     login
-                  </Button>
-                </Link>
+                </Button>
+              </Link>
               <Link to="/signup">
-                  <Button href="/signup">
+                <Button href="/signup">
                   sign up
-                  </Button>
-                </Link>
+                </Button>
+              </Link>
             </section>
           )}
         </Toolbar>
