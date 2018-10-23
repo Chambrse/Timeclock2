@@ -12,6 +12,7 @@ import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
+import Map1 from '../components/map1';
 
 
 class User extends Component {
@@ -41,6 +42,8 @@ class User extends Component {
       position,
       id,
       EmpData,
+      getGeoLocation,
+      currentLocation,
     } = this.props;
 
     console.log(this.props);
@@ -142,29 +145,51 @@ class User extends Component {
         </div>
         {employeeType === 'admin' && EmpData && EmpData.data
           ? (
-            <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
-              <h2>Recent data from your employees:</h2>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Event</TableCell>
-                    <TableCell>Time</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {EmpData.data.map(n => (
-                    n.timeClockData.length > 0 ? (
-                      <TableRow>
-                        <TableCell>{n.adminFirstName}</TableCell>
-                        <TableCell component="th" scope="row">
-                          {n.timeClockData[n.timeClockData.length - 1].clockType}
-                        </TableCell>
-                        <TableCell>{new Date(n.timeClockData[n.timeClockData.length - 1].time).toLocaleString()}</TableCell>
-                      </TableRow>) : null
-                  ))}
-                </TableBody>
-              </Table>
+            <div>
+              <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
+                <h2>Recent data from your employees:</h2>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Event</TableCell>
+                      <TableCell>Time</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {EmpData.data.map(n => (
+                      n.timeClockData.length > 0 ? (
+                        <TableRow>
+                          <TableCell>{n.adminFirstName}</TableCell>
+                          <TableCell component="th" scope="row">
+                            {n.timeClockData[n.timeClockData.length - 1].clockType}
+                          </TableCell>
+                          <TableCell>{new Date(n.timeClockData[n.timeClockData.length - 1].time).toLocaleString()}</TableCell>
+                        </TableRow>) : null
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              {/*               <div
+                className="row"
+                style={{
+                  height: '400px', width: '80vw', margin: '15px', marginTop: '50px',
+                }}
+              > */}
+              <Map1
+                getGeoLocation={getGeoLocation}
+                currentLocation={currentLocation}
+                EmpData={EmpData}
+                isMarkerShown
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKrVlx0xjdrNE4co1DPg8617iC-dwcfDQ&v=3.exp&libraries=geometry,drawing,places"
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '400px' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
+              />
+              {/*               </div>
+ */}
+              {' '}
+
             </div>
           ) : (
             null
