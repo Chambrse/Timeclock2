@@ -1,4 +1,5 @@
 /* eslint-disable */
+import axios from 'axios';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -213,15 +214,21 @@ const styles = theme => ({
 });
 
 class EnhancedTable extends React.Component {
-  state = {
+  constructor() {
+    super()
+  this.state = {
     order: 'asc',
     orderBy: 'name',
     selected: [],
-    data: [],
+    alldata: [],
     page: 0,
     rowsPerPage: 5,
   };
-
+  this.getAll = this.getAll.bind(this);
+}
+componentDidMount(){
+  this.getAll()
+}
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
@@ -235,12 +242,12 @@ class EnhancedTable extends React.Component {
 
   handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: state.alldata.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   };
-
+  
   handleClick = (event, id) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
@@ -272,13 +279,25 @@ class EnhancedTable extends React.Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
+  getAll() {
+    axios.get('/user/getAll', this).then((response) => {
+      console.log(response);
+      this.setState = ({
+        alldata: [
+          createData(response.data[0].adminFirstName, response.data[0].position, response.data[0].employeeType, response.data[0].username),
+          createData('1','1','1','1')]
+      });
+      
+    });
+  }
+
   render() {
     const { classes } = this.props;
     const {
-      data, order, orderBy, selected, rowsPerPage, page,
+      alldata, order, orderBy, selected, rowsPerPage, page,
     } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, alldata.length - page * rowsPerPage);
+    console.log(alldata)
     return (
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} />
@@ -290,10 +309,10 @@ class EnhancedTable extends React.Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              rowCount={alldata.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(alldata, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((n) => {
                   const isSelected = this.isSelected(n.id);
@@ -330,7 +349,7 @@ class EnhancedTable extends React.Component {
         </div>
         <TablePagination
           component="div"
-          count={data.length}
+          count={alldata.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{

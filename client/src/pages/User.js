@@ -41,8 +41,8 @@ class User extends Component {
       position,
       id,
       EmpData,
+      getAll,
     } = this.props;
-
     console.log(this.props);
     console.log(EmpData);
 
@@ -57,7 +57,7 @@ class User extends Component {
     }
 
     return (
-      <div>
+      <Grid justify="space-evenly" spacing={12}>
         <h2>
           Welcome,
           {' '}
@@ -66,7 +66,7 @@ class User extends Component {
         </h2>
 
 
-        <Grid container spacing={40} justify="space-evenly">
+        <Grid container justify="space-evenly">
           <Grid item xs={12} md={3}>
             <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
           </Grid>
@@ -95,54 +95,55 @@ class User extends Component {
           </Grid>
         </Grid>
 
-        <div className="row">
-          <Grid container spacing={40} justify="space-evenly">
-            {employeeType === 'admin'
-              ? (
-                <Grid item xs={12} md={4}>
-                  <Admin
-                    adminUsername={username}
-                  />
-                </Grid>
-              ) : (
-                null
-              )
+
+        <Grid container justify="space-evenly" spacing={12} xs={12}>
+          {employeeType === 'admin'
+            ? (
+              <Grid item xs={12} md={4} style={{ marginTop: '50px' }}>
+                <Admin
+                  adminUsername={username}
+                />
+              </Grid>
+
+            ) : (
+              null
+            )
             }
-            <Grid item xs={12} md={4}>
-              <Paper elevation={10}>
-                <br />
-                <h1>Clock IN/OUT</h1>
-                {status}
-                <p id="ClockIN/OUT">
-                  {status ? (
-                    <div>
+          <Grid item xs={12} md={4} style={{ marginTop: '50px' }}>
+            <Paper elevation={10}>
+              <br />
+              <h1>Clock IN/OUT</h1>
+              {status}
+              <p id="ClockIN/OUT">
+                {status ? (
+                  <div>
                       You are clocked in.
-                      <br />
-                      <Button color="primary" variant="contained" onClick={clockOut}>
+                    <br />
+                    <Button color="primary" variant="contained" onClick={clockOut}>
                         Clock Out
 
-                      </Button>
-                    </div>
-                  ) : (
-                    <div>
+                    </Button>
+                  </div>
+                ) : (
+                  <div>
                         You are clocked out.
-                      <br />
-                      <Button color="primary" variant="contained" onClick={clockIn}>
+                    <br />
+                    <Button color="primary" variant="contained" onClick={clockIn}>
                           Clock In
-                      </Button>
-                    </div>
-                  )}
+                    </Button>
+                  </div>
+                )}
 
-                </p>
-                {/* <ChangePasswordModal id={id} /> */}
-                <br />
-              </Paper>
-            </Grid>
+              </p>
+              {/* <ChangePasswordModal id={id} /> */}
+              <br />
+            </Paper>
           </Grid>
-        </div>
+        </Grid>
+
         {employeeType === 'admin' && EmpData && EmpData.data
           ? (
-            <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
+            <div className="row" style={{ margin: '15px', marginTop: '50px', overflow: 'auto' }}>
               <h2>Recent data from your employees:</h2>
               <Table>
                 <TableHead>
@@ -170,7 +171,7 @@ class User extends Component {
             null
           )
         }
-        <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
+        <div className="row" style={{ margin: '15px', marginTop: '50px', overflow: 'auto' }}>
           <h2>Your TimeClock Data:</h2>
           <Table>
             <TableHead>
@@ -191,7 +192,7 @@ class User extends Component {
             </TableBody>
           </Table>
         </div>
-      </div>
+      </Grid>
     );
   }
 }
@@ -209,6 +210,8 @@ User.propTypes = {
   position: PropTypes.string.isRequired,
   clockInData: PropTypes.arrayOf.isRequired,
   clockOutData: PropTypes.arrayOf.isRequired,
+  EmpData: PropTypes.objectOf.isRequired,
+  getAll: PropTypes.objectOf.isRequired,
 };
 
 export default User;
