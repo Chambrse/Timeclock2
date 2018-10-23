@@ -102,17 +102,23 @@ class AddUserModal extends React.Component {
       });
     }
 
-  render() {
-    const { open } = this.state;
-    return (
-      <div>
-        <img id="PIC"  img src={profile} width="200" alt="profile"  
+    render() {
+      const { open } = this.state;
+      return (
+        <div>
+          <img
+            id="PIC"
+            img
+            src={profile}
+            width="200"
+            alt="profile"
         // />
         /* <Button className="btn btn-success"  */
-        onClick={this.onOpenModal}/>
-        {/* Add Employee</Button> */}
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="SignupForm">
+            onClick={this.onOpenModal}
+          />
+          {/* Add Employee</Button> */}
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <div className="SignupForm">
             <h4>Add New Employee</h4>
             <form className="form-horizontal">
               <div className="form-group">

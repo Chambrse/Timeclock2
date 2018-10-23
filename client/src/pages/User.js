@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
+// import Map from '../components/map';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 
 const User = ({
@@ -57,7 +58,7 @@ const User = ({
           <h6>Company: {companyName}</h6>
           <h6>Job Title: {position}</h6>
           <h6>User Name: {username} </h6>
-          <h6><ChangePasswordModal/></h6>
+          <h6><ChangePasswordModal id={id} /></h6>
         </Grid>
       </Grid>
 
@@ -101,11 +102,12 @@ const User = ({
                 )}
 
               </p>
-              <ChangePasswordModal id={id} />
+              {/* <ChangePasswordModal id={id} /> */}
             </Paper>
           </Grid>
         </Grid>
       </div>
+      {/* <Map /> */}
       <div className="row">
         <Table>
           <TableHead>
