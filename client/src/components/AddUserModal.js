@@ -188,7 +188,6 @@ class AddUserModal extends React.Component {
                       style={{ minWidth: '100%' }}
                     >
                       <MenuItem value="employee">employee</MenuItem>
-                      <MenuItem value="manager">manager</MenuItem>
                       <MenuItem value="admin">admin</MenuItem>
                     </Select>
                   </FormControl>
@@ -196,6 +195,17 @@ class AddUserModal extends React.Component {
                     employeeTypeErrors[0]
                   ) : (null)
                   }
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="position"
+                    name="position"
+                    label="job title"
+                    value={this.state.position}
+                    onChange={this.handleChange}
+                  />
                 </Grid>
                 <Grid xs={12}>
                   <TextField
