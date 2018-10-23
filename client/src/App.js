@@ -18,11 +18,13 @@ class App extends Component {
     super();
     this.state = {
       EmpData: {},
+      getAll: {},
       timeClockData: [],
       loggedIn: null,
       username: null,
       companyName: null,
       employeeType: null,
+      position: null,
       id: null,
       status: false,
       currentLocation: {
@@ -40,6 +42,7 @@ class App extends Component {
     this.clockOut = this.clockOut.bind(this);
     this.getGeoLocation = this.getGeoLocation.bind(this);
     this.getEmpData = this.getEmpData.bind(this);
+    this.getAll = this.getAll.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -51,6 +54,14 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
+  }
+
+  getAll() {
+    axios.get('user/getAll').then((results) => {
+      this.setState({
+        getAll: results,
+      });
+    });
   }
 
   getEmpData() {
@@ -89,10 +100,12 @@ class App extends Component {
           id: response.data.user._id,
           companyName: response.data.user.companyName,
           employeeType: response.data.user.employeeType,
+          position: response.data.user.position,
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
           timeClockData: response.data.user.timeClockData,
           EmpData: response.data.user.EmpData,
+          getAll: response.data.user.getAll,
         });
       } else {
         console.log('Get user: no user');
@@ -145,8 +158,10 @@ class App extends Component {
       employeeType,
       status,
       timeClockData,
+      position,
       currentLocation,
       EmpData,
+      getAll,
       id,
       clockInData, clockOutData, adminFirstName, adminLastName,
     } = this.state;
@@ -180,10 +195,12 @@ class App extends Component {
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
               timeClockData={timeClockData}
+              position={position}
               EmpData={EmpData}
               getEmpData={this.getEmpData}
               getGeoLocation={this.getGeoLocation}
               currentLocation={currentLocation}
+              getAll={getAll}
             />
           )}
         />

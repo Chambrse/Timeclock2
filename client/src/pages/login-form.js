@@ -41,6 +41,7 @@ class LoginForm extends Component {
             id: response.data._id,
             companyName: response.data.companyName,
             employeeType: response.data.employeeType,
+            position: response.data.position,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,

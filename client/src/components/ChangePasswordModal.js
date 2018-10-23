@@ -48,7 +48,7 @@ class ChangePasswordModal extends Component {
       }).catch((error) => {
         // handle error
         console.log(error);
-        alert('Error: Unable to change the password. Please try again.');
+        // alert('Error: Unable to change the password. Please try again.');
       });
     } else {
       alert('passwords do not match');
@@ -89,7 +89,7 @@ class ChangePasswordModal extends Component {
               <Grid xs={12}>
                 <TextField
                   type="password"
-                  label="Confrim Password"
+                  label="Confirm Password"
                   id="newPassword2"
                   onChange={this.handleChange}
                 />

@@ -14,6 +14,7 @@ import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 import Map1 from '../components/map1';
 
+
 class User extends Component {
   constructor() {
     super();
@@ -38,6 +39,7 @@ class User extends Component {
       adminFirstName,
       adminLastName,
       employeeType,
+      position,
       id,
       EmpData,
       getGeoLocation,
@@ -56,12 +58,13 @@ class User extends Component {
     if (!loggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+
     return (
       <div>
         <h2>
           Welcome,
           {' '}
-          {username}
+          {`${adminFirstName} ${adminLastName}`}
           !
         </h2>
 
@@ -72,16 +75,28 @@ class User extends Component {
           </Grid>
           <Grid item xs={12} md={3}>
             <img id="PIC" img src={profile} width="200" alt="profile" />
-            <h6>{companyName}</h6>
-            <h6>CEO / CO-FOUNDER</h6>
             <h4>
-              {adminFirstName}
-              {''}
-              {adminLastName}
+              {`${adminFirstName} ${adminLastName}`}
             </h4>
+            <h6>
+              Company:
+              {' '}
+              {companyName}
+            </h6>
+            <h6>
+              Job Title:
+              {' '}
+              {position}
+            </h6>
+            <h6>
+              User Name:
+              {' '}
+              {username}
+              {' '}
+            </h6>
+            <h6><ChangePasswordModal id={id} /></h6>
           </Grid>
         </Grid>
-
 
         <div className="row">
           <Grid container spacing={40} justify="space-evenly">
@@ -122,7 +137,7 @@ class User extends Component {
                   )}
 
                 </p>
-                <ChangePasswordModal id={id} />
+                {/* <ChangePasswordModal id={id} /> */}
                 <br />
               </Paper>
             </Grid>
@@ -216,6 +231,7 @@ User.propTypes = {
   adminFirstName: PropTypes.string.isRequired,
   adminLastName: PropTypes.string.isRequired,
   employeeType: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   clockInData: PropTypes.arrayOf.isRequired,
   clockOutData: PropTypes.arrayOf.isRequired,
 };
