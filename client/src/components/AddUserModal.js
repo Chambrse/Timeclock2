@@ -78,7 +78,6 @@ class AddUserModal extends React.Component {
             };
 
             Object.keys(response.data).forEach((key) => {
-              console.log([key]);
               if ([key].toString() !== 'errors') {
                 response.data[key].forEach((element) => {
                   newErrorsObj[key].push(element.msg);

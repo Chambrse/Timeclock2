@@ -9,7 +9,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
-import Map from './components/map';
+import Map1 from './components/map1';
 import BottomNav from './components/bottomNav';
 
 
@@ -19,7 +19,7 @@ class App extends Component {
     this.state = {
       EmpData: {},
       timeClockData: [],
-      loggedIn: false,
+      loggedIn: null,
       username: null,
       companyName: null,
       employeeType: null,
@@ -182,6 +182,8 @@ class App extends Component {
               timeClockData={timeClockData}
               EmpData={EmpData}
               getEmpData={this.getEmpData}
+              getGeoLocation={this.getGeoLocation}
+              currentLocation={currentLocation}
             />
           )}
         />
@@ -204,7 +206,7 @@ class App extends Component {
         <Route
           path="/map"
           render={() => (
-            <Map
+            <Map1
               currentLocation={this.currentLocation}
               getGeoLocation={this.getGeoLocation}
             />
