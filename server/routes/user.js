@@ -203,5 +203,10 @@ router.get('/getEmpData', (req, res) => {
   User.find({ manager: req.user.username }).then(results => res.json(results));
 });
 
+router.get('/getAll', (req, res) => {
+  console.log(req);
+  User.find({}).then(results => res.json(results));
+});
+
 
 module.exports = router;
