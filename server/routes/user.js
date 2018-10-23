@@ -143,6 +143,7 @@ router.post('/login',
       adminFirstName: req.user.adminFirstName,
       adminLastName: req.user.adminLastName,
       timeClockData: req.user.timeClockData,
+      status: req.user.status,
     };
     res.send(userInfo);
   });

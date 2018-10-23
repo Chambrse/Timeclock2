@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route /* , Link */} from 'react-router-dom';
+import { Route /* , Link */ } from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Grid from '@material-ui/core/Grid';
@@ -34,6 +34,7 @@ class App extends Component {
       },
       adminFirstName: null,
       adminLastName: null,
+      markers: [],
     };
 
     this.getUser = this.getUser.bind(this);
@@ -44,6 +45,7 @@ class App extends Component {
     this.getGeoLocation = this.getGeoLocation.bind(this);
     this.getEmpData = this.getEmpData.bind(this);
     this.getAll = this.getAll.bind(this);
+    this.updateMarkers = this.updateMarkers.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -57,6 +59,7 @@ class App extends Component {
     this.getUser();
   }
 
+
   getAll() {
     axios.get('user/getAll').then((results) => {
       this.setState({
@@ -65,11 +68,12 @@ class App extends Component {
     });
   }
 
-  getEmpData() {
+  getEmpData(cb) {
     axios.get('user/getEmpData').then((results) => {
       this.setState({
         EmpData: results,
       });
+      cb();
     });
   }
 
@@ -108,6 +112,7 @@ class App extends Component {
           timeClockData: response.data.user.timeClockData,
           EmpData: response.data.user.EmpData,
           getAll: response.data.user.getAll,
+          status: response.data.user.status,
         });
       } else {
         console.log('Get user: no user');
@@ -152,6 +157,26 @@ class App extends Component {
       });
   }
 
+  updateMarkers() {
+    const { EmpData } = this.state;
+    const coords = [];
+    const alph = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    EmpData.data.forEach((n, index) => {
+      if (n.timeClockData[0]) {
+        coords.push({
+          coords: n.timeClockData[0].coords,
+          name: n.adminFirstName,
+          icon: require(`./img/Google Maps Markers/blue_Marker${alph[index]}.png`),
+        });
+      }
+    });
+
+    this.setState({
+      markers: coords,
+    });
+    console.log(this.state.markers);
+  }
+
   render() {
     const {
       loggedIn,
@@ -165,7 +190,9 @@ class App extends Component {
       EmpData,
       getAll,
       id,
-      clockInData, clockOutData, adminFirstName, adminLastName,
+      adminFirstName,
+      adminLastName,
+      markers,
     } = this.state;
     return (
       <Grid className="App">
@@ -203,6 +230,8 @@ class App extends Component {
               getGeoLocation={this.getGeoLocation}
               currentLocation={currentLocation}
               getAll={getAll}
+              markers={markers}
+              updateMarkers={this.updateMarkers}
             />
           )}
         />
