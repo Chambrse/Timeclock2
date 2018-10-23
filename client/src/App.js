@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route /* , Link */} from 'react-router-dom';
+import { Route /* , Link */ } from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
@@ -110,6 +110,7 @@ class App extends Component {
           timeClockData: response.data.user.timeClockData,
           EmpData: response.data.user.EmpData,
           getAll: response.data.user.getAll,
+          status: response.data.user.status,
         });
       } else {
         console.log('Get user: no user');
@@ -159,11 +160,13 @@ class App extends Component {
     const coords = [];
     const alph = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     EmpData.data.forEach((n, index) => {
-      coords.push({
-        coords: n.timeClockData[0].coords,
-        name: n.adminFirstName,
-        icon: require(`./img/Google Maps Markers/blue_Marker${alph[index]}.png`),
-      });
+      if (n.timeClockData[0]) {
+        coords.push({
+          coords: n.timeClockData[0].coords,
+          name: n.adminFirstName,
+          icon: require(`./img/Google Maps Markers/blue_Marker${alph[index]}.png`),
+        });
+      }
     });
 
     this.setState({

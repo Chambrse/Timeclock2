@@ -100,6 +100,7 @@ class Signup extends Component {
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,
+            status: response.data.status,
           });
 
           this.setState({
