@@ -166,6 +166,32 @@ User.create([{
       clockType: 'clockIn',
     },
   ],
+},
+{
+  companyName: 'Adventurers, Inc.',
+  position: 'Evil Guy',
+  manager: 'SamGamgee89',
+  username: 'OneRing4Evr',
+  city: 'Bag end',
+  country: 'The Shire',
+  postalCode: '12345',
+  brand: 'We\'ll complete your quest before second breakfast!',
+  email: 'TheEyeOfSauron@MiddleEarthNet.net',
+  adminFirstName: 'Sauron',
+  adminLastName: '',
+  password: 'Avengers!1',
+  status: false,
+  employeeType: 'employee',
+  timeClockData: [
+    {
+      time: new Date('2018-10-23T22:11:07.223Z'),
+      coords: {
+        lat: 33.455536,
+        lng: -111.9076928,
+      },
+      clockType: 'clockIn',
+    },
+  ],
 }]).then((result) => {
   console.log('Database Seeded!');
   console.log('admin username: SamGamgee89');

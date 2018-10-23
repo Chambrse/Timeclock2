@@ -23,8 +23,8 @@ class User extends Component {
   }
 
   componentWillMount() {
-    const { getEmpData } = this.props;
-    getEmpData();
+    const { getEmpData, updateMarkers } = this.props;
+    getEmpData(updateMarkers);
   }
 
   render() {
@@ -44,10 +44,12 @@ class User extends Component {
       EmpData,
       getGeoLocation,
       currentLocation,
+      markers,
     } = this.props;
 
     console.log(this.props);
     console.log(EmpData);
+
 
     timeClockData.forEach((element, index, theArray) => {
       theArray[index].time = new Date(element.time).toLocaleString();
@@ -154,10 +156,11 @@ class User extends Component {
                       <TableCell>Name</TableCell>
                       <TableCell>Event</TableCell>
                       <TableCell>Time</TableCell>
+                      <TableCell>Icon</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {EmpData.data.map(n => (
+                    {EmpData.data.map((n, index) => (
                       n.timeClockData.length > 0 ? (
                         <TableRow>
                           <TableCell>{n.adminFirstName}</TableCell>
@@ -165,6 +168,9 @@ class User extends Component {
                             {n.timeClockData[n.timeClockData.length - 1].clockType}
                           </TableCell>
                           <TableCell>{new Date(n.timeClockData[n.timeClockData.length - 1].time).toLocaleString()}</TableCell>
+                          {markers.length > 0 ? (
+                            <TableCell><img src={markers[index].icon} /></TableCell>
+                          ) : null }
                         </TableRow>) : null
                     ))}
                   </TableBody>
@@ -185,6 +191,7 @@ class User extends Component {
                 loadingElement={<div style={{ height: '100%' }} />}
                 containerElement={<div style={{ height: '400px' }} />}
                 mapElement={<div style={{ height: '100%' }} />}
+                markers={markers}
               />
               {/*               </div>
  */}

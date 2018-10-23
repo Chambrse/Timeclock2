@@ -44,6 +44,7 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "random-color-js": "^1.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
