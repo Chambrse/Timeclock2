@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -20,9 +21,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 let counter = 0;
-function createData(name, monday, tuesday, wednesday, thursday, friday, saturday, sunday) {
+function createData(name, jobTitle, employeeType, username) {
   counter += 1;
-  return { id: counter, name, monday, tuesday, wednesday, thursday, friday, saturday, sunday };
+  return {
+    id: counter, name, jobTitle, employeeType, username,
+  };
 }
 
 function desc(a, b, orderBy) {
@@ -50,23 +53,30 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'monday', numeric: false, disablePadding: false, label: 'Monday' },
-  { id: 'tuesday', numeric: false, disablePadding: false, label: 'Tuesday' },
-  { id: 'wednesday', numeric: false, disablePadding: false, label: 'Wednesday' },
-  { id: 'thursday', numeric: false, disablePadding: false, label: 'Thursday' },
-  { id: 'friday', numeric: false, disablePadding: false, label: 'Friday' },
-  { id: 'saturday', numeric: false, disablePadding: false, label: 'Saturday' },
-  { id: 'sunday', numeric: false, disablePadding: false, label: 'Sunday' },
+  {
+    id: 'name', numeric: false, disablePadding: true, label: 'Name',
+  },
+  {
+    id: 'jobTitle', numeric: false, disablePadding: true, label: 'Job Title',
+  },
+  {
+    id: 'employeeType', numeric: false, disablePadding: true, label: 'Employee Type',
+  },
+  {
+    id: 'username', numeric: false, disablePadding: true, label: 'Username',
+  },
+  
 ];
 
 class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
+  createSortHandler = property => (event) => {
     this.props.onRequestSort(event, property);
   };
 
   render() {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const {
+      onSelectAllClick, order, orderBy, numSelected, rowCount,
+    } = this.props;
 
     return (
       <TableHead>
@@ -78,30 +88,28 @@ class EnhancedTableHead extends React.Component {
               onChange={onSelectAllClick}
             />
           </TableCell>
-          {rows.map(row => {
-            return (
-              <TableCell
-                key={row.id}
-                numeric={row.numeric}
-                padding={row.disablePadding ? 'none' : 'default'}
-                sortDirection={orderBy === row.id ? order : false}
+          {rows.map(row => (
+            <TableCell
+              key={row.id}
+              numeric={row.numeric}
+              padding={row.disablePadding ? 'none' : 'default'}
+              sortDirection={orderBy === row.id ? order : false}
+            >
+              <Tooltip
+                title="Sort"
+                placement={row.numeric ? 'bottom-end' : 'bottom-start'}
+                enterDelay={300}
               >
-                <Tooltip
-                  title="Sort"
-                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay={300}
+                <TableSortLabel
+                  active={orderBy === row.id}
+                  direction={order}
+                  onClick={this.createSortHandler(row.id)}
                 >
-                  <TableSortLabel
-                    active={orderBy === row.id}
-                    direction={order}
-                    onClick={this.createSortHandler(row.id)}
-                  >
-                    {row.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            );
-          }, this)}
+                  {row.label}
+                </TableSortLabel>
+              </Tooltip>
+            </TableCell>
+          ), this)}
         </TableRow>
       </TableHead>
     );
@@ -124,13 +132,13 @@ const toolbarStyles = theme => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   spacer: {
     flex: '1 1 100%',
   },
@@ -142,7 +150,7 @@ const toolbarStyles = theme => ({
   },
 });
 
-let EnhancedTableToolbar = props => {
+let EnhancedTableToolbar = (props) => {
   const { numSelected, classes } = props;
 
   return (
@@ -154,7 +162,9 @@ let EnhancedTableToolbar = props => {
       <div className={classes.title}>
         {numSelected > 0 ? (
           <Typography color="inherit" variant="subtitle1">
-            {numSelected} selected
+            {numSelected}
+            {' '}
+selected
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
@@ -195,7 +205,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
   },
   table: {
-    minWidth: 1020,
+    minWidth: 600,
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -223,7 +233,7 @@ class EnhancedTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = event => {
+  handleSelectAllClick = (event) => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
@@ -256,7 +266,7 @@ class EnhancedTable extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
@@ -264,7 +274,9 @@ class EnhancedTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const {
+      data, order, orderBy, selected, rowsPerPage, page,
+    } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
@@ -283,7 +295,7 @@ class EnhancedTable extends React.Component {
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map((n) => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
@@ -301,13 +313,10 @@ class EnhancedTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell>
-                      <TableCell >{n.monday}</TableCell>
-                      <TableCell >{n.tuesday}</TableCell>
-                      <TableCell >{n.wednesday}</TableCell>
-                      <TableCell >{n.thursday}</TableCell>
-                      <TableCell >{n.friday}</TableCell>
-                      <TableCell >{n.saturday}</TableCell>
-                      <TableCell >{n.sunday}</TableCell>
+                      <TableCell>{n.jobTitle}</TableCell>
+                      <TableCell>{n.employeeType}</TableCell>
+                      <TableCell>{n.username}</TableCell>
+                      
                     </TableRow>
                   );
                 })}

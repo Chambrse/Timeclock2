@@ -12,6 +12,8 @@ import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
+import Map1 from '../components/map1';
+
 
 class User extends Component {
   constructor() {
@@ -21,8 +23,8 @@ class User extends Component {
   }
 
   componentWillMount() {
-    const { getEmpData } = this.props;
-    getEmpData();
+    const { getEmpData, updateMarkers } = this.props;
+    getEmpData(updateMarkers);
   }
 
   render() {
@@ -37,12 +39,17 @@ class User extends Component {
       adminFirstName,
       adminLastName,
       employeeType,
+      position,
       id,
       EmpData,
+      getGeoLocation,
+      currentLocation,
+      markers,
     } = this.props;
 
     console.log(this.props);
     console.log(EmpData);
+
 
     timeClockData.forEach((element, index, theArray) => {
       theArray[index].time = new Date(element.time).toLocaleString();
@@ -53,12 +60,13 @@ class User extends Component {
     if (!loggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+
     return (
       <div>
         <h2>
           Welcome,
           {' '}
-          {username}
+          {`${adminFirstName} ${adminLastName}`}
           !
         </h2>
 
@@ -69,16 +77,28 @@ class User extends Component {
           </Grid>
           <Grid item xs={12} md={3}>
             <img id="PIC" img src={profile} width="200" alt="profile" />
-            <h6>{companyName}</h6>
-            <h6>CEO / CO-FOUNDER</h6>
             <h4>
-              {adminFirstName}
-              {''}
-              {adminLastName}
+              {`${adminFirstName} ${adminLastName}`}
             </h4>
+            <h6>
+              Company:
+              {' '}
+              {companyName}
+            </h6>
+            <h6>
+              Job Title:
+              {' '}
+              {position}
+            </h6>
+            <h6>
+              User Name:
+              {' '}
+              {username}
+              {' '}
+            </h6>
+            <h6><ChangePasswordModal id={id} /></h6>
           </Grid>
         </Grid>
-
 
         <div className="row">
           <Grid container spacing={40} justify="space-evenly">
@@ -104,22 +124,22 @@ class User extends Component {
                       You are clocked in.
                       <br />
                       <Button color="primary" variant="contained" onClick={clockOut}>
-                      Clock Out
+                        Clock Out
 
-                    </Button>
+                      </Button>
                     </div>
                   ) : (
-                  <div>
-                      You are clocked out.
-                    <br />
-                    <Button color="primary" variant="contained" onClick={clockIn}>
-                        Clock In
-                    </Button>
-                  </div>
+                    <div>
+                        You are clocked out.
+                      <br />
+                      <Button color="primary" variant="contained" onClick={clockIn}>
+                          Clock In
+                      </Button>
+                    </div>
                   )}
 
                 </p>
-                <ChangePasswordModal id={id} />
+                {/* <ChangePasswordModal id={id} /> */}
                 <br />
               </Paper>
             </Grid>
@@ -127,29 +147,56 @@ class User extends Component {
         </div>
         {employeeType === 'admin' && EmpData && EmpData.data
           ? (
-            <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
-              <h2>Recent data from your employees:</h2>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Event</TableCell>
-                    <TableCell>Time</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {EmpData.data.map(n => (
-                    n.timeClockData.length > 0 ? (
-                      <TableRow>
-                        <TableCell>{n.adminFirstName}</TableCell>
-                        <TableCell component="th" scope="row">
-                          {n.timeClockData[n.timeClockData.length - 1].clockType}
-                        </TableCell>
-                        <TableCell>{new Date(n.timeClockData[n.timeClockData.length - 1].time).toLocaleString()}</TableCell>
-                      </TableRow>) : null
-                  ))}
-                </TableBody>
-              </Table>
+            <div>
+              <div className="row" style={{ margin: '15px', marginTop: '50px' }}>
+                <h2>Recent data from your employees:</h2>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Event</TableCell>
+                      <TableCell>Time</TableCell>
+                      <TableCell>Icon</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {EmpData.data.map((n, index) => (
+                      n.timeClockData.length > 0 ? (
+                        <TableRow>
+                          <TableCell>{n.adminFirstName}</TableCell>
+                          <TableCell component="th" scope="row">
+                            {n.timeClockData[n.timeClockData.length - 1].clockType}
+                          </TableCell>
+                          <TableCell>{new Date(n.timeClockData[n.timeClockData.length - 1].time).toLocaleString()}</TableCell>
+                          {markers.length > 0 ? (
+                            <TableCell><img src={markers[index].icon} /></TableCell>
+                          ) : null }
+                        </TableRow>) : null
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              {/*               <div
+                className="row"
+                style={{
+                  height: '400px', width: '80vw', margin: '15px', marginTop: '50px',
+                }}
+              > */}
+              <Map1
+                getGeoLocation={getGeoLocation}
+                currentLocation={currentLocation}
+                EmpData={EmpData}
+                isMarkerShown
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKrVlx0xjdrNE4co1DPg8617iC-dwcfDQ&v=3.exp&libraries=geometry,drawing,places"
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '400px' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
+                markers={markers}
+              />
+              {/*               </div>
+ */}
+              {' '}
+
             </div>
           ) : (
             null
@@ -191,6 +238,7 @@ User.propTypes = {
   adminFirstName: PropTypes.string.isRequired,
   adminLastName: PropTypes.string.isRequired,
   employeeType: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
   clockInData: PropTypes.arrayOf.isRequired,
   clockOutData: PropTypes.arrayOf.isRequired,
 };

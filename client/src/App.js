@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route /* , Link */} from 'react-router-dom';
+import { Route /* , Link */ } from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
 import Signup from './pages/sign-up';
@@ -9,7 +9,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import User from './pages/User';
 import Admin from './pages/Admin';
-import Map from './components/map';
+import Map1 from './components/map1';
 import BottomNav from './components/bottomNav';
 
 
@@ -18,11 +18,13 @@ class App extends Component {
     super();
     this.state = {
       EmpData: {},
+      getAll: {},
       timeClockData: [],
-      loggedIn: false,
+      loggedIn: null,
       username: null,
       companyName: null,
       employeeType: null,
+      position: null,
       id: null,
       status: false,
       currentLocation: {
@@ -31,6 +33,7 @@ class App extends Component {
       },
       adminFirstName: null,
       adminLastName: null,
+      markers: [],
     };
 
     this.getUser = this.getUser.bind(this);
@@ -40,6 +43,8 @@ class App extends Component {
     this.clockOut = this.clockOut.bind(this);
     this.getGeoLocation = this.getGeoLocation.bind(this);
     this.getEmpData = this.getEmpData.bind(this);
+    this.getAll = this.getAll.bind(this);
+    this.updateMarkers = this.updateMarkers.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -53,11 +58,21 @@ class App extends Component {
     this.getUser();
   }
 
-  getEmpData() {
+
+  getAll() {
+    axios.get('user/getAll').then((results) => {
+      this.setState({
+        getAll: results,
+      });
+    });
+  }
+
+  getEmpData(cb) {
     axios.get('user/getEmpData').then((results) => {
       this.setState({
         EmpData: results,
       });
+      cb();
     });
   }
 
@@ -89,10 +104,13 @@ class App extends Component {
           id: response.data.user._id,
           companyName: response.data.user.companyName,
           employeeType: response.data.user.employeeType,
+          position: response.data.user.position,
           adminFirstName: response.data.user.adminFirstName,
           adminLastName: response.data.user.adminLastName,
           timeClockData: response.data.user.timeClockData,
           EmpData: response.data.user.EmpData,
+          getAll: response.data.user.getAll,
+          status: response.data.user.status,
         });
       } else {
         console.log('Get user: no user');
@@ -137,6 +155,26 @@ class App extends Component {
       });
   }
 
+  updateMarkers() {
+    const { EmpData } = this.state;
+    const coords = [];
+    const alph = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    EmpData.data.forEach((n, index) => {
+      if (n.timeClockData[0]) {
+        coords.push({
+          coords: n.timeClockData[0].coords,
+          name: n.adminFirstName,
+          icon: require(`./img/Google Maps Markers/blue_Marker${alph[index]}.png`),
+        });
+      }
+    });
+
+    this.setState({
+      markers: coords,
+    });
+    console.log(this.state.markers);
+  }
+
   render() {
     const {
       loggedIn,
@@ -145,10 +183,14 @@ class App extends Component {
       employeeType,
       status,
       timeClockData,
+      position,
       currentLocation,
       EmpData,
+      getAll,
       id,
-      clockInData, clockOutData, adminFirstName, adminLastName,
+      adminFirstName,
+      adminLastName,
+      markers,
     } = this.state;
     return (
       <div className="App">
@@ -180,8 +222,14 @@ class App extends Component {
               adminFirstName={adminFirstName}
               adminLastName={adminLastName}
               timeClockData={timeClockData}
+              position={position}
               EmpData={EmpData}
               getEmpData={this.getEmpData}
+              getGeoLocation={this.getGeoLocation}
+              currentLocation={currentLocation}
+              getAll={getAll}
+              markers={markers}
+              updateMarkers={this.updateMarkers}
             />
           )}
         />
@@ -204,7 +252,7 @@ class App extends Component {
         <Route
           path="/map"
           render={() => (
-            <Map
+            <Map1
               currentLocation={this.currentLocation}
               getGeoLocation={this.getGeoLocation}
             />

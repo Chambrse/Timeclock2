@@ -10,6 +10,8 @@ class ToolsModal extends React.Component {
       open: false,
 
     };
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
  onOpenModal = () => {

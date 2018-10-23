@@ -1,16 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 import {
-  Button, TextField, Select, MenuItem, InputLabel, FormControl,
+  Button, TextField, Select, MenuItem, InputLabel, FormControl, Grid,
 } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
 import PropTypes from 'prop-types';
-
-const pstyle = {
-  color: 'red',
-  margin: '0px',
-};
 
 class AddUserModal extends React.Component {
   constructor(props) {
@@ -37,6 +31,7 @@ class AddUserModal extends React.Component {
       adminLastNameErrors: [],
       employeeType: [],
       employeeTypeErrors: [],
+      position: '',
       password: '',
       passwordErrors: [],
       passwordMatch: '',
@@ -57,28 +52,26 @@ class AddUserModal extends React.Component {
 
     handleSubmit(event) {
       console.log('sign-up handleSubmit, username: ');
-      console.log(this.state.username);
+      console.log(this.username);
       event.preventDefault();
 
       // request to server to add a new username/password
       axios.post('/addDelete/', this.state)
         .then((response) => {
-          console.log('test');
+          console.log('response', response);
 
           if (response.data.errors) {
             const newErrorsObj = {
-              companyNameErrors: [],
+              usernameErrors: [],
+              emailErrors: [],
+              adminFirstNameErrors: [],
               adminLastNameErrors: [],
-              cityErrors: [],
-              countryErrors: [],
-              postalCodeErrors: [],
               employeeTypeErrors: [],
               passwordErrors: [],
               passwordMatchErrors: [],
             };
 
             Object.keys(response.data).forEach((key) => {
-              console.log([key]);
               if ([key].toString() !== 'errors') {
                 response.data[key].forEach((element) => {
                   newErrorsObj[key].push(element.msg);
@@ -103,180 +96,163 @@ class AddUserModal extends React.Component {
     }
 
     render() {
-      const { open } = this.state;
+      const {
+        username, usernameErrors,
+        email, emailErrors,
+        adminFirstName, adminFirstNameErrors,
+        adminLastName, adminLastNameErrors,
+        password, passwordErrors,
+        passwordMatch, passwordMatchErrors,
+        employeeTypeErrors, open,
+        employeeType,
+        position,
+      } = this.state;
       return (
         <div>
-          <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
+          <Button color="primary" variant="contained" onClick={this.onOpenModal}>Add Employee</Button>
           <Modal open={open} onClose={this.onCloseModal} center>
             <div className="SignupForm">
               <h4>Add New Employee</h4>
               <form className="form-horizontal">
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="username">Username</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      type="text"
-                      id="username"
-                      name="username"
-                      placeholder="Username"
-                      value={this.state.username}
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="username"
+                    name="username"
+                    label="Username"
+                    value={username}
+                    onChange={this.handleChange}
+                    error={usernameErrors > 0}
+                    helperText={usernameErrors.length > 0 ? (
+                      usernameErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="email"
+                    name="email"
+                    label="email"
+                    value={email}
+                    onChange={this.handleChange}
+                    error={emailErrors > 0}
+                    helperText={emailErrors.length > 0 ? (
+                      emailErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="adminFirstName"
+                    name="adminFirstName"
+                    label="first name"
+                    value={adminFirstName}
+                    onChange={this.handleChange}
+                    error={adminFirstNameErrors > 0}
+                    helperText={adminFirstNameErrors.length > 0 ? (
+                      adminFirstNameErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="adminLastName"
+                    name="adminLastName"
+                    label="last name"
+                    value={adminLastName}
+                    onChange={this.handleChange}
+                    error={adminLastNameErrors > 0}
+                    helperText={adminLastNameErrors.length > 0 ? (
+                      adminLastNameErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <FormControl className="col-12">
+                    <InputLabel htmlFor="label">Select</InputLabel>
+                    <Select
+                      name="employeeType"
+                      value={employeeType}
                       onChange={this.handleChange}
-                    />
-                    {this.state.usernameErrors.length > 0 ? (
-                      this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
+                      inputProps={{
+                        id: 'label',
+                      }}
+                      className="col-12"
+                      style={{ minWidth: '100%' }}
+                    >
+                      <MenuItem value="employee">employee</MenuItem>
+                      <MenuItem value="admin">admin</MenuItem>
+                    </Select>
+                  </FormControl>
+                  {employeeTypeErrors.length > 0 ? (
+                    employeeTypeErrors[0]
+                  ) : (null)
                   }
-                  </div>
-
-                </div>
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="email">Email</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      type="text"
-                      id="email"
-                      name="email"
-                      placeholder="email"
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                    />
-                    {this.state.emailErrors.length > 0 ? (
-                      this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="adminFirstName">First Name</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      type="text"
-                      id="adminFirstName"
-                      name="adminFirstName"
-                      placeholder="first name"
-                      value={this.state.adminFirstName}
-                      onChange={this.handleChange}
-                    />
-                    {this.state.adminFirstNameErrors.length > 0 ? (
-                      this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="adminLastName">Last Name</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      type="text"
-                      id="adminLastName"
-                      name="adminLastName"
-                      placeholder="last name"
-                      value={this.state.adminLastName}
-                      onChange={this.handleChange}
-                    />
-                    {this.state.adminLastNameErrors.length > 0 ? (
-                      this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label">
-                    Employee Type
-                      {' '}
-
-                    </label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <FormControl className="col-12">
-                      <InputLabel htmlFor="label">Select</InputLabel>
-                      <Select
-                        name="employeeType"
-                        value={this.state.employeeType}
-                        onChange={this.handleChange}
-                        inputProps={{
-                          id: 'label',
-                        }}
-                        className="col-12"
-                        style={{ minWidth: '100%' }}
-                      >
-
-                        <MenuItem value="employee">employee</MenuItem>
-                        <MenuItem value="manager">manager</MenuItem>
-                        <MenuItem value="admin">admin</MenuItem>
-                      </Select>
-                    </FormControl>
-                    {this.state.employeeTypeErrors.length > 0 ? (
-                      this.state.employeeTypeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="password">Password </label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      placeholder="password"
-                      type="password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange}
-                    />
-                    {this.state.passwordErrors.length > 0 ? (
-                      this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="col-6 col-ml-auto">
-                    <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
-                  </div>
-                  <div className="col-6 col-mr-auto">
-                    <TextField
-                      className="form-input"
-                      type="password"
-                      id="passwordMatch"
-                      name="passwordMatch"
-                      placeholder="passwordMatch"
-                      value={this.state.passwordMatch}
-                      onChange={this.handleChange}
-                    />
-                    {this.state.passwordMatchErrors.length > 0 ? (
-                      this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                    ) : null
-                  }
-                  </div>
-                </div>
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="position"
+                    name="position"
+                    label="job title"
+                    value={position}
+                    onChange={this.handleChange}
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    label="password"
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={this.handleChange}
+                    error={passwordErrors > 0}
+                    helperText={passwordErrors.length > 0 ? (
+                      passwordErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="password"
+                    id="passwordMatch"
+                    name="passwordMatch"
+                    label="passwordMatch"
+                    value={passwordMatch}
+                    onChange={this.handleChange}
+                    error={passwordMatchErrors > 0}
+                    helperText={passwordMatchErrors.length > 0 ? (
+                      passwordMatchErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
                 <br />
-                <div className="form-group ">
-                  <div className="col-12" />
+                <Grid xs={12}>
                   <Button
-                    className="btn btn-primary col-12 col-mr-auto"
+                    color="primary"
+                    variant="contained"
                     onClick={this.handleSubmit}
                     type="submit"
                   >
                   Add User
-
                   </Button>
-                </div>
+                </Grid>
               </form>
             </div>
           </Modal>

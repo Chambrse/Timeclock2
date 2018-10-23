@@ -37,6 +37,7 @@ class Signup extends Component {
       adminFirstNameErrors: [],
       adminLastName: '',
       adminLastNameErrors: [],
+      position: '',
       password: '',
       passwordErrors: [],
       passwordMatch: '',
@@ -79,6 +80,7 @@ class Signup extends Component {
           };
 
           Object.keys(response.data).forEach((key) => {
+            console.log([key]);
             if ([key].toString() !== 'errors') {
               response.data[key].forEach((element) => {
                 newErrorsObj[key].push(element.msg);
@@ -94,9 +96,11 @@ class Signup extends Component {
             id: response.data._id,
             companyName: response.data.companyName,
             employeeType: response.data.employeeType,
+            position: response.data.position,
             adminFirstName: response.data.adminFirstName,
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,
+            status: response.data.status,
           });
 
           this.setState({
@@ -124,6 +128,7 @@ class Signup extends Component {
       password, passwordErrors,
       passwordMatch, passwordMatchErrors,
       redirectTo,
+      position,
     } = this.state;
     if (redirectTo) {
       return <Redirect to={{ pathname: redirectTo }} />;
@@ -154,7 +159,7 @@ class Signup extends Component {
               ) : null
                   }
             />
-            
+
           </Grid>
           <Grid xs={0} md={1}>
             <br />
@@ -315,10 +320,23 @@ class Signup extends Component {
                   }
             />
           </Grid>
+
+          <Grid justify="space-evenly" item xs={12} md={3}>
+            <TextField
+              margin="normal"
+              fullWidth="true"
+              type="text"
+              id="position"
+              name="position"
+              label="Job Title"
+              value={position}
+              onChange={this.handleChange}
+            />
+          </Grid>
           <Grid xs={0} md={1}>
             <br />
           </Grid>
-          <Grid justify="space-evenly" xs={12} md={4}>
+          <Grid justify="space-evenly" xs={12} md={3}>
             <TextField
               fullWidth="true"
               margin="normal"
@@ -337,7 +355,7 @@ class Signup extends Component {
           <Grid xs={0} md={1}>
             <br />
           </Grid>
-          <Grid justify="space-evenly" xs={12} md={4}>
+          <Grid justify="space-evenly" xs={12} md={3}>
             <TextField
               fullWidth="true"
               margin="normal"

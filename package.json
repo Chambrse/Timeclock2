@@ -8,10 +8,10 @@
     "start:prod": "node ./server/server.js",
     "start:dev": "concurrently \"nodemon ./server/server.js --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
-    "seed": "node scripts/seedDB.js",
     "install": "cd client && yarn install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "seed": "node server/database/seed.js"
   },
   "author": "",
   "license": "ISC",
@@ -44,8 +44,10 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "random-color-js": "^1.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-google-maps": "^9.4.5",
     "react-responsive-modal": "^3.4.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.0.4",

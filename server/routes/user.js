@@ -133,23 +133,24 @@ router.post('/login',
   },
   passport.authenticate('local'),
   (req, res) => {
-    console.log('logged in', req.user);
-    console.log(req.session);
+    console.log('logged in', req.user.username);
     const userInfo = {
       username: req.user.username,
       _id: req.user._id,
       companyName: req.user.companyName,
       employeeType: req.user.employeeType,
+      position: req.user.position,
       adminFirstName: req.user.adminFirstName,
       adminLastName: req.user.adminLastName,
       timeClockData: req.user.timeClockData,
+      status: req.user.status,
     };
     res.send(userInfo);
   });
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
-  console.log(req.user);
+  console.log(req.user.username);
   if (req.user) {
     res.json({ user: req.user });
   } else {
@@ -200,6 +201,11 @@ router.post('/clockOut/:id', (req, res) => {
 
 router.get('/getEmpData', (req, res) => {
   User.find({ manager: req.user.username }).then(results => res.json(results));
+});
+
+router.get('/getAll', (req, res) => {
+  console.log(req);
+  User.find({}).then(results => res.json(results));
 });
 
 
