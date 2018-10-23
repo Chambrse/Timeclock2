@@ -10,28 +10,16 @@ class Map extends Component {
     super(props);
 
     this.state = {
-      markers: [],
     };
   }
 
   componentDidMount() {
-    const { getGeoLocation, EmpData } = this.props;
+    const { getGeoLocation } = this.props;
     getGeoLocation();
-
-    const coords = [];
-    EmpData.data.forEach((n) => {
-      console.log('empdata loop', n);
-      coords.push(n.timeClockData[0].coords);
-    });
-
-    this.setState({
-      markers: coords,
-    });
   }
 
   render() {
-    const { currentLocation } = this.props;
-    const { markers } = this.state;
+    const { currentLocation, markers } = this.props;
     console.log('currentlocation', currentLocation);
     return (
       <div style={{ height: '100%', width: '100%' }}>
@@ -41,7 +29,7 @@ class Map extends Component {
         >
           {markers.length > 0 ? (
             markers.map((element, index) => (
-              <Marker key={index} position={{ lat: element.lat, lng: element.lng }} />
+              <Marker key={index} title={element.name} position={element.coords} icon={element.icon} />
             ))
           ) : null}
         </GoogleMap>
