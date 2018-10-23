@@ -24,20 +24,10 @@ class DeleteUserModal extends React.Component {
   };
 
   handleSubmit(event) {
-    // console.log('sign-up handleSubmit, username: ');
-    console.log(this.response);
     event.preventDefault();
-
     // request to server to delete a new username/password
-    axios.get('/addDelete/')
-      .then((response) => {
-        console.log('Delete Route needs to be created!!');
-        console.log(response);
-
-      }).catch((error) => {
-        console.log('signup error: ');
-        console.log(error);
-      });
+    axios.get('/addDelete/', this).then(response => response)
+      .catch(error => error);
   }
 
   handleChange(event) {
@@ -50,8 +40,7 @@ class DeleteUserModal extends React.Component {
     const { open } = this.state;
     return (
       <div>
-
-        <Button className="btn btn-primary" onClick={this.onOpenModal}>Delete Employee</Button>
+        <Button color="secondary" variant="contained" onClick={this.onOpenModal}>Delete Employee</Button>
         <Modal open={open} onClose={this.onCloseModal} center>
       Delete Box dynamically created with  + Mapped users from Database.
         Delete Button to Delete user  that is checked.
@@ -65,9 +54,7 @@ class DeleteUserModal extends React.Component {
               type="submit"
             >
 Delete User
-
             </button>
-
           </div>
         </Modal>
       </div>

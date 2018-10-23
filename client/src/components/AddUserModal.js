@@ -104,6 +104,7 @@ class AddUserModal extends React.Component {
 
   render() {
     const { open } = this.state;
+    const newLocal = this;
     return (
       <div>
         <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
@@ -126,7 +127,7 @@ class AddUserModal extends React.Component {
                     onChange={this.handleChange}
                   />
                   {this.state.usernameErrors.length > 0 ? (
-                    this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    newLocal.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
                 </div>

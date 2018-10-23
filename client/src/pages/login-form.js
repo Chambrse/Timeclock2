@@ -33,8 +33,6 @@ class LoginForm extends Component {
         password: this.state.password,
       })
       .then((response) => {
-        console.log('login response: ');
-        console.log(response);
         if (response.status === 200) {
           // update App.js state
           this.props.updateUser({
@@ -54,7 +52,6 @@ class LoginForm extends Component {
           });
         }
       }).catch((error) => {
-        console.log('login error: ');
         console.log(error);
         alert('Username or password is incorrect');
       });
@@ -71,24 +68,21 @@ class LoginForm extends Component {
           <Grid item xs={12}>
             <h4>Login</h4>
           </Grid>
-          <Grid item xs={12} md={4}>
-              Username
+          <Grid xs={12} md={4}>
+
             <TextField
-              className="form-input"
+              label="Username"
               type="text"
               id="username"
               name="username"
-              placeholder="Username"
               value={this.state.username}
               onChange={this.handleChange}
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
-              Password:
+          <Grid xs={12} md={4}>
             <TextField
-              className="form-input"
-              placeholder="password"
+              label="Password"
               type="password"
               name="password"
               value={this.state.password}
@@ -98,7 +92,8 @@ class LoginForm extends Component {
           </Grid>
           <Grid item xs={12}>
             <Button
-              className="btn btn-primary col-1 col-mr-auto"
+              color="primary"
+              variant="contained"
               onClick={this.handleSubmit}
               type="submit"
             >

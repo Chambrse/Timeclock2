@@ -52,6 +52,7 @@ router.post('/', (req, res) => {
           break;
         case 'passwordMatch':
           passwordMatchErrors.push(element);
+          break;
         default:
       }
     });
