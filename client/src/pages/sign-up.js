@@ -42,6 +42,8 @@ class Signup extends Component {
       passwordErrors: [],
       passwordMatch: '',
       passwordMatchErrors: [],
+      photo_url: '',
+      photo_urlErrors: '',
       redirectTo: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -101,6 +103,7 @@ class Signup extends Component {
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,
             status: response.data.status,
+            photo_url: response.data.photo_url,
           });
 
           this.setState({
@@ -129,6 +132,8 @@ class Signup extends Component {
       passwordMatch, passwordMatchErrors,
       redirectTo,
       position,
+      photo_url,
+      photo_urlErrors,
     } = this.state;
     if (redirectTo) {
       return <Redirect to={{ pathname: redirectTo }} />;
@@ -142,7 +147,7 @@ class Signup extends Component {
             <h4>Sign up</h4>
           </Grid>
 
-          <Grid justify="space-evenly" xs={12} md={4}>
+          <Grid justify="space-evenly" xs={12} md={3}>
 
             <TextField
               fullWidth="true"
@@ -164,7 +169,7 @@ class Signup extends Component {
           <Grid xs={0} md={1}>
             <br />
           </Grid>
-          <Grid justify="space-evenly" xs={12} md={4}>
+          <Grid justify="space-evenly" xs={12} md={3}>
 
             <TextField
               fullWidth="true"
@@ -182,6 +187,26 @@ class Signup extends Component {
                   }
             />
 
+          </Grid>
+          <Grid justify="space-evenly" xs={12} md={3}>
+            <TextField
+              fullWidth="true"
+              margin="normal"
+              type="text"
+              id="photo_url"
+              name="photo_url"
+              label="photo_url"
+              value={photo_url}
+              onChange={this.handleChange}
+              error={photo_urlErrors.length > 0}
+              helperText={photo_urlErrors.length > 0 ? (
+                photo_urlErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+              ) : null
+                  }
+            />
+          </Grid>
+          <Grid xs={0} md={1}>
+            <br />
           </Grid>
           <Grid xs={0} md={1}>
             <br />
@@ -220,7 +245,7 @@ class Signup extends Component {
               helperText={countryErrors.length > 0 ? (
                 countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
               ) : null
-                  }
+              }
             />
           </Grid>
           <Grid xs={0} md={1}>

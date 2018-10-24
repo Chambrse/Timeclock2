@@ -62,6 +62,7 @@ const userSchema = new Schema({
     coords: Object,
     clockType: String,
   }],
+  photo_url: String,
 });
 
 // Define schema methods

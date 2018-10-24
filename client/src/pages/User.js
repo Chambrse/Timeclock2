@@ -45,6 +45,7 @@ class User extends Component {
       getGeoLocation,
       currentLocation,
       markers,
+      photo_url,
     } = this.props;
 
     timeClockData.forEach((element, index, theArray) => {
@@ -72,7 +73,7 @@ class User extends Component {
             <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
           </Grid>
           <Grid item xs={12} md={3}>
-            <img id="PIC" img src={profile} width="200" alt="profile" />
+            <img id="PIC" img src={photo_url || profile} width="200" alt="profile" />
             <h4>
               {`${adminFirstName} ${adminLastName}`}
             </h4>

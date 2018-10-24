@@ -46,6 +46,7 @@ class LoginForm extends Component {
             adminLastName: response.data.adminLastName,
             timeClockData: response.data.timeClockData,
             status: response.data.status,
+            photo_url: response.data.photo_url,
           });
           // update the state to redirect to home
           this.setState({
