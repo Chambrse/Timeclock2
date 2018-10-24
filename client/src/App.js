@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Route /* , Link */ } from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
+import Grid from '@material-ui/core/Grid';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
@@ -97,6 +98,7 @@ class App extends Component {
   // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
+      console.log(response);
       if (response.data.user) {
         this.setState({
           loggedIn: true,
@@ -193,7 +195,7 @@ class App extends Component {
       markers,
     } = this.state;
     return (
-      <div className="App">
+      <Grid className="App">
 
         <Navbar updateUser={this.updateUser} loggedIn={loggedIn} />
         <br />
@@ -261,7 +263,7 @@ class App extends Component {
         <br />
         <br />
         <BottomNav />
-      </div>
+      </Grid>
     );
   }
 }
