@@ -214,21 +214,39 @@ const styles = theme => ({
 });
 
 class EnhancedTable extends React.Component {
-  constructor() {
-    super()
-  this.state = {
+  state = {
     order: 'asc',
-    orderBy: 'name',
+    orderBy: 'calories',
     selected: [],
-    alldata: [],
+    data: [
+      createData('Cupcake', 'title', 'type', 'user'),
+      
+    ],
     page: 0,
     rowsPerPage: 5,
   };
-  this.getAll = this.getAll.bind(this);
-}
-componentDidMount(){
-  this.getAll()
-}
+
+  componentDidMount(){
+    this.getAll();
+  }
+
+  getAll() {
+    axios.get('/user/getAll', this).then((response) => {
+      console.log(response);
+      let data = [];
+      for (let i = 0; i<response.data.length; i++){
+        
+        let cd = createData(response.data[i].adminFirstName, response.data[i].position, response.data[i].employeeType, response.data[i].username)
+        data.push(cd)
+        
+        console.log(data)
+        this.setState({data: data})
+      }
+    
+      
+    });
+  }
+
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
@@ -240,14 +258,14 @@ componentDidMount(){
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = (event) => {
+  handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.alldata.map(n => n.id) }));
+      this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
   };
-  
+
   handleClick = (event, id) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
@@ -273,31 +291,17 @@ componentDidMount(){
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = (event) => {
+  handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-  getAll() {
-    axios.get('/user/getAll', this).then((response) => {
-      console.log(response);
-      this.setState = ({
-        alldata: [
-          createData(response.data[0].adminFirstName, response.data[0].position, response.data[0].employeeType, response.data[0].username),
-          createData('1','1','1','1')]
-      });
-      
-    });
-  }
-
   render() {
     const { classes } = this.props;
-    const {
-      alldata, order, orderBy, selected, rowsPerPage, page,
-    } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, alldata.length - page * rowsPerPage);
-    console.log(alldata)
+    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
     return (
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} />
@@ -309,12 +313,12 @@ componentDidMount(){
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={alldata.length}
+              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(alldata, getSorting(order, orderBy))
+              {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((n) => {
+                .map(n => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
@@ -332,9 +336,9 @@ componentDidMount(){
                       <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell>
-                      <TableCell>{n.jobTitle}</TableCell>
-                      <TableCell>{n.employeeType}</TableCell>
-                      <TableCell>{n.username}</TableCell>
+                      <TableCell numeric>{n.jobTitle}</TableCell>
+                      <TableCell numeric>{n.employeeType}</TableCell>
+                      <TableCell numeric>{n.username}</TableCell>
                       
                     </TableRow>
                   );
@@ -349,7 +353,7 @@ componentDidMount(){
         </div>
         <TablePagination
           component="div"
-          count={alldata.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
