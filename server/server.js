@@ -6,16 +6,20 @@ const morgan = require('morgan');
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const path = require('path');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
 const dbConnection = require('./database');
 
 const passport = require('./passport');
 
 const app = express();
+
 const PORT = process.env.PORT || 8080;
 // Route requires
 const user = require('./routes/user');
 const addDelete = require('./routes/addDelete');
 const changePassword = require('./routes/changePassword');
+const addDeletePhoto = require('./routes/addDelete');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -30,7 +34,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(expressValidator());
-
+app.use(fileUpload());
+app.use(cors());
 
 // Sessions
 app.use(
@@ -50,10 +55,25 @@ app.use(passport.session()); // calls the deserializeUser
 
 app.use('/user', user);
 app.use('/addDelete', addDelete);
+app.use('/addDelete', addDeletePhoto);
 app.use('/changePassword', changePassword);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './client/build/index.html'));
+// });
+app.use('/public', express.static(__dirname + '/public'));
+app.post('/upload', (req, res, next) => {
+  console.log(req);
+  const imageFile = req.files.file;
+
+  imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, (err) => {
+    console.log('photo');
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    res.json({ file: __dirname +`/public/${req.body.filename}.jpg` });
+  });
 });
 
 // Starting Server

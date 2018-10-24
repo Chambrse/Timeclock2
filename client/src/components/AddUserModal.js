@@ -104,6 +104,7 @@ class AddUserModal extends React.Component {
 
   render() {
     const { open } = this.state;
+    const newLocal = this;
     return (
       <div>
         <Button className="btn btn-success" onClick={this.onOpenModal}>Add Employee</Button>
@@ -126,7 +127,7 @@ class AddUserModal extends React.Component {
                     onChange={this.handleChange}
                   />
                   {this.state.usernameErrors.length > 0 ? (
-                    this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
+                    newLocal.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
                   ) : console.log('it was false')
                   }
                 </div>
@@ -148,7 +149,7 @@ class AddUserModal extends React.Component {
                   />
                   {this.state.emailErrors.length > 0 ? (
                     this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : null
+                  ) : console.log('it was false')
                   }
                 </div>
               </div>
@@ -168,7 +169,7 @@ class AddUserModal extends React.Component {
                   />
                   {this.state.adminFirstNameErrors.length > 0 ? (
                     this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : null
+                  ) : console.log('it was false')
                   }
                 </div>
               </div>
@@ -188,7 +189,7 @@ class AddUserModal extends React.Component {
                   />
                   {this.state.adminLastNameErrors.length > 0 ? (
                     this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : null
+                  ) : console.log('it was false')
                   }
                 </div>
               </div>
@@ -196,7 +197,7 @@ class AddUserModal extends React.Component {
                 <div className="col-6 col-ml-auto">
                   <label className="form-label">
                     Employee Type
-                      {' '}
+                    {' '}
 
                   </label>
                 </div>
@@ -283,7 +284,7 @@ class AddUserModal extends React.Component {
                   />
                   {this.state.passwordMatchErrors.length > 0 ? (
                     this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : null
+                  ) : console.log('it was false')
                   }
                 </div>
               </div>

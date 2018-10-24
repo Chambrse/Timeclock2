@@ -52,6 +52,7 @@ router.post('/', (req, res) => {
           break;
         case 'passwordMatch':
           passwordMatchErrors.push(element);
+          break;
         default:
       }
     });
@@ -149,5 +150,52 @@ router.get('/', (req, res, err) => {
 //     res.send({msg: 'no user to log out'});
 //   }
 // });
+router.post('/photo/:id', (req, res) => {
+  console.log('--------- body ---------', req.body);
+  const {
+    id, photo,
+  } = req.body;
+  const errors = req.validationErrors();
+
+  if (errors) res.json(errors);
+  else {
+    console.log(' --------- ID -------- ', id);
+    User.findOne({ _id: id }, (err, user) => {
+      if (err) {
+        console.log('Error finding ID in DB: ', err);
+        res.status(err.status || 500);
+      } else if (user) {
+        console.log(' ----------------------------------------------- user', user);
+        const existingUser = user;
+        User.findOneAndUpdate(
+          { _id: id },
+          { photo: existingUser.photo },
+          (error, match) => {
+            if (error) {
+              console.log('ERRRRRROR: cannot find ID', id);
+              res.status(err.status || 500);
+            } else if (match) {
+              console.log(' found match', match);
+            } else {
+              console.log('something happened');
+              res.status(err.status || 500);
+            }
+          },
+        );
+      }
+      // else {
+      //   console.log('***Password does not match existing one.');
+      //   res.status(400).send(new Error('Password does not match existing one'));
+      // }
+      // }
+      // else {
+      //   console.log(' *************** FOUND NONE BY ID **************** ');
+      //   res.status(err.status || 500);
+      // }
+    });
+  }
+  // res.send({ msg: 'Password changed' });
+});
+
 
 module.exports = router;

@@ -12,40 +12,25 @@ import Clock from '../components/clock';
 import Admin from './Admin';
 import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
+import ChangePhotoModal from '../components/ChangePhotoModal';
 
-const User = ({
-  timeClockData,
-  status,
-  loggedIn,
-  username,
-  companyName,
-  clockIn,
-  clockOut,
-  adminFirstName,
-  adminLastName,
-  employeeType,
-  position,
-  id,
-}) => {
-  console.log(position);
 
-  timeClockData.forEach((element, index, theArray) => {
-    theArray[index].time = new Date(element.time).toLocaleString();
-  });
+class User extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
 
-  // componentWillMount() {
-  //   const { getEmpData } = this.props;
-  //   getEmpData();
-  // };
+  componentWillMount() {
+    const { getEmpData } = this.props;
+    getEmpData();
+  }
 
-  return (
-    <div>
-      <h2>
-        Welcome,
-        {' '}
-        {`${adminFirstName } ${ adminLastName}`}
-        !
-      </h2>
+  handleEvent() {
+    console.log('IMG CLicked');
+    this.open({ ChangePhotoModal });
+  }
 
   render() {
     const {
@@ -59,25 +44,32 @@ const User = ({
       adminFirstName,
       adminLastName,
       employeeType,
+      position,
       id,
       EmpData,
     } = this.props;
 
-      <Grid container spacing={40} justify="space-evenly">
-        <Grid item xs={12} md={3}>
-          <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <img id="PIC" img src={profile} width="200" alt="profile" />
-          <h4>
-            {`${adminFirstName } ${ adminLastName}`}
-          </h4>
-          <h6>Company: {companyName}</h6>
-          <h6>Job Title: {position}</h6>
-          <h6>User Name: {username} </h6>
-          <h6><ChangePasswordModal/></h6>
-        </Grid>
-      </Grid>
+    console.log(this.props);
+    console.log(EmpData);
+
+    timeClockData.forEach((element, index, theArray) => {
+      theArray[index].time = new Date(element.time).toLocaleString();
+    });
+
+    timeClockData.reverse();
+
+    if (!loggedIn) {
+      return <Redirect to={{ pathname: '/login' }} />;
+    }
+
+    return (
+      <div>
+        <h2>
+          Welcome,
+          {' '}
+          {`${adminFirstName} ${adminLastName}`}
+          !
+        </h2>
 
 
         <Grid container spacing={40} justify="space-evenly">
@@ -85,17 +77,30 @@ const User = ({
             <Clock size={300} timeFormat="24hour" hourFormat="standard" />&emsp;
           </Grid>
           <Grid item xs={12} md={3}>
-            <img id="PIC" img src={profile} width="200" alt="profile" />
-            <h6>{companyName}</h6>
-            <h6>CEO / CO-FOUNDER</h6>
+            <ChangePhotoModal />
+            {/* <img id="PIC" img src={profile} onClick={this.handleEvent} width="200" alt="profile" /> */}
             <h4>
-              {adminFirstName}
-              {''}
-              {adminLastName}
+              {`${adminFirstName} ${adminLastName}`}
             </h4>
+            <h6>
+              Company:
+              {' '}
+              {companyName}
+            </h6>
+            <h6>
+              Job Title:
+              {' '}
+              {position}
+            </h6>
+            <h6>
+              User Name:
+              {' '}
+              {username}
+              {' '}
+            </h6>
+            <h6><ChangePasswordModal id={id} /></h6>
           </Grid>
         </Grid>
-
 
         <div className="row">
           <Grid container spacing={40} justify="space-evenly">
@@ -121,22 +126,22 @@ const User = ({
                       You are clocked in.
                       <br />
                       <Button color="primary" variant="contained" onClick={clockOut}>
-                      Clock Out
+                        Clock Out
 
-                    </Button>
+                      </Button>
                     </div>
                   ) : (
-                  <div>
-                      You are clocked out.
-                    <br />
-                    <Button color="primary" variant="contained" onClick={clockIn}>
-                        Clock In
-                    </Button>
-                  </div>
+                    <div>
+                        You are clocked out.
+                      <br />
+                      <Button color="primary" variant="contained" onClick={clockIn}>
+                          Clock In
+                      </Button>
+                    </div>
                   )}
 
                 </p>
-                <ChangePasswordModal id={id} />
+
                 <br />
               </Paper>
             </Grid>

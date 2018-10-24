@@ -57,6 +57,10 @@ const userSchema = new Schema({
     type: String,
     default: 'admin',
   },
+  photo: {
+    type: String,
+    default: 'profile',
+  },
   timeClockData: [{
     time: Date,
     coords: Object,

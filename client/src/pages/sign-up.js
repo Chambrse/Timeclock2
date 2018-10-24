@@ -162,6 +162,9 @@ class Signup extends Component {
             ) : null
             }
           </Grid>
+          <Grid xs={0} md={1}>
+            <br />
+          </Grid>
           <Grid justify="space-evenly" xs={12} md={4}>
 
             <TextField
@@ -185,251 +188,257 @@ class Signup extends Component {
             }
           </Grid>
 
-          </Grid>
-          <Grid xs={0} md={1}>
-            <br />
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={3}>
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="city"
-              name="city"
-              label="City"
-              value={city}
-              onChange={this.handleChange}
-              error={cityErrors.length > 0}
-              helperText={cityErrors.length > 0 ? (
-                cityErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
-                  }
-            />
-            {cityErrors.length > 0 ? (
-
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={3}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="city"
+            name="city"
+            label="City"
+            value={city}
+            onChange={this.handleChange}
+            error={cityErrors.length > 0}
+            helperText={cityErrors.length > 0 ? (
               cityErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-            }
-          </Grid>
-          <Grid xs={0} md={1}>
-            <br />
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={3}>
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="country"
-              name="country"
-              label="Country"
-              value={country}
-              onChange={this.handleChange}
-              error={countryErrors.length > 0}
-              helperText={countryErrors.length > 0 ? (
-                countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
                   }
-            />
-            {countryErrors.length > 0 ? (
+          />
+          {cityErrors.length > 0 ? (
+
+            cityErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
+            }
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={3}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="country"
+            name="country"
+            label="Country"
+            value={country}
+            onChange={this.handleChange}
+            error={countryErrors.length > 0}
+            helperText={countryErrors.length > 0 ? (
               countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-            }
-          </Grid>
-          <Grid xs={0} md={1}>
-            <br />
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={3}>
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="postalCode"
-              name="postalCode"
-              label="Zip"
-              value={postalCode}
-              onChange={this.handleChange}
-              error={postalCodeErrors.length > 0}
-              helperText={postalCodeErrors.length > 0 ? (
-                postalCodeErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
                   }
-            />
-            {postalCodeErrors.length > 0 ? (
+          />
+          {countryErrors.length > 0 ? (
+            countryErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
+            }
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={3}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="postalCode"
+            name="postalCode"
+            label="Zip"
+            value={postalCode}
+            onChange={this.handleChange}
+            error={postalCodeErrors.length > 0}
+            helperText={postalCodeErrors.length > 0 ? (
               postalCodeErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-            }
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={11}>
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="brand"
-              name="brand"
-              label="Brand Statement here"
-              value={brand}
-              onChange={this.handleChange}
-              error={brandErrors.length > 0}
-              helperText={brandErrors.length > 0 ? (
-                brandErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
                   }
-            />
-            {brandErrors.length > 0 ? (
+          />
+          {postalCodeErrors.length > 0 ? (
+            postalCodeErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
+            }
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={11}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="brand"
+            name="brand"
+            label="Brand Statement here"
+            value={brand}
+            onChange={this.handleChange}
+            error={brandErrors.length > 0}
+            helperText={brandErrors.length > 0 ? (
               brandErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-            }
-          </Grid>
-
-          {/* </Grid> */}
-
-          <Grid justify="space-evenly" xs={12} md={4}>
-
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="email"
-              name="email"
-              label="Enter Valid Email"
-              value={email}
-              onChange={this.handleChange}
-              error={emailErrors.length > 0}
-              helperText={emailErrors.length > 0 ? (
-                emailErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
                   }
-            />
-            {emailErrors.length > 0 ? (
+          />
+          {brandErrors.length > 0 ? (
+            brandErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
+            }
+        </Grid>
+
+        {/* </Grid> */}
+
+        <Grid justify="space-evenly" xs={12} md={4}>
+
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="email"
+            name="email"
+            label="Enter Valid Email"
+            value={email}
+            onChange={this.handleChange}
+            error={emailErrors.length > 0}
+            helperText={emailErrors.length > 0 ? (
               emailErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
+                  }
+          />
+          {emailErrors.length > 0 ? (
+            emailErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
             }
-          </Grid>
+        </Grid>
 
-          <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4}>
 
             First Name
- 
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="adminFirstName"
-              name="adminFirstName"
-              label="First Name"
-              value={adminFirstName}
-              onChange={this.handleChange}
-              error={adminFirstNameErrors.length > 0}
-              helperText={adminFirstNameErrors.length > 0 ? (
-                adminFirstNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
-                  }
-            />
-            {adminFirstNameErrors.length > 0 ? (
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="adminFirstName"
+            name="adminFirstName"
+            label="First Name"
+            value={adminFirstName}
+            onChange={this.handleChange}
+            error={adminFirstNameErrors.length > 0}
+            helperText={adminFirstNameErrors.length > 0 ? (
               adminFirstNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
-            }
-          </Grid>
-          <Grid xs={0} md={1}>
-            <br />
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={3}>
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="text"
-              id="adminLastName"
-              name="adminLastName"
-              label="Last Name"
-              value={adminLastName}
-              onChange={this.handleChange}
-              error={adminLastNameErrors.length > 0}
-              helperText={adminLastNameErrors.length > 0 ? (
-                adminLastNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
                   }
-            />
-            {adminLastNameErrors.length > 0 ? (
+          />
+          {adminFirstNameErrors.length > 0 ? (
+            adminFirstNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
+            }
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={3}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="text"
+            id="adminLastName"
+            name="adminLastName"
+            label="Last Name"
+            value={adminLastName}
+            onChange={this.handleChange}
+            error={adminLastNameErrors.length > 0}
+            helperText={adminLastNameErrors.length > 0 ? (
               adminLastNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
+                  }
+          />
+          {adminLastNameErrors.length > 0 ? (
+            adminLastNameErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
             }
 
-          </Grid>
-          <Grid item xs={12} md={4}>
+        </Grid>
+        <Grid item xs={12} md={4}>
             Job Title
-            <TextField
-              className="form-input"
-              type="text"
-              id="position"
-              name="position"
-              placeholder="Job Title"
-              value={position}
-              onChange={this.handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={4}>
+          <TextField
+            className="form-input"
+            type="text"
+            id="position"
+            name="position"
+            placeholder="Job Title"
+            value={position}
+            onChange={this.handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
 
             Password: Must be 8 characters long with 1 capital and 1 symbol
 
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              label="Password"
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-              error={passwordErrors.length > 0}
-              helperText={passwordErrors.length > 0 ? (
-                passwordErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
-                  }
-            />
-            {passwordErrors.length > 0 ? (
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={4}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            label="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.handleChange}
+            error={passwordErrors.length > 0}
+            helperText={passwordErrors.length > 0 ? (
               passwordErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
+                  }
+          />
+          {passwordErrors.length > 0 ? (
+            passwordErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
             }
-          </Grid>
-          <Grid xs={0} md={1}>
-            <br />
+        </Grid>
+        <Grid xs={0} md={1}>
+          <br />
             Passwords must match
 
-            <TextField
-              fullWidth="true"
-              margin="normal"
-              type="password"
-              id="passwordMatch"
-              name="passwordMatch"
-              label="Confrim Password"
-              value={passwordMatch}
-              onChange={this.handleChange}
-              error={passwordMatchErrors.length > 0}
-              helperText={passwordMatchErrors.length > 0 ? (
-                passwordMatchErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
-              ) : null
-                  }
-            />
-            {passwordMatchErrors.length > 0 ? (
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={4}>
+          <TextField
+            fullWidth="true"
+            margin="normal"
+            type="password"
+            id="passwordMatch"
+            name="passwordMatch"
+            label="Confrim Password"
+            value={passwordMatch}
+            onChange={this.handleChange}
+            error={passwordMatchErrors.length > 0}
+            helperText={passwordMatchErrors.length > 0 ? (
               passwordMatchErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
             ) : null
+                  }
+          />
+          {passwordMatchErrors.length > 0 ? (
+            passwordMatchErrors.map(element => <p style={pstyle} key={id}>{element}</p>)
+          ) : null
             }
-          </Grid>
-          <Grid xs={0} md={12}>
-            <br />
-          </Grid>
-          <Grid justify="space-evenly" xs={12} md={10}>
+        </Grid>
+        <Grid xs={0} md={12}>
+          <br />
+        </Grid>
+        <Grid justify="space-evenly" xs={12} md={10}>
 
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={this.handleSubmit}
-              type="submit"
-            >
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={this.handleSubmit}
+            type="submit"
+          >
               Sign up
-            </Button>
+          </Button>
 
 
-          </Grid>
+        </Grid>
 
         {/* </Grid> */}
         <br />

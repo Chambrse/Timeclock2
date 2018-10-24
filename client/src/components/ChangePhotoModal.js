@@ -1,293 +1,143 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 import {
-  Button, TextField, Select, MenuItem, InputLabel, FormControl,
-} from '@material-ui/core';
+  Button, TextField, Grid,
+} from /*  TextField,
+  Select,
+  MenuItem,
+  TextFieldLabel,
+  FormControl, */
+  '@material-ui/core';
 import Modal from 'react-responsive-modal';
 import profile from '../blank-profile-picture.png';
 
-const pstyle = {
-  color: 'red',
-  margin: '0px',
-};
 
-class AddUserModal extends React.Component {
-  constructor(props) {
-    const { adminUsername } = props;
+class ChangePhotoModal extends Component {
+  constructor({ id }) {
     super();
     this.state = {
       open: false,
-      adminUsername,
-      username: '',
-      usernameErrors: [],
-      companyName: '',
-      companyNameErrors: [],
-      city: '',
-      cityErrors: [],
-      country: '',
-      countryErrors: [],
-      postalCode: '',
-      postalCodeErrors: [],
-      email: '',
-      emailErrors: [],
-      adminFirstName: '',
-      adminFirstNameErrors: [],
-      adminLastName: '',
-      adminLastNameErrors: [],
-      employeeType: [],
-      employeeTypeErrors: [],
-      password: '',
-      passwordErrors: [],
-      passwordMatch: '',
-      passwordMatchErrors: [],
-      redirectTo: null,
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+      photo: '',
+      id,
+      imageURL: profile,
+    }; // end this.state = {
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUploadImage2 = this.handleUploadImage2.bind(this);
+    // this.handleUploadImage = this.handleUploadImage.bind(this);
   }
 
-    onOpenModal = () => {
-      this.setState({ open: true });
-    };
-
-    onCloseModal = () => {
-      this.setState({ open: false });
-    };
-
-    handleSubmit(event) {
-      console.log('sign-up handleSubmit, username: ');
-      console.log(this.state.username);
-      event.preventDefault();
-
-      // request to server to add a new username/password
-      axios.post('/addDelete/', this.state)
-        .then((response) => {
-          console.log('test');
-
-          if (response.data.errors) {
-            const newErrorsObj = {
-              companyNameErrors: [],
-              adminLastNameErrors: [],
-              cityErrors: [],
-              countryErrors: [],
-              postalCodeErrors: [],
-              employeeTypeErrors: [],
-              passwordErrors: [],
-              passwordMatchErrors: [],
-            };
-
-            Object.keys(response.data).forEach((key) => {
-              console.log([key]);
-              if ([key].toString() !== 'errors') {
-                response.data[key].forEach((element) => {
-                  newErrorsObj[key].push(element.msg);
-                });
-              }
-            });
-            this.setState(newErrorsObj);
-          } else {
-            this.setState({ open: false });
-          }
-        }).catch((error) => {
-          console.log('signup error: ');
-          console.log(error);
-        });
-    }
+  // end constructor() {
 
 
-    handleChange(event) {
-      this.setState({
-        [event.target.name]: event.target.value,
-      });
-    }
+  onOpenModal = () => this.setState({ open: true });
+
+  onCloseModal = () => this.setState({ open: false });
+
+  // handleUploadImage(ev) {
+  //   ev.preventDefault();
+  //   console.log('working');
+  //   const data = new FormData();
+  //   data.append('file', this.uploadInput.files[0]);
+  //   data.append('filename', this.fileName.value);
+
+  //   fetch('http://localhost:8080/upload', {
+  //     method: 'POST',
+  //     body: data,
+  //   }).then((response) => {
+  //     response.json().then((body) => {
+  //       this.setState({ imageURL: `http://localhost:8080/${body.file}` });
+  //     });
+  //   });
+  // }
+
+
+  handleUploadImage2(event) {
+    const { id, photo, imageURL } = this.state;
+    event.preventDefault();
+    console.log('Change photo event: ', event);
+    console.log(this.uploadInput.files[0]);
+    console.log(this.fileName.value);
+    const data = new FormData();
+    data.append('file', this.uploadInput.files[0]);
+    data.append('filename', this.fileName.value);
+    console.log(data);
+    // if (photo === !'') {
+    axios.post('/upload', this.state).then((response) => {
+      console.log('Response', response);
+      // response.json().then((body) => {
+      this.setState({ imageURL: this.uploadInput.files[0] });
+      console.log(imageURL);
+      if (response.status === 400) {
+        alert(response.data.errors);
+      } else {
+        alert('Unable to load Photo');
+      }
+    }).catch((error) => {
+      // handle error
+      console.log(error);
+      // alert('Error: Unable to change the password. Please try again.');
+    });
+    // }
+
+    // this.setState({ open: false });
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
 
   render() {
     const { open } = this.state;
     return (
       <div>
-        <img id="PIC"  img src={profile} width="200" alt="profile"  
-        // />
-        /* <Button className="btn btn-success"  */
-        onClick={this.onOpenModal}/>
-        {/* Add Employee</Button> */}
+        <div> Click the photo to change!</div>
+        <Button color="secondary" onClick={this.onOpenModal}>
+          <img
+            id="PIC"
+            img
+            src={this.state.imageURL}
+            // onClick={this.handleEvent}
+            width="200"
+            height="200"
+            alt="img"
+          />
+        </Button>
         <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="SignupForm">
-            <h4>Add New Employee</h4>
-            <form className="form-horizontal">
+          <div className="container">
+            {/* <form onSubmit={this.handleUpload}>
               <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="username">Username</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.usernameErrors.length > 0 ? (
-                    this.state.usernameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
-
-
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="email">Email</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="email"
-                    name="email"
-                    placeholder="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.emailErrors.length > 0 ? (
-                    this.state.emailErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="adminFirstName">First Name</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="adminFirstName"
-                    name="adminFirstName"
-                    placeholder="first name"
-                    value={this.state.adminFirstName}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.adminFirstNameErrors.length > 0 ? (
-                    this.state.adminFirstNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="adminLastName">Last Name</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="text"
-                    id="adminLastName"
-                    name="adminLastName"
-                    placeholder="last name"
-                    value={this.state.adminLastName}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.adminLastNameErrors.length > 0 ? (
-                    this.state.adminLastNameErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label">
-                    Employee Type
-                    {' '}
-
-                  </label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <FormControl className="col-12">
-                    <InputLabel htmlFor="label">Select</InputLabel>
-                    <Select
-                      name="employeeType"
-                      value={this.state.employeeType}
-                      onChange={this.handleChange}
-                      inputProps={{
-                        id: 'label',
-                      }}
-                      className="col-12"
-                      style={{ minWidth: '100%' }}
-                    >
-
-                      <MenuItem value="employee">employee</MenuItem>
-                      <MenuItem value="manager">manager</MenuItem>
-                      <MenuItem value="admin">admin</MenuItem>
-                    </Select>
-                  </FormControl>
-                  {this.state.employeeTypeErrors.length > 0 ? (
-                    this.state.employeeTypeErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
+                <input className="form-control" ref={(ref) => { this.uploadInput = ref; }} type="file" />
               </div>
 
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="password">Password </label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    placeholder="password"
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.passwordErrors.length > 0 ? (
-                    this.state.passwordErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
+              {/* <div className="form-group">
+                <input className="form-control" ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Optional name for the file" />
+              </div> */}
+
+            {/* <button className="btn btn-success" type>Upload</button> */}
+
+            {/* </form> */}
+            {/* </div> */}
+            <form onSubmit={this.handleUploadImage}>
+              <div>
+                <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
               </div>
-              <div className="form-group">
-                <div className="col-6 col-ml-auto">
-                  <label className="form-label" htmlFor="passwordMatch">Re-enter password</label>
-                </div>
-                <div className="col-6 col-mr-auto">
-                  <TextField
-                    className="form-input"
-                    type="password"
-                    id="passwordMatch"
-                    name="passwordMatch"
-                    placeholder="passwordMatch"
-                    value={this.state.passwordMatch}
-                    onChange={this.handleChange}
-                  />
-                  {this.state.passwordMatchErrors.length > 0 ? (
-                    this.state.passwordMatchErrors.map((element, i) => <p style={pstyle} key={i}>{element}</p>)
-                  ) : console.log('it was false')
-                  }
-                </div>
+              <div>
+                <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
               </div>
               <br />
-              <div className="form-group ">
-                <div className="col-12" />
-                <Button
-                  className="btn btn-primary col-12 col-mr-auto"
-                  onClick={this.handleSubmit}
-                  type="submit"
-                >
-                  Add User
-
-                </Button>
+              <div>
+                <button>Upload</button>
               </div>
+              <img src={this.state.imageURL} alt="img" height="50%" width="50%" />
             </form>
           </div>
-          </Modal>
-        </div>
-      );
-    }
-}
+        </Modal>
+      </div>
+    );
+  }// end render() {
+} // end class ChangePhotoModal extends Component {
 
-export default AddUserModal;
+
+export default ChangePhotoModal;
