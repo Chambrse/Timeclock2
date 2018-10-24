@@ -35,6 +35,7 @@ class App extends Component {
       adminFirstName: null,
       adminLastName: null,
       markers: [],
+      Dlete: {},
     };
 
     this.getUser = this.getUser.bind(this);
@@ -46,6 +47,7 @@ class App extends Component {
     this.getEmpData = this.getEmpData.bind(this);
     this.getAll = this.getAll.bind(this);
     this.updateMarkers = this.updateMarkers.bind(this);
+    this.Dlete = this.Dlete.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -125,6 +127,14 @@ class App extends Component {
     });
   }
 
+  Dlete() {
+    axios.delete('user/Dlete').then((results) => {
+      this.setState({
+        Dlete: results,
+      });
+    });
+  }
+
   updateUser(userObject) {
     this.setState(userObject);
   }
@@ -193,6 +203,7 @@ class App extends Component {
       adminFirstName,
       adminLastName,
       markers,
+      Dlete,
     } = this.state;
     return (
       <Grid className="App">
@@ -232,6 +243,7 @@ class App extends Component {
               getAll={getAll}
               markers={markers}
               updateMarkers={this.updateMarkers}
+              Dlete={Dlete}
             />
           )}
         />

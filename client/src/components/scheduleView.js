@@ -247,6 +247,14 @@ class EnhancedTable extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    // request to server to delete a new username/password
+    axios.delete('/user/Dlete', this).then(response => 
+      console.log(response))
+      .catch(error => error)
+  };
+
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
@@ -365,6 +373,13 @@ class EnhancedTable extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        <button
+              className="btn btn-warning col-12 col-mr-auto"
+              onClick={this.handleSubmit}
+              type="submit"
+            >
+Delete User
+            </button>
       </Paper>
     );
   }
