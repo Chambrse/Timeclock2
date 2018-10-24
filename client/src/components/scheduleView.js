@@ -236,7 +236,7 @@ class EnhancedTable extends React.Component {
       let data = [];
       for (let i = 0; i<response.data.length; i++){
         
-        let cd = createData(response.data[i].adminFirstName, response.data[i].position, response.data[i].employeeType, response.data[i].username)
+        let cd = createData(response.data[i].adminFirstName + ' ' + response.data[i].adminLastName, response.data[i].position, response.data[i].employeeType, response.data[i].username)
         data.push(cd)
         
         console.log(data)
