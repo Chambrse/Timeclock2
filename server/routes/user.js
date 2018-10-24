@@ -150,6 +150,7 @@ router.post('/login',
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
+  // console.log(req.user.username);
   if (req.user) {
     User.findOne({ username: req.user.username }, (err, user) => {
       console.log('req.user', req.user);

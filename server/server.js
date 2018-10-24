@@ -53,7 +53,7 @@ app.use('/addDelete', addDelete);
 app.use('/changePassword', changePassword);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 // Starting Server

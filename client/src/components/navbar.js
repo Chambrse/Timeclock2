@@ -63,12 +63,12 @@ class Navbar extends Component {
                 </Button>
               </Link>
               <Link to="/login">
-                <Button href="/login">
+                <Button>
                     login
                 </Button>
               </Link>
               <Link to="/signup">
-                <Button href="/signup">
+                <Button>
                   sign up
                 </Button>
               </Link>
