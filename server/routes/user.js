@@ -204,7 +204,7 @@ router.post('/clockOut/:id', (req, res) => {
 });
 
 router.get('/getEmpData', (req, res) => {
-  if (req.user.username0) {
+  if (req.user.username) {
     User.find({ manager: req.user.username }).then(results => res.json(results));
   }
 });

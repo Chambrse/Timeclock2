@@ -14,7 +14,6 @@ import profile from '../blank-profile-picture.png';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 import Map1 from '../components/map1';
 
-
 class User extends Component {
   constructor() {
     super();

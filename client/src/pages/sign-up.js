@@ -188,6 +188,9 @@ class Signup extends Component {
             />
 
           </Grid>
+          <Grid xs={0} md={1}>
+            <br />
+          </Grid>
           <Grid justify="space-evenly" xs={12} md={3}>
             <TextField
               fullWidth="true"
@@ -205,9 +208,7 @@ class Signup extends Component {
                   }
             />
           </Grid>
-          <Grid xs={0} md={1}>
-            <br />
-          </Grid>
+
           <Grid xs={0} md={1}>
             <br />
           </Grid>
