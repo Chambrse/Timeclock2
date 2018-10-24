@@ -207,9 +207,9 @@ router.get('/getAll', (req, res) => {
   User.find({}).then(results => res.json(results));
 });
 
-router.delete('/Dlete', (req, res) => {
-  console.log(req);
-  // User.findOneAndDelete({username:req.body})
+router.delete('/Dlete/:username', (req, res) => {
+  console.log(req.params.username);
+  User.findOneAndDelete({ username: req.params.username }).then(results => console.log(results));
 });
 
 

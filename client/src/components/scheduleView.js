@@ -17,6 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
@@ -224,6 +225,7 @@ class EnhancedTable extends React.Component {
     ],
     page: 0,
     rowsPerPage: 5,
+    username: '',
   };
 
   componentDidMount(){
@@ -248,11 +250,16 @@ class EnhancedTable extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log(this.state.username);
     event.preventDefault();
     // request to server to delete a new username/password
-    axios.delete('/user/Dlete', this).then(response => 
+    axios.delete('/user/Dlete/' + this.state.username).then(response => 
       console.log(response))
       .catch(error => error)
+      this.getAll()
+      this.setState({ 
+        selected: []
+         });
   };
 
   handleRequestSort = (event, property) => {
@@ -271,13 +278,16 @@ class EnhancedTable extends React.Component {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
     }
-    this.setState({ selected: [] });
+    this.setState({ 
+      selected: []
+       });
   };
 
-  handleClick = (event, id) => {
+  handleClick = (event, id, username) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
+    console.log(username)
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -292,7 +302,9 @@ class EnhancedTable extends React.Component {
       );
     }
 
-    this.setState({ selected: newSelected });
+    this.setState({ 
+      selected: newSelected,
+      username: username });
   };
 
   handleChangePage = (event, page) => {
@@ -324,6 +336,7 @@ class EnhancedTable extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
+            
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
@@ -331,22 +344,25 @@ class EnhancedTable extends React.Component {
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n.id, n.username)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
                       key={n.id}
                       selected={isSelected}
+                      
                     >
+                    
                       <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
+                        <Checkbox 
+                        checked={isSelected}
+                        value={this.username}
+                         />
                       </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.name}
-                      </TableCell>
-                      <TableCell numeric>{n.jobTitle}</TableCell>
-                      <TableCell numeric>{n.employeeType}</TableCell>
-                      <TableCell numeric>{n.username}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">{n.name}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">{n.jobTitle}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">{n.employeeType}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">{n.username}</TableCell>
                       
                     </TableRow>
                   );
@@ -358,6 +374,7 @@ class EnhancedTable extends React.Component {
               )}
             </TableBody>
           </Table>
+          
         </div>
         <TablePagination
           component="div"
@@ -373,13 +390,16 @@ class EnhancedTable extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
-        <button
-              className="btn btn-warning col-12 col-mr-auto"
-              onClick={this.handleSubmit}
+        <Button
+              fullWidth="true"
+              color="secondary"
+              variant="outlined"
+              onClick={event => this.handleSubmit(event, this.username)}
               type="submit"
+              value={this.username}
             >
 Delete User
-            </button>
+            </Button>
       </Paper>
     );
   }
