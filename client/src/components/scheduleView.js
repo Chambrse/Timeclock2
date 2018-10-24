@@ -1,4 +1,5 @@
 /* eslint-disable */
+import axios from 'axios';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -215,11 +216,43 @@ const styles = theme => ({
 class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'name',
+    orderBy: 'calories',
     selected: [],
-    data: [],
+    data: [
+      createData('Cupcake', 'title', 'type', 'user'),
+      
+    ],
     page: 0,
     rowsPerPage: 5,
+  };
+
+  componentDidMount(){
+    this.getAll();
+  }
+
+  getAll() {
+    axios.get('/user/getAll', this).then((response) => {
+      console.log(response);
+      let data = [];
+      for (let i = 0; i<response.data.length; i++){
+        
+        let cd = createData(response.data[i].adminFirstName + ' ' + response.data[i].adminLastName, response.data[i].position, response.data[i].employeeType, response.data[i].username)
+        data.push(cd)
+        
+        console.log(data)
+        this.setState({data: data})
+      }
+    
+      
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // request to server to delete a new username/password
+    axios.delete('/user/Dlete', this).then(response => 
+      console.log(response))
+      .catch(error => error)
   };
 
   handleRequestSort = (event, property) => {
@@ -233,7 +266,7 @@ class EnhancedTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = (event) => {
+  handleSelectAllClick = event => {
     if (event.target.checked) {
       this.setState(state => ({ selected: state.data.map(n => n.id) }));
       return;
@@ -266,7 +299,7 @@ class EnhancedTable extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = (event) => {
+  handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
@@ -274,9 +307,7 @@ class EnhancedTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const {
-      data, order, orderBy, selected, rowsPerPage, page,
-    } = this.state;
+    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
@@ -295,7 +326,7 @@ class EnhancedTable extends React.Component {
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((n) => {
+                .map(n => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
@@ -313,9 +344,9 @@ class EnhancedTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell>
-                      <TableCell>{n.jobTitle}</TableCell>
-                      <TableCell>{n.employeeType}</TableCell>
-                      <TableCell>{n.username}</TableCell>
+                      <TableCell numeric>{n.jobTitle}</TableCell>
+                      <TableCell numeric>{n.employeeType}</TableCell>
+                      <TableCell numeric>{n.username}</TableCell>
                       
                     </TableRow>
                   );
@@ -342,6 +373,13 @@ class EnhancedTable extends React.Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        <button
+              className="btn btn-warning col-12 col-mr-auto"
+              onClick={this.handleSubmit}
+              type="submit"
+            >
+Delete User
+            </button>
       </Paper>
     );
   }

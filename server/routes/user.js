@@ -206,8 +206,12 @@ router.get('/getEmpData', (req, res) => {
 });
 
 router.get('/getAll', (req, res) => {
-  console.log(req);
   User.find({}).then(results => res.json(results));
+});
+
+router.delete('/Dlete', (req, res) => {
+  console.log(req);
+  // User.findOneAndDelete({username:req.body})
 });
 
 

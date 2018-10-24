@@ -11,7 +11,7 @@ class DeleteUserModal extends React.Component {
       open: false,
 
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -23,12 +23,7 @@ class DeleteUserModal extends React.Component {
     this.setState({ open: false });
   };
 
-  handleSubmit(event) {
-    event.preventDefault();
-    // request to server to delete a new username/password
-    axios.get('/addDelete/', this).then(response => response)
-      .catch(error => error);
-  }
+
 
   handleChange(event) {
     this.setState({
@@ -48,13 +43,7 @@ class DeleteUserModal extends React.Component {
             <div className="col-12">
               <Schedule />
             </div>
-            <button
-              className="btn btn-warning col-12 col-mr-auto"
-              onClick={this.handleSubmit}
-              type="submit"
-            >
-Delete User
-            </button>
+            
           </div>
         </Modal>
       </div>

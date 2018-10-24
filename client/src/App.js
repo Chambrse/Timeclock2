@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Route /* , Link */ } from 'react-router-dom';
 // components
 // import EditorFormatListBulleted from 'material-ui/SvgIcon';
+import Grid from '@material-ui/core/Grid';
 import Signup from './pages/sign-up';
 import LoginForm from './pages/login-form';
 import Navbar from './components/navbar';
@@ -35,6 +36,7 @@ class App extends Component {
       adminLastName: null,
       markers: [],
       loading: 'initial',
+      Dlete: {},
     };
 
     this.getUser = this.getUser.bind(this);
@@ -47,6 +49,7 @@ class App extends Component {
     this.getAll = this.getAll.bind(this);
     this.updateMarkers = this.updateMarkers.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
+    this.Dlete = this.Dlete.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -98,6 +101,7 @@ class App extends Component {
   // Get the user data from the database, if there is any.
   getUser() {
     axios.get('/user/').then((response) => {
+      console.log(response);
       if (response.data.user) {
         console.log(response.data.user);
         this.setState({
@@ -125,6 +129,14 @@ class App extends Component {
         });
       }
     }).catch(result => this.setState({ loading: 'done' }));
+  }
+
+  Dlete() {
+    axios.delete('user/Dlete').then((results) => {
+      this.setState({
+        Dlete: results,
+      });
+    });
   }
 
   updateUser(userObject) {
@@ -196,13 +208,14 @@ class App extends Component {
       adminLastName,
       markers,
       loading,
+      Dlete,
     } = this.state;
 
     if (loading === 'initial') {
       return (<div>Loading</div>);
     }
     return (
-      <div className="App">
+      <Grid className="App">
 
         <Navbar updateUser={this.updateUser} loggedIn={loggedIn} />
         <br />
@@ -240,6 +253,7 @@ class App extends Component {
               markers={markers}
               updateMarkers={this.updateMarkers}
               getUser={this.getUser}
+              Dlete={Dlete}
             />
           )}
         />
@@ -271,7 +285,7 @@ class App extends Component {
         <br />
         <br />
         <BottomNav />
-      </div>
+      </Grid>
     );
   }
 }
