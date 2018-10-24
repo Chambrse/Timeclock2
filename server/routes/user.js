@@ -150,9 +150,11 @@ router.post('/login',
 
 router.get('/', (req, res, next) => {
   console.log('===== user!!======');
-  console.log(req.user.username);
   if (req.user) {
-    res.json({ user: req.user });
+    User.findOne({ username: req.user.username }, (err, user) => {
+      console.log('req.user', req.user);
+      res.json({ user });
+    });
   } else {
     res.json({ user: null });
   }
@@ -204,8 +206,12 @@ router.get('/getEmpData', (req, res) => {
 });
 
 router.get('/getAll', (req, res) => {
-  console.log(req);
   User.find({}).then(results => res.json(results));
+});
+
+router.delete('/Dlete', (req, res) => {
+  console.log(req);
+  // User.findOneAndDelete({username:req.body})
 });
 
 
