@@ -46,9 +46,6 @@ class User extends Component {
       currentLocation,
       markers,
     } = this.props;
-    console.log(this.props);
-    console.log(EmpData);
-
 
     timeClockData.forEach((element, index, theArray) => {
       theArray[index].time = new Date(element.time).toLocaleString();
@@ -176,12 +173,6 @@ class User extends Component {
                   </TableBody>
                 </Table>
               </div>
-              {/*               <div
-                className="row"
-                style={{
-                  height: '400px', width: '80vw', margin: '15px', marginTop: '50px',
-                }}
-              > */}
               <Map1
                 getGeoLocation={getGeoLocation}
                 currentLocation={currentLocation}
@@ -193,8 +184,6 @@ class User extends Component {
                 mapElement={<div style={{ height: '100%' }} />}
                 markers={markers}
               />
-              {/*               </div>
- */}
               {' '}
 
             </div>
