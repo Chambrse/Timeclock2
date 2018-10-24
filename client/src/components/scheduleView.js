@@ -170,7 +170,7 @@ selected
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            Schedule
+            Delete User
           </Typography>
         )}
       </div>
@@ -205,12 +205,11 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
+    
   },
   table: {
-    minWidth: 600,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
+    minWidth: 600
+    
   },
 });
 
@@ -219,10 +218,7 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'calories',
     selected: [],
-    data: [
-      createData('Cupcake', 'title', 'type', 'user'),
-      
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5,
     username: '',
@@ -323,10 +319,10 @@ class EnhancedTable extends React.Component {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.root} style={{ overflow: 'auto' }}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+        <div className={classes.tableWrapper} style={{ overflow: 'auto' }}>
+          <Table className={classes.table} aria-labelledby="tableTitle" >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -334,6 +330,7 @@ class EnhancedTable extends React.Component {
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
+              
             />
             <TableBody>
             
@@ -360,8 +357,8 @@ class EnhancedTable extends React.Component {
                          />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">{n.name}</TableCell>
-                      <TableCell component="th" scope="row" padding="none">{n.jobTitle}</TableCell>
-                      <TableCell component="th" scope="row" padding="none">{n.employeeType}</TableCell>
+                      <TableCell component="th" scope="row" padding="none" className="hidden-xs">{n.jobTitle}</TableCell>
+                      <TableCell component="th" scope="row" padding="none" className="hidden-xs">{n.employeeType}</TableCell>
                       <TableCell component="th" scope="row" padding="none">{n.username}</TableCell>
                       
                     </TableRow>
