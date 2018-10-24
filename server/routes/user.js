@@ -144,6 +144,7 @@ router.post('/login',
       adminLastName: req.user.adminLastName,
       timeClockData: req.user.timeClockData,
       status: req.user.status,
+      photo_url: req.user.photo_url,
     };
     res.send(userInfo);
   });
@@ -203,16 +204,18 @@ router.post('/clockOut/:id', (req, res) => {
 });
 
 router.get('/getEmpData', (req, res) => {
-  User.find({ manager: req.user.username }).then(results => res.json(results));
+  if (req.user.username) {
+    User.find({ manager: req.user.username }).then(results => res.json(results));
+  }
 });
 
 router.get('/getAll', (req, res) => {
   User.find({}).then(results => res.json(results));
 });
 
-router.delete('/Dlete', (req, res) => {
-  console.log(req);
-  // User.findOneAndDelete({username:req.body})
+router.delete('/Dlete/:username', (req, res) => {
+  console.log(req.params.username);
+  User.findOneAndDelete({ username: req.params.username }).then(results => console.log(results));
 });
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
+import { Button, Dialog } from '@material-ui/core';
 import Modal from 'react-responsive-modal';
 import Schedule from './scheduleView';
 
@@ -11,7 +11,7 @@ class DeleteUserModal extends React.Component {
       open: false,
 
     };
-    
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -22,7 +22,6 @@ class DeleteUserModal extends React.Component {
   onCloseModal = () => {
     this.setState({ open: false });
   };
-
 
 
   handleChange(event) {
@@ -36,16 +35,14 @@ class DeleteUserModal extends React.Component {
     return (
       <div>
         <Button color="secondary" variant="contained" onClick={this.onOpenModal}>Delete Employee</Button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-      Delete Box dynamically created with  + Mapped users from Database.
-        Delete Button to Delete user  that is checked.
+        <Dialog open={open} onClose={this.onCloseModal}>
           <div className="form-group ">
-            <div className="col-12">
+            <div style={{ overflow: 'auto' }}>
               <Schedule />
             </div>
-            
+
           </div>
-        </Modal>
+        </Dialog>
       </div>
     );
   }

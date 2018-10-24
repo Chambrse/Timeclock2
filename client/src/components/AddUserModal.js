@@ -36,6 +36,8 @@ class AddUserModal extends React.Component {
       passwordErrors: [],
       passwordMatch: '',
       passwordMatchErrors: [],
+      photo_url: '',
+      photo_urlErrors: [],
       redirectTo: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -106,6 +108,8 @@ class AddUserModal extends React.Component {
         employeeTypeErrors, open,
         employeeType,
         position,
+        photo_url,
+        photo_urlErrors,
       } = this.state;
       return (
         <div>
@@ -125,6 +129,22 @@ class AddUserModal extends React.Component {
                     onChange={this.handleChange}
                     error={usernameErrors > 0}
                     helperText={usernameErrors.length > 0 ? (
+                      usernameErrors[0]
+                    ) : (null)
+                    }
+                  />
+                </Grid>
+                <Grid xs={12}>
+                  <TextField
+                    margin="normal"
+                    type="text"
+                    id="photo_url"
+                    name="photo_url"
+                    label="photo_url"
+                    value={photo_url}
+                    onChange={this.handleChange}
+                    error={photo_urlErrors > 0}
+                    helperText={photo_urlErrors.length > 0 ? (
                       usernameErrors[0]
                     ) : (null)
                     }
