@@ -34,6 +34,7 @@ class App extends Component {
       adminFirstName: null,
       adminLastName: null,
       markers: [],
+      loading: 'initial',
     };
 
     this.getUser = this.getUser.bind(this);
@@ -45,6 +46,7 @@ class App extends Component {
     this.getEmpData = this.getEmpData.bind(this);
     this.getAll = this.getAll.bind(this);
     this.updateMarkers = this.updateMarkers.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   // Upon loading the page, see if there is a user stored in the session
@@ -57,7 +59,6 @@ class App extends Component {
   componentDidMount() {
     this.getUser();
   }
-
 
   getAll() {
     axios.get('user/getAll').then((results) => {
@@ -98,6 +99,7 @@ class App extends Component {
   getUser() {
     axios.get('/user/').then((response) => {
       if (response.data.user) {
+        console.log(response.data.user);
         this.setState({
           loggedIn: true,
           username: response.data.user.username,
@@ -111,6 +113,7 @@ class App extends Component {
           EmpData: response.data.user.EmpData,
           getAll: response.data.user.getAll,
           status: response.data.user.status,
+          loading: 'done',
         });
       } else {
         console.log('Get user: no user');
@@ -118,9 +121,10 @@ class App extends Component {
           loggedIn: false,
           username: null,
           id: null,
+          loading: 'done',
         });
       }
-    });
+    }).catch(result => this.setState({ loading: 'done' }));
   }
 
   updateUser(userObject) {
@@ -191,7 +195,12 @@ class App extends Component {
       adminFirstName,
       adminLastName,
       markers,
+      loading,
     } = this.state;
+
+    if (loading === 'initial') {
+      return (<div>Loading</div>);
+    }
     return (
       <div className="App">
 
@@ -200,15 +209,15 @@ class App extends Component {
         <br />
         {/* greet user if logged in: */}
         {
-          loggedIn
-          // &&
-          //   <p>Join the party, {this.state.username}!</p>
-        }
+            loggedIn
+            // &&
+            //   <p>Join the party, {this.state.username}!</p>
+          }
         {/* Routes to different components */}
         <Route exact path="/" component={Home} />
         <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} />} />
         <Route
-          path="/user"
+          path="/main"
           render={() => (
             <User
               loggedIn={loggedIn}
@@ -230,6 +239,7 @@ class App extends Component {
               getAll={getAll}
               markers={markers}
               updateMarkers={this.updateMarkers}
+              getUser={this.getUser}
             />
           )}
         />
