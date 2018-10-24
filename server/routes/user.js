@@ -144,6 +144,7 @@ router.post('/login',
       adminLastName: req.user.adminLastName,
       timeClockData: req.user.timeClockData,
       status: req.user.status,
+      photo_url: req.user.photo_url,
     };
     res.send(userInfo);
   });
@@ -203,7 +204,9 @@ router.post('/clockOut/:id', (req, res) => {
 });
 
 router.get('/getEmpData', (req, res) => {
-  User.find({ manager: req.user.username }).then(results => res.json(results));
+  if (req.user.username) {
+    User.find({ manager: req.user.username }).then(results => res.json(results));
+  }
 });
 
 router.get('/getAll', (req, res) => {

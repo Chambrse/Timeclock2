@@ -37,6 +37,7 @@ class App extends Component {
       markers: [],
       loading: 'initial',
       Dlete: {},
+      photo_url: '',
     };
 
     this.getUser = this.getUser.bind(this);
@@ -117,6 +118,7 @@ class App extends Component {
           EmpData: response.data.user.EmpData,
           getAll: response.data.user.getAll,
           status: response.data.user.status,
+          photo_url: response.data.user.photo_url,
           loading: 'done',
         });
       } else {
@@ -209,6 +211,7 @@ class App extends Component {
       markers,
       loading,
       Dlete,
+      photo_url,
     } = this.state;
 
     if (loading === 'initial') {
@@ -254,6 +257,7 @@ class App extends Component {
               updateMarkers={this.updateMarkers}
               getUser={this.getUser}
               Dlete={Dlete}
+              photo_url={photo_url}
             />
           )}
         />
